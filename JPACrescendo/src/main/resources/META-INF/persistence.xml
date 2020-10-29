@@ -4,30 +4,20 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-  <persistence-unit name="VideoStore">
+  <persistence-unit name="SocialApp">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
     
       <!-- List Entities Here -->
-      <class>com.skilldistillery.jpavideostore.entities.Actor</class>
-      <class>com.skilldistillery.jpavideostore.entities.Address</class>
-      <class>com.skilldistillery.jpavideostore.entities.Category</class>
-      <class>com.skilldistillery.jpavideostore.entities.Country</class>
-      <class>com.skilldistillery.jpavideostore.entities.Customer</class>
-      <class>com.skilldistillery.jpavideostore.entities.Film</class>
-      <class>com.skilldistillery.jpavideostore.entities.InventoryItem</class>
-      <class>com.skilldistillery.jpavideostore.entities.Language</class>
-      <class>com.skilldistillery.jpavideostore.entities.Payment</class>
-      <class>com.skilldistillery.jpavideostore.entities.Rental</class>
-      <class>com.skilldistillery.jpavideostore.entities.Staff</class>
-      <class>com.skilldistillery.jpavideostore.entities.Store</class>
+      <class>com.skilldistillery.crescendo.entities.User</class>
+
       
       
 
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sdvid?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
-      <property name="javax.persistence.jdbc.user" value="student"/>
-      <property name="javax.persistence.jdbc.password" value="student" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/crescendodb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
+      <property name="javax.persistence.jdbc.user" value="dbaccess"/>
+      <property name="javax.persistence.jdbc.password" value="dbaccess" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
 <!-- **IMPORTANT**  -->     
