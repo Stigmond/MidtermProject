@@ -9,5 +9,7 @@
 <body>
 
 <h1> Welcome to Crescendo</h1>
+<p>${user.username }</p>
+<p>${user }</p>
 </body>
 </html>
