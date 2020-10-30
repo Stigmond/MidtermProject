@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` VARCHAR(200) NOT NULL,
   `enabled` TINYINT NOT NULL DEFAULT 1,
   `role` VARCHAR(45) NULL,
-  `created_at` DATETIME NOT NULL DEFAULT NOW(),
+  `created_at` DATETIME NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   `body` TEXT NULL,
@@ -77,8 +77,8 @@ DROP TABLE IF EXISTS `album_comment` ;
 CREATE TABLE IF NOT EXISTS `album_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `body` TEXT NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NOW(),
-  `edited` TINYINT(1) NOT NULL,
+  `created_at` DATETIME NULL,
+  `edited` TINYINT(1) NOT NULL DEFAULT 0,
   `creator_id` INT NOT NULL,
   `album_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `thread` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NULL,
   `creator` INT NULL,
-  `created_at` DATETIME NULL DEFAULT NOW(),
+  `created_at` DATETIME NULL,
   `creator_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_thread_user1_idx` (`creator_id` ASC),
@@ -126,8 +126,8 @@ DROP TABLE IF EXISTS `thread_comment` ;
 CREATE TABLE IF NOT EXISTS `thread_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `body` TEXT NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NOW(),
-  `edited` TINYINT(1) NOT NULL,
+  `created_at` DATETIME NULL,
+  `edited` TINYINT(1) NOT NULL DEFAULT 0,
   `thread_id` INT NOT NULL,
   `creator_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -155,9 +155,10 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `creator_id` INT NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT NOW(),
+  `created_at` DATETIME NULL,
   `body` TEXT NOT NULL,
   `header_media_url` VARCHAR(5000) NULL,
+  `edited` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `creatorId_idx` (`creator_id` ASC),
   CONSTRAINT `fk_blog_user`
@@ -176,8 +177,8 @@ DROP TABLE IF EXISTS `blog_comment` ;
 CREATE TABLE IF NOT EXISTS `blog_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `body` TEXT NOT NULL,
-  `created_at` DATETIME NULL DEFAULT NOW(),
-  `edited` TINYINT(1) NOT NULL,
+  `created_at` DATETIME NULL,
+  `edited` TINYINT(1) NOT NULL DEFAULT 0,
   `in_reply_id` INT NULL,
   `creator_id` INT NOT NULL,
   `blog_id` INT NOT NULL,
@@ -209,11 +210,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `trade` ;
 
 CREATE TABLE IF NOT EXISTS `trade` (
-  `id` INT NOT NULL,
-  `direction` ENUM('have', 'want') NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `direction` ENUM('buy', 'sell') NOT NULL,
   `good_type` ENUM('record', 'instrument') NOT NULL,
-  `body` TEXT NULL,
-  `creator_id` INT NULL,
+  `body` TEXT NOT NULL,
+  `creator_id` INT NOT NULL,
+  `title` VARCHAR(225) NOT NULL,
+  `created_at` DATETIME NULL,
+  `active` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `creatorId_idx` (`creator_id` ASC),
   CONSTRAINT `fk_trade_user`
@@ -323,7 +327,127 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `crescendodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (1, 'admin', 'admin', 1, 'admin', DEFAULT, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (1, 'admin', 'admin', 1, 'admin', NULL, 'TEX', 'CONNECTICUT', 'A DUMMY USER RECORD', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `artist`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `artist` (`id`, `name`) VALUES (1, 'THE (255,255,255) STRIPES');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `album`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (1, 'THE #FFFFFF ALBUM', NULL, 1, 'NOT WORTH LISTENING', 2019);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `album_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `album_comment` (`id`, `body`, `created_at`, `edited`, `creator_id`, `album_id`) VALUES (1, 'I LIKE THIS ALBUM', NULL, DEFAULT, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `thread`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `thread` (`id`, `title`, `creator`, `created_at`, `creator_id`) VALUES (1, 'RANDOM DISCUSSION THREAD', 1, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `thread_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `thread_comment` (`id`, `body`, `created_at`, `edited`, `thread_id`, `creator_id`) VALUES (1, 'OH GODS WHY', NULL, DEFAULT, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `blog`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `blog` (`id`, `title`, `creator_id`, `created_at`, `body`, `header_media_url`, `edited`) VALUES (1, 'BLOGS SUCK', 1, NULL, 'THEY REALLY DO SUCK', 'localhost', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `blog_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `blog_comment` (`id`, `body`, `created_at`, `edited`, `in_reply_id`, `creator_id`, `blog_id`) VALUES (1, 'THIS IS A BLOG COMMENT', NULL, 0, NULL, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trade`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `trade` (`id`, `direction`, `good_type`, `body`, `creator_id`, `title`, `created_at`, `active`) VALUES (1, 'buy', 'instrument', '$500 OBO', 1, 'Gibson Lucille', NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `genre`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `genre` (`id`, `name`) VALUES (1, 'NEO-CLASSICAL POST-METAL');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `album_has_genre`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `thread_has_genre`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `thread_has_genre` (`thread_id`, `genre_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `blog_has_genre`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `crescendodb`;
+INSERT INTO `blog_has_genre` (`blog_id`, `genre_id`) VALUES (1, 1);
 
 COMMIT;
 
