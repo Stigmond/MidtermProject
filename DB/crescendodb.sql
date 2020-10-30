@@ -26,48 +26,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` VARCHAR(200) NOT NULL,
   `enabled` TINYINT NOT NULL DEFAULT 1,
   `role` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `post`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `post` ;
-
-CREATE TABLE IF NOT EXISTS `post` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `created_at` DATETIME NOT NULL DEFAULT NOW(),
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
   `body` TEXT NULL,
-  `parent_id` INT NULL,
-  `created_at` TIMESTAMP NULL,
-  `edited` TINYINT(1) NOT NULL,
-  `category` ENUM('review', 'tutorial', 'discussion') NOT NULL,
+  `avatar_url` VARCHAR(5000) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `payments`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `payments` ;
-
-CREATE TABLE IF NOT EXISTS `payments` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `amount` DECIMAL(4,2) NOT NULL,
-  `created_at` TIMESTAMP NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `user_payment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_payment` ;
-
-CREATE TABLE IF NOT EXISTS `user_payment` (
-  `user_id` INT NOT NULL,
-  `payment_id` VARCHAR(45) NULL,
-  PRIMARY KEY (`user_id`))
 ENGINE = InnoDB;
 
 
@@ -79,7 +43,6 @@ DROP TABLE IF EXISTS `artist` ;
 CREATE TABLE IF NOT EXISTS `artist` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `genre` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -91,11 +54,14 @@ DROP TABLE IF EXISTS `album` ;
 
 CREATE TABLE IF NOT EXISTS `album` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NULL,
-  `artist_id` INT NULL,
+  `title` VARCHAR(225) NOT NULL,
+  `cover_url` VARCHAR(5000) NULL,
+  `artist_id` INT NOT NULL,
+  `description` VARCHAR(2000) NULL,
+  `release_year` INT(4) NULL,
   PRIMARY KEY (`id`),
-  INDEX `ArtistId_idx` (`artist_id` ASC),
-  CONSTRAINT `ArtistId`
+  INDEX `fk_album_artist1_idx` (`artist_id` ASC),
+  CONSTRAINT `fk_album_artist1`
     FOREIGN KEY (`artist_id`)
     REFERENCES `artist` (`id`)
     ON DELETE NO ACTION
@@ -104,16 +70,241 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `advertisement`
+-- Table `album_comment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `advertisement` ;
+DROP TABLE IF EXISTS `album_comment` ;
 
-CREATE TABLE IF NOT EXISTS `advertisement` (
+CREATE TABLE IF NOT EXISTS `album_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `heading` VARCHAR(45) NULL,
-  `body` VARCHAR(45) NULL,
-  `join_date` DATE NULL,
+  `body` TEXT NOT NULL,
+  `created_at` DATETIME NULL DEFAULT NOW(),
+  `edited` TINYINT(1) NOT NULL,
+  `creator_id` INT NOT NULL,
+  `album_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_album_comment_user1_idx` (`creator_id` ASC),
+  INDEX `fk_album_comment_album1_idx` (`album_id` ASC),
+  CONSTRAINT `fk_album_comment_user1`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_album_comment_album1`
+    FOREIGN KEY (`album_id`)
+    REFERENCES `album` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `thread`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `thread` ;
+
+CREATE TABLE IF NOT EXISTS `thread` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NULL,
+  `creator` INT NULL,
+  `created_at` DATETIME NULL DEFAULT NOW(),
+  `creator_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_thread_user1_idx` (`creator_id` ASC),
+  CONSTRAINT `fk_thread_user1`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `thread_comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `thread_comment` ;
+
+CREATE TABLE IF NOT EXISTS `thread_comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `body` TEXT NOT NULL,
+  `created_at` DATETIME NULL DEFAULT NOW(),
+  `edited` TINYINT(1) NOT NULL,
+  `thread_id` INT NOT NULL,
+  `creator_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_thread_comment_thread1_idx` (`thread_id` ASC),
+  INDEX `fk_thread_comment_user1_idx` (`creator_id` ASC),
+  CONSTRAINT `fk_thread_comment_thread1`
+    FOREIGN KEY (`thread_id`)
+    REFERENCES `thread` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_thread_comment_user1`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `blog`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `blog` ;
+
+CREATE TABLE IF NOT EXISTS `blog` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `creator_id` INT NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT NOW(),
+  `body` TEXT NOT NULL,
+  `header_media_url` VARCHAR(5000) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `creatorId_idx` (`creator_id` ASC),
+  CONSTRAINT `fk_blog_user`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `blog_comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `blog_comment` ;
+
+CREATE TABLE IF NOT EXISTS `blog_comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `body` TEXT NOT NULL,
+  `created_at` DATETIME NULL DEFAULT NOW(),
+  `edited` TINYINT(1) NOT NULL,
+  `in_reply_id` INT NULL,
+  `creator_id` INT NOT NULL,
+  `blog_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_blog_comment_blog_comment1_idx` (`in_reply_id` ASC),
+  INDEX `fk_blog_comment_user1_idx` (`creator_id` ASC),
+  INDEX `fk_blog_comment_blog1_idx` (`blog_id` ASC),
+  CONSTRAINT `fk_blog_comment_blog_comment1`
+    FOREIGN KEY (`in_reply_id`)
+    REFERENCES `blog_comment` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_blog_comment_user1`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_blog_comment_blog1`
+    FOREIGN KEY (`blog_id`)
+    REFERENCES `blog` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `trade`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trade` ;
+
+CREATE TABLE IF NOT EXISTS `trade` (
+  `id` INT NOT NULL,
+  `direction` ENUM('have', 'want') NOT NULL,
+  `good_type` ENUM('record', 'instrument') NOT NULL,
+  `body` TEXT NULL,
+  `creator_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `creatorId_idx` (`creator_id` ASC),
+  CONSTRAINT `fk_trade_user`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `genre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `genre` ;
+
+CREATE TABLE IF NOT EXISTS `genre` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `album_has_genre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `album_has_genre` ;
+
+CREATE TABLE IF NOT EXISTS `album_has_genre` (
+  `genre_id` INT NOT NULL,
+  `album_id` INT NOT NULL,
+  PRIMARY KEY (`genre_id`, `album_id`),
+  INDEX `fk_genre_has_album_album1_idx` (`album_id` ASC),
+  INDEX `fk_genre_has_album_genre1_idx` (`genre_id` ASC),
+  CONSTRAINT `fk_genre_has_album_genre1`
+    FOREIGN KEY (`genre_id`)
+    REFERENCES `genre` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_genre_has_album_album1`
+    FOREIGN KEY (`album_id`)
+    REFERENCES `album` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `thread_has_genre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `thread_has_genre` ;
+
+CREATE TABLE IF NOT EXISTS `thread_has_genre` (
+  `thread_id` INT NOT NULL,
+  `genre_id` INT NOT NULL,
+  PRIMARY KEY (`thread_id`, `genre_id`),
+  INDEX `fk_thread_has_genre_genre1_idx` (`genre_id` ASC),
+  INDEX `fk_thread_has_genre_thread1_idx` (`thread_id` ASC),
+  CONSTRAINT `fk_thread_has_genre_thread1`
+    FOREIGN KEY (`thread_id`)
+    REFERENCES `thread` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_thread_has_genre_genre1`
+    FOREIGN KEY (`genre_id`)
+    REFERENCES `genre` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `blog_has_genre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `blog_has_genre` ;
+
+CREATE TABLE IF NOT EXISTS `blog_has_genre` (
+  `blog_id` INT NOT NULL,
+  `genre_id` INT NOT NULL,
+  PRIMARY KEY (`blog_id`, `genre_id`),
+  INDEX `fk_blog_has_genre_genre1_idx` (`genre_id` ASC),
+  INDEX `fk_blog_has_genre_blog1_idx` (`blog_id` ASC),
+  CONSTRAINT `fk_blog_has_genre_blog1`
+    FOREIGN KEY (`blog_id`)
+    REFERENCES `blog` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_blog_has_genre_genre1`
+    FOREIGN KEY (`genre_id`)
+    REFERENCES `genre` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -132,7 +323,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `crescendodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', 'admin', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (1, 'admin', 'admin', 1, 'admin', DEFAULT, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
