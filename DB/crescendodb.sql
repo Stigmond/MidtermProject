@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `created_at` DATETIME NULL,
   `body` TEXT NOT NULL,
   `header_media_url` VARCHAR(5000) NULL,
-  `edited` TINYINT NULL DEFAULT 0,
+  `edited` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `creatorId_idx` (`creator_id` ASC),
   CONSTRAINT `fk_blog_user`
@@ -387,7 +387,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `crescendodb`;
-INSERT INTO `blog` (`id`, `title`, `creator_id`, `created_at`, `body`, `header_media_url`, `edited`) VALUES (1, 'BLOGS SUCK', 1, NULL, 'THEY REALLY DO SUCK', 'localhost', NULL);
+INSERT INTO `blog` (`id`, `title`, `creator_id`, `created_at`, `body`, `header_media_url`, `edited`) VALUES (1, 'BLOGS SUCK', 1, NULL, 'THEY REALLY DO SUCK', 'localhost', DEFAULT);
 
 COMMIT;
 
