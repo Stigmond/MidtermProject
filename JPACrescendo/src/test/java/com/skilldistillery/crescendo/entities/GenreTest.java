@@ -2,6 +2,7 @@ package com.skilldistillery.crescendo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,5 +49,19 @@ class GenreTest {
 		assertNotNull(genre);
 		assertEquals("NEO-CLASSICAL POST-METAL", genre.getName());
 	}
-
+	@Test
+	@DisplayName("Genre to blog")
+	void genreToBlog() {
+		assertNotNull(genre);
+		assertTrue(genre.getBlogs().size() > 0);
+		assertEquals("BLOGS SUCK", genre.getBlogs().get(0).getTitle());
+	}
+	@Test
+	@DisplayName("Genre to Thread Mapping")
+	void threadToGenre() {
+		assertNotNull(genre);
+		assertTrue(genre.getThreads().size() > 0);
+		assertEquals("RANDOM DISCUSSION THREAD", genre.getThreads().get(0).getTitle());
+	}
+	
 }

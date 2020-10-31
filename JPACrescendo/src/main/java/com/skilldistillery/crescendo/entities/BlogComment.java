@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,26 +32,17 @@ public class BlogComment {
 
 	private int edited;
 
-	@Column(name = "creator_id")
-	private int creatorId;
-
 	@Column(name = "in_reply_id")
 	private Integer inReplyId;
+	
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User user;
+	
+	
 
 	public BlogComment() {
 		super();
-	}
-
-	public BlogComment(int id, String body, int blogId, LocalDateTime createdId, int edited, int creatorId,
-			Integer inReplyId) {
-		super();
-		this.id = id;
-		this.body = body;
-		this.blogId = blogId;
-		this.createdAt = createdId;
-		this.edited = edited;
-		this.creatorId = creatorId;
-		this.inReplyId = inReplyId;
 	}
 
 	public int getId() {
@@ -92,14 +85,6 @@ public class BlogComment {
 		this.edited = edited;
 	}
 
-	public int getCreatorId() {
-		return creatorId;
-	}
-
-	public void setCreatorId(int creatorId) {
-		this.creatorId = creatorId;
-	}
-
 	public Integer getInReplyId() {
 		return inReplyId;
 	}
@@ -109,12 +94,28 @@ public class BlogComment {
 		this.inReplyId = (inReplyId == null) ? 0 : inReplyId;
 	}
 
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("BlogComment [id=").append(id).append(", body=").append(body).append(", blogId=").append(blogId)
-				.append(", createdId=").append(createdAt).append(", edited=").append(edited).append(", creatorId=")
-				.append(creatorId).append(", inReplyId=").append(inReplyId).append("]");
+				.append(", createdId=").append(createdAt).append(", edited=").append(edited).append(", creatorId=") 
+				.append(", inReplyId=").append(inReplyId).append("]");
 		return builder.toString();
 	}
 

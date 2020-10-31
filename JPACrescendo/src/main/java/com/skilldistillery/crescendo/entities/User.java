@@ -1,12 +1,16 @@
 package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -31,6 +35,23 @@ public class User {
 
 	@Column(name = "avatar_url")
 	private String avatarUrl;
+	
+	@OneToMany(mappedBy = "user")
+	private List <Blog> blogs;
+	
+	@OneToMany(mappedBy = "user")
+	private List <Trade> trades;
+	
+	@OneToMany(mappedBy = "user")
+	private List <Thread> threads;
+	
+	@OneToMany(mappedBy= "user")
+	private List<BlogComment> blogComments;
+	
+	@OneToMany(mappedBy = "user")
+	private List<AlbumComment> albumComments;
+	
+	
 
 	public User(int id, String username, String password, int enabled, String role, LocalDateTime createdAt,
 			String firstName, String lastName, String body, String avatarUrl) {
@@ -151,6 +172,46 @@ public class User {
 
 	public void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
+	}
+
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
+	}
+
+	public List<Trade> getTrades() {
+		return trades;
+	}
+
+	public void setTrades(List<Trade> trades) {
+		this.trades = trades;
+	}
+
+	public List<Thread> getThreads() {
+		return threads;
+	}
+
+	public void setThreads(List<Thread> threads) {
+		this.threads = threads;
+	}
+
+	public List<BlogComment> getBlogComments() {
+		return blogComments;
+	}
+
+	public void setBlogComments(List<BlogComment> blogComment) {
+		this.blogComments = blogComment;
+	}
+
+	public List<AlbumComment> getAlbumComments() {
+		return albumComments;
+	}
+
+	public void setAlbumComments(List<AlbumComment> albumComments) {
+		this.albumComments = albumComments;
 	}
 
 	@Override

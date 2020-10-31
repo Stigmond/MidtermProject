@@ -1,12 +1,17 @@
 package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -19,8 +24,9 @@ public class Blog {
 
 	private String title;
 
-	@Column(name = "creator_id")
-	private int creatorId;
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User user;
 	
 	private int edited;
 
@@ -41,22 +47,17 @@ public class Blog {
 
 	@Column(name = "header_media_url")
 	private String headerMediaUrl;
-
-
+	
+	@ManyToMany
+	@JoinTable(name = "blog_has_genre",
+	joinColumns = @JoinColumn(name = "blog_id"),
+	inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	private List <Genre> genres;
+	
 	public Blog() {
 		super();
 	}
 
-	public Blog(int id, String title, int creatorId, LocalDateTime createdAt, String body, String headerMediaUrl,
-			int edited) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.creatorId = creatorId;
-		this.createdAt = createdAt;
-		this.body = body;
-		this.headerMediaUrl = headerMediaUrl;
-	}
 
 	public int getId() {
 		return id;
@@ -74,13 +75,6 @@ public class Blog {
 		this.title = title;
 	}
 
-	public int getCreatorId() {
-		return creatorId;
-	}
-
-	public void setCreatorId(int creatorId) {
-		this.creatorId = creatorId;
-	}
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
@@ -107,10 +101,26 @@ public class Blog {
 	}
 
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Blog [id=").append(id).append(", title=").append(title).append(", creatorId=").append(creatorId)
+		builder.append("Blog [id=").append(id).append(", title=").append(title).append(", creatorId=")
 				.append(", createdAt=").append(createdAt).append(", body=").append(body).append(", headerMediaUrl=")
 				.append(headerMediaUrl).append("]");
 		return builder.toString();

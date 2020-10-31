@@ -46,5 +46,37 @@ class UserTest {
 		assertEquals("admin", user.getUsername());
 		assertEquals("TEX", user.getFirstName());
 	}
+	
+	@Test
+	void oneToMany() {
+		assertNotNull(user);
+		assertEquals(1, user.getBlogs().size());
+	}
 
+	@Test
+	void listOfTradesOneToMany() {
+		assertNotNull(user);
+		assertEquals(1, user.getTrades().size());
+		
+	}
+	
+	@Test
+	void listOfThreadOneToMany() {
+		assertNotNull(user);
+		assertEquals(1, user.getThreads().size());
+	}
+	@Test
+	void listOfBlogCommentsOTM() {
+		assertNotNull(user);
+		assertTrue(user.getBlogComments().size() > 0);
+	}
+	@Test
+	void  userToAlbumComments() {
+		assertNotNull(user);
+		assertEquals("I LIKE THIS ALBUM", user.getAlbumComments().get(0).getBody());
+		assertTrue(user.getAlbumComments().size() > 0);
+	}
+	
+	
+	
 }

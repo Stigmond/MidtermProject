@@ -47,5 +47,11 @@ class TradeTest {
 		assertEquals("Gibson Lucille", trade.getTitle());
 
 	}
+	
+	@Test
+	void creator_ManyToOne() {
+		assertNotNull(trade);
+		assertEquals("CONNECTICUT", trade.getUser().getLastName());
+	}
 
 }

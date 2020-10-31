@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Trade {
@@ -33,9 +35,16 @@ public class Trade {
 
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
+	
+	
 
 	private int active;
 	// creator_Id
+	
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User user;
+	
 
 	public Trade() {
 		super();
@@ -98,6 +107,14 @@ public class Trade {
 	}
 	
 	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public int hashCode() {

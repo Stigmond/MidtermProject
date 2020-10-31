@@ -1,12 +1,17 @@
 package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,23 +27,20 @@ public class Thread {
 	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-
-	@Column(name = "creator_id") // switch to join
-	private int creatorId;
 	
-	private int creator;
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User user;
+	
+	@ManyToMany
+	@JoinTable(name = "thread_has_genre",
+	joinColumns = @JoinColumn(name = "genre_id"),
+	inverseJoinColumns = @JoinColumn(name = "thread_id"))
+	private List <Genre> genres;
+	
 
 	public Thread() {
 		super();
-	}
-
-	public Thread(int id, String title, LocalDateTime createdAt, int creatorId, int creator) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.createdAt = createdAt;
-		this.creatorId = creatorId;
-		this.creator = creator;
 	}
 
 	public int getId() {
@@ -65,29 +67,25 @@ public class Thread {
 		this.createdAt = createdAt;
 	}
 
-	public int getCreatorId() {
-		return creatorId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCreatorId(int creatorId) {
-		this.creatorId = creatorId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public int getCreator() {
-		return creator;
+	public List<Genre> getGenres() {
+		return genres;
 	}
 
-	public void setCreator(int creator) {
-		this.creator = creator;
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Thread [id=").append(id).append(", title=").append(title).append(", createdAt=")
-				.append(createdAt).append(", creatorId=").append(creatorId).append(", creator=").append(creator)
-				.append("]");
-		return builder.toString();
+		return "Thread [id=" + id + ", title=" + title + ", createdAt=" + createdAt + ", user=" + user + "]";
 	}
 	
 	

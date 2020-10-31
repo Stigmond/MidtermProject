@@ -2,8 +2,7 @@ package com.skilldistillery.crescendo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -64,8 +63,7 @@ class BlogTest {
 		newBlog.setBody("Body");
 		newBlog.setHeaderMediaUrl("test");
 		newBlog.setTitle("The blog");
-		newBlog.setCreatorId(1);
-
+		newBlog.setUser(em.find(User.class, 1));
 		em.getTransaction().begin();
 		em.persist(newBlog);
 		em.flush();
@@ -76,5 +74,27 @@ class BlogTest {
 		assertNotNull(newBlog.getCreatedAt());
 
 	}
+	
+	@Test
+	@DisplayName("testing mapping to user table")
+	void utMapping() {
+		
+		assertNotNull(blog);
+//		assertEquals("admin", blog.getUser());
+		
+	}
+	
+	@Test
+	@DisplayName("testing blog to genre mapping")
+	void blogToGenre() {
+		assertNotNull(blog);
+		assertNotNull(blog.getGenres());
+		assertTrue(blog.getGenres().size() > 0);
+		assertEquals("NEO-CLASSICAL POST-METAL", blog.getGenres().get(0).getName());	
+	}
 
 }
+
+
+
+

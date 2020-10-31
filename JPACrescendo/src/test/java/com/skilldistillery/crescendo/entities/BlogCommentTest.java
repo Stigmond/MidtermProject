@@ -53,27 +53,13 @@ class BlogCommentTest {
 		
 
 	}
-
-//	@Test
-//	@DisplayName("testing blog creation time stamp")
-//	void blogTime() {
-//
-//		Blog newBlog = new Blog();
-//
-//		newBlog.setBody("Body");
-//		newBlog.setHeaderMediaUrl("test");
-//		newBlog.setTitle("The blog");
-//		newBlog.setCreatorId(1);
-//
-//		em.getTransaction().begin();
-//		em.persist(newBlog);
-//		em.flush();
-//
-//		em.getTransaction().commit();
-//
-//
-//		assertNotNull(newBlog.getCreatedAt());
-//
-//	}
+	
+	@Test
+	@DisplayName("testing blog comment")
+	void blogComment() {
+		assertNotNull(bComment);
+		assertEquals("TEX", bComment.getUser().getFirstName());
+		
+	}
 
 }

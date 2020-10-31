@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,24 +26,16 @@ public class AlbumComment {
 
 	private int edited;
 
-	@Column(name = "creator_id")
-	private int creatorId;
-
 	@Column(name = "album_id")
 	private int albumId;
+	
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User user;
+	
 
 	public AlbumComment() {
 		super();
-	}
-
-	public AlbumComment(int id, String body, LocalDateTime createdAt, int edited, int creatorId, int albumId) {
-		super();
-		this.id = id;
-		this.body = body;
-		this.createdAt = createdAt;
-		this.edited = edited;
-		this.creatorId = creatorId;
-		this.albumId = albumId;
 	}
 
 	public int getId() {
@@ -76,14 +70,6 @@ public class AlbumComment {
 		this.edited = edited;
 	}
 
-	public int getCreatorId() {
-		return creatorId;
-	}
-
-	public void setCreatorId(int creatorId) {
-		this.creatorId = creatorId;
-	}
-
 	public int getAlbumId() {
 		return albumId;
 	}
@@ -92,13 +78,19 @@ public class AlbumComment {
 		this.albumId = albumId;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AlbumComment [id=").append(id).append(", body=").append(body).append(", createdAt=")
-				.append(createdAt).append(", edited=").append(edited).append(", creatorId=").append(creatorId)
-				.append(", albumId=").append(albumId).append("]");
-		return builder.toString();
+		return "AlbumComment [id=" + id + ", body=" + body + ", createdAt=" + createdAt + ", edited=" + edited
+				+ ", albumId=" + albumId + ", user=" + user + "]";
 	}
+
 
 }

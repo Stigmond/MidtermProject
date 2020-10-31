@@ -60,8 +60,7 @@ class ThreadTest {
 		Thread newThread = new Thread();
 
 		newThread.setTitle("title");
-		newThread.setCreatorId(1);
-
+		newThread.setUser(em.find(User.class, 1));
 		em.getTransaction().begin();
 		em.persist(newThread);
 		em.flush();
@@ -70,6 +69,22 @@ class ThreadTest {
 
 		assertNotNull(newThread.getCreatedAt());
 
+	}
+
+	@Test
+	@DisplayName("testing thread user mapping")
+	void threadToUserMapping() {
+		assertNotNull(thread);
+		assertEquals("TEX", thread.getUser().getFirstName());
+
+	}
+
+	@Test
+	@DisplayName("Thread to Genre Mapping")
+	void threadToGenre() {
+		assertNotNull(thread);
+		assertTrue(thread.getGenres().size() > 0);
+		assertEquals("NEO-CLASSICAL POST-METAL", thread.getGenres().get(0).getName());
 	}
 
 }

@@ -1,10 +1,15 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Genre {
@@ -14,6 +19,18 @@ public class Genre {
 	private int id;
 
 	private String name;
+	
+	@ManyToMany
+	@JoinTable(name = "blog_has_genre",
+	joinColumns = @JoinColumn(name = "genre_id"),
+	inverseJoinColumns = @JoinColumn(name = "blog_id"))
+	private List <Blog> blogs;
+	
+	@ManyToMany
+	@JoinTable(name = "thread_has_genre",
+	joinColumns = @JoinColumn(name = "thread_id"),
+	inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	private List <Thread> threads;
 
 	public Genre() {
 		super();
@@ -39,6 +56,22 @@ public class Genre {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
+	}
+
+	public List<Thread> getThreads() {
+		return threads;
+	}
+
+	public void setThreads(List<Thread> threads) {
+		this.threads = threads;
 	}
 
 	@Override
