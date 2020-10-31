@@ -1,6 +1,10 @@
 package com.skilldistillery.crescendo.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,13 +14,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class ThreadCommentTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private ThreadComment tcomment;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,20 +36,22 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		tcomment = em.find(ThreadComment.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		user = null;
+		tcomment = null;
 		em = null;
 	}
 
 	@Test
-	void testBindings() {
-		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
-		assertEquals("TEX", user.getFirstName());
+	@DisplayName("testing thread comment entity")
+	void threadEntity() {
+		assertNotNull(tcomment);
+		assertEquals("OH GODS WHY", tcomment.getBody());
+		
+
 	}
 
 }

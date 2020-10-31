@@ -9,6 +9,18 @@
     </provider>
     
       <!-- List Entities Here -->
+      <class>com.skilldistillery.crescendo.entities.Album</class>
+      <class>com.skilldistillery.crescendo.entities.AlbumComment</class>
+      <class>com.skilldistillery.crescendo.entities.AlbumHasGenre</class>
+      <class>com.skilldistillery.crescendo.entities.Artist</class>
+      <class>com.skilldistillery.crescendo.entities.Blog</class>
+      <class>com.skilldistillery.crescendo.entities.BlogComment</class>
+      <class>com.skilldistillery.crescendo.entities.BlogHasGenre</class>
+      <class>com.skilldistillery.crescendo.entities.Genre</class>
+      <class>com.skilldistillery.crescendo.entities.Thread</class>
+      <class>com.skilldistillery.crescendo.entities.ThreadComment</class>
+      <class>com.skilldistillery.crescendo.entities.ThreadHasGenre</class>
+      <class>com.skilldistillery.crescendo.entities.Trade</class>
       <class>com.skilldistillery.crescendo.entities.User</class>
 
       

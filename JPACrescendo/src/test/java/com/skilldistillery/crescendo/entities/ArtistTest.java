@@ -1,6 +1,7 @@
 package com.skilldistillery.crescendo.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,13 +11,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class ArtistTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Artist artist;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,20 +33,20 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		artist = em.find(Artist.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		user = null;
+		artist = null;
 		em = null;
 	}
 
 	@Test
-	void testBindings() {
-		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
-		assertEquals("TEX", user.getFirstName());
+	@DisplayName("testing artist entity")
+	void artistEntity() {
+		assertNotNull(artist);
+		assertEquals("THE (255,255,255) STRIPES", artist.getName());
 	}
 
 }
