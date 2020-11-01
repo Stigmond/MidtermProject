@@ -49,9 +49,9 @@ class AlbumCommentTest {
 		assertEquals("I LIKE THIS ALBUM", comment.getBody());
 		assertEquals(null, comment.getCreatedAt());
 		assertEquals(0, comment.getEdited());
-	
+
 	}
-	
+
 	@Test
 	@DisplayName("testing mapping to user")
 	void mappingToUser() {
@@ -59,5 +59,11 @@ class AlbumCommentTest {
 		assertEquals("TEX", comment.getUser().getFirstName());
 	}
 
+	@Test
+	@DisplayName("testing mapping album comment to album")
+	void albumToComment() {
+		assertNotNull(comment);
+		assertEquals("THE #FFFFFF ALBUM", comment.getAlbum().getTitle());
+	}
 
 }

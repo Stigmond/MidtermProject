@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,30 +23,30 @@ public class ThreadComment {
 
 	private String body;
 
-	@Column(name = "thread_id")
-	private int threadId;
-
 	@CreationTimestamp
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 
 	private int edited;
 
-	@Column(name = "creator_id")
-	private int creatorId;
+	@ManyToOne
+	@JoinColumn(name = "thread_id")
+	private Thread thread;
+
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public ThreadComment() {
 		super();
-	}
-
-	public ThreadComment(int id, String body, int threadId, LocalDateTime createdAt, int edited, int creator) {
-		super();
-		this.id = id;
-		this.body = body;
-		this.threadId = threadId;
-		this.createdAt = createdAt;
-		this.edited = edited;
-		this.creatorId = creator;
 	}
 
 	public int getId() {
@@ -63,14 +65,6 @@ public class ThreadComment {
 		this.body = body;
 	}
 
-	public int getThreadId() {
-		return threadId;
-	}
-
-	public void setThreadId(int threadId) {
-		this.threadId = threadId;
-	}
-
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -87,20 +81,20 @@ public class ThreadComment {
 		this.edited = edited;
 	}
 
-	public int getCreator() {
-		return creatorId;
+	public Thread getThread() {
+		return thread;
 	}
 
-	public void setCreator(int creator) {
-		this.creatorId = creator;
+	public void setThread(Thread thread) {
+		this.thread = thread;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ThreadComment [id=").append(id).append(", body=").append(body).append(", threadId=")
-				.append(threadId).append(", createdAt=").append(createdAt).append(", edited=").append(edited)
-				.append(", creator=").append(creatorId).append("]");
+		builder.append("ThreadComment [id=").append(id).append(", body=").append(body).append(", createdAt=")
+				.append(createdAt).append(", edited=").append(edited).append(", thread=").append(thread)
+				.append(", user=").append(user).append("]");
 		return builder.toString();
 	}
 

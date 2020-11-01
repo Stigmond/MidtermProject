@@ -26,13 +26,21 @@ public class AlbumComment {
 
 	private int edited;
 
-	@Column(name = "album_id")
-	private int albumId;
-	
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private User user;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "album_id")
+	private Album album;
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 
 	public AlbumComment() {
 		super();
@@ -70,14 +78,6 @@ public class AlbumComment {
 		this.edited = edited;
 	}
 
-	public int getAlbumId() {
-		return albumId;
-	}
-
-	public void setAlbumId(int albumId) {
-		this.albumId = albumId;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -88,9 +88,11 @@ public class AlbumComment {
 
 	@Override
 	public String toString() {
-		return "AlbumComment [id=" + id + ", body=" + body + ", createdAt=" + createdAt + ", edited=" + edited
-				+ ", albumId=" + albumId + ", user=" + user + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("AlbumComment [id=").append(id).append(", body=").append(body).append(", createdAt=")
+				.append(createdAt).append(", edited=").append(edited).append(", user=").append(user).append(", album=")
+				.append(album).append("]");
+		return builder.toString();
 	}
-
 
 }

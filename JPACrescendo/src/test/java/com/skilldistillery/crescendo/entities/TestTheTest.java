@@ -2,7 +2,6 @@ package com.skilldistillery.crescendo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class TestTheTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
@@ -27,7 +26,7 @@ class UserTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		emf = null;
+		emf = Persistence.createEntityManagerFactory("SocialApp");
 	}
 
 	@BeforeEach
@@ -38,52 +37,14 @@ class UserTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+
 		user = null;
 		em = null;
 	}
 
 	@Test
-	void testBindings() {
+	void userToAlbumComments() {
 		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
-		assertEquals("TEX", user.getFirstName());
+		assertEquals("I LIKE THIS ALBUM", user.getAlbumComments().get(0).getBody());
 	}
-
-	@Test
-	void oneToMany() {
-		assertNotNull(user);
-		assertTrue(user.getBlogs().size() > 0);
-	}
-
-	@Test
-	void listOfTradesOneToMany() {
-		assertNotNull(user);
-		assertEquals(1, user.getTrades().size());
-
-	}
-
-	@Test
-	void listOfThreadOneToMany() {
-		assertNotNull(user);
-		assertTrue(user.getThreads().size() > 0);
-	}
-
-	@Test
-	void listOfBlogCommentsOTM() {
-		assertNotNull(user);
-		assertTrue(user.getBlogComments().size() > 0);
-	}
-
-//	@Test
-//	void userToAlbumComments() {
-//		assertNotNull(user);
-//		assertEquals("I LIKE THIS ALBUM", user.getAlbumComments().get(0).getBody());
-//	}
-
-	@Test
-	void userToThreadComments() {
-		assertNotNull(user);
-		assertEquals("OH GODS WHY", user.getThreadComments().get(0).getBody());
-	}
-
 }
