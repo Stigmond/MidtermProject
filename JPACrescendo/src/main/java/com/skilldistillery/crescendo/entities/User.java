@@ -210,15 +210,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=").append(id).append(", username=").append(username).append(", password=")
-				.append(password).append(", enabled=").append(enabled).append(", role=").append(role)
-				.append(", createdAt=").append(createdAt).append(", firstName=").append(firstName).append(", lastName=")
-				.append(lastName).append(", body=").append(body).append(", avatarUrl=").append(avatarUrl)
-				.append(", blogs=").append(blogs).append(", trades=").append(trades).append(", threads=")
-				.append(threads).append(", blogComments=").append(blogComments).append(", albumComments=")
-				.append(albumComments).append(", threadComments=").append(threadComments).append("]");
-		return builder.toString();
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
+				+ ", role=" + role + ", createdAt=" + createdAt + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", body=" + body + ", avatarUrl=" + avatarUrl + ", blogs=" + blogs + ", trades=" + trades + "]";
 	}
 
-}
+	
+	}
+
+
