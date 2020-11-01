@@ -51,4 +51,18 @@ class AlbumTest {
 		assertEquals(2019, album.getReleaseYear());
 	}
 
+	@Test
+	@DisplayName("testing album to genre")
+	void albumToGenre() {
+		assertNotNull(album);
+		assertEquals("NEO-CLASSICAL POST-METAL", album.getGenres().get(0).getName());
+	}
+
+	@Test
+	@DisplayName("testing album to album comments")
+	void albumToAlbumComments() {
+		assertNotNull(album);
+		assertEquals("I LIKE THIS ALBUM", album.getAlbumComments().get(0).getBody());
+	}
+
 }

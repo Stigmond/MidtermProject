@@ -1,10 +1,16 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Album {
@@ -25,6 +31,29 @@ public class Album {
 
 	@Column(name = "release_year")
 	private int releaseYear;
+
+	@ManyToMany
+	@JoinTable(name = "album_has_genre", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	private List<Genre> genres;
+
+	@OneToMany(mappedBy = "album")
+	private List<AlbumComment> albumComments;
+
+	public List<AlbumComment> getAlbumComments() {
+		return albumComments;
+	}
+
+	public void setAlbumComments(List<AlbumComment> albumComments) {
+		this.albumComments = albumComments;
+	}
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
+	}
 
 	public Album() {
 		super();

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -27,17 +28,25 @@ public class Thread {
 	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-	
+
+	@OneToMany(mappedBy = "thread")
+	private List<ThreadComment> threadComments;
+
+	public List<ThreadComment> getThreadComments() {
+		return threadComments;
+	}
+
+	public void setThreadComments(List<ThreadComment> threadComments) {
+		this.threadComments = threadComments;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private User user;
-	
+
 	@ManyToMany
-	@JoinTable(name = "thread_has_genre",
-	joinColumns = @JoinColumn(name = "genre_id"),
-	inverseJoinColumns = @JoinColumn(name = "thread_id"))
-	private List <Genre> genres;
-	
+	@JoinTable(name = "thread_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "thread_id"))
+	private List<Genre> genres;
 
 	public Thread() {
 		super();
@@ -87,6 +96,5 @@ public class Thread {
 	public String toString() {
 		return "Thread [id=" + id + ", title=" + title + ", createdAt=" + createdAt + ", user=" + user + "]";
 	}
-	
-	
+
 }

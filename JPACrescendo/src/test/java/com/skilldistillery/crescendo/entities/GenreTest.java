@@ -49,6 +49,7 @@ class GenreTest {
 		assertNotNull(genre);
 		assertEquals("NEO-CLASSICAL POST-METAL", genre.getName());
 	}
+
 	@Test
 	@DisplayName("Genre to blog")
 	void genreToBlog() {
@@ -56,6 +57,7 @@ class GenreTest {
 		assertTrue(genre.getBlogs().size() > 0);
 		assertEquals("BLOGS SUCK", genre.getBlogs().get(0).getTitle());
 	}
+
 	@Test
 	@DisplayName("Genre to Thread Mapping")
 	void threadToGenre() {
@@ -63,5 +65,13 @@ class GenreTest {
 		assertTrue(genre.getThreads().size() > 0);
 		assertEquals("RANDOM DISCUSSION THREAD", genre.getThreads().get(0).getTitle());
 	}
-	
+
+	@Test
+	@DisplayName("Genre to album mapping")
+	void genreToAlbum() {
+		assertNotNull(genre);
+		assertTrue(genre.getAlbums().size() > 0);
+		assertEquals("THE #FFFFFF ALBUM", genre.getAlbums().get(0).getTitle());
+	}
+
 }

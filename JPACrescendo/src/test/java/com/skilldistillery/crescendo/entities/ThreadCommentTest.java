@@ -50,8 +50,21 @@ class ThreadCommentTest {
 	void threadEntity() {
 		assertNotNull(tcomment);
 		assertEquals("OH GODS WHY", tcomment.getBody());
-		
+	}
 
+	@Test
+	@DisplayName("testing thread comment to thread entity")
+	void threadToComment() {
+		assertNotNull(tcomment);
+		assertEquals("RANDOM DISCUSSION THREAD", tcomment.getThread().getTitle());
+	}
+
+	@Test
+	@DisplayName("testing thread comment to user entity")
+	void threadToUser() {
+		assertNotNull(tcomment);
+//		assertEquals("TEX", tcomment.getUser().getFirstName());
+		assertEquals("A DUMMY USER RECORD", tcomment.getUser().getBody());
 	}
 
 }

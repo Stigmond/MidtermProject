@@ -35,37 +35,31 @@ public class User {
 
 	@Column(name = "avatar_url")
 	private String avatarUrl;
-	
+
 	@OneToMany(mappedBy = "user")
-	private List <Blog> blogs;
-	
+	private List<Blog> blogs;
+
 	@OneToMany(mappedBy = "user")
-	private List <Trade> trades;
-	
+	private List<Trade> trades;
+
 	@OneToMany(mappedBy = "user")
-	private List <Thread> threads;
-	
-	@OneToMany(mappedBy= "user")
+	private List<Thread> threads;
+
+	@OneToMany(mappedBy = "user")
 	private List<BlogComment> blogComments;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<AlbumComment> albumComments;
-	
-	
 
-	public User(int id, String username, String password, int enabled, String role, LocalDateTime createdAt,
-			String firstName, String lastName, String body, String avatarUrl) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
-		this.createdAt = createdAt;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.body = body;
-		this.avatarUrl = avatarUrl;
+	@OneToMany(mappedBy = "user")
+	private List<ThreadComment> threadComments;
+
+	public List<ThreadComment> getThreadComments() {
+		return threadComments;
+	}
+
+	public void setThreadComments(List<ThreadComment> threadComments) {
+		this.threadComments = threadComments;
 	}
 
 	public User() {
@@ -217,9 +211,13 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=").append(id).append(", username=").append(username).append(", role=").append(role)
+		builder.append("User [id=").append(id).append(", username=").append(username).append(", password=")
+				.append(password).append(", enabled=").append(enabled).append(", role=").append(role)
 				.append(", createdAt=").append(createdAt).append(", firstName=").append(firstName).append(", lastName=")
-				.append(lastName).append("]");
+				.append(lastName).append(", body=").append(body).append(", avatarUrl=").append(avatarUrl)
+				.append(", blogs=").append(blogs).append(", trades=").append(trades).append(", threads=")
+				.append(threads).append(", blogComments=").append(blogComments).append(", albumComments=")
+				.append(albumComments).append(", threadComments=").append(threadComments).append("]");
 		return builder.toString();
 	}
 
