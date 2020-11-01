@@ -58,7 +58,7 @@
 				<label for="body">User Bio</label><br>
 				<input type="text" name="body" value="${user.body} "><br>
 				
-				<input type="submit">
+				<input type="submit" value="Update">
 				
 				
 			</form>
@@ -66,6 +66,15 @@
 			
 			</div>
 			
+		</div>
+		
+		<div class="row">
+		<h3>Recent Post</h3>
+		
+		
+		
+		
+		
 		</div>
 
 
