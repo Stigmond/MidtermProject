@@ -23,9 +23,6 @@ public class BlogComment {
 
 	private String body;
 
-	@Column(name = "blog_id")
-	private int blogId;
-
 	@CreationTimestamp
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
@@ -38,6 +35,10 @@ public class BlogComment {
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name= "blog_id")
+	private Blog blog;
 	
 	
 
@@ -61,13 +62,6 @@ public class BlogComment {
 		this.body = body;
 	}
 
-	public int getBlogId() {
-		return blogId;
-	}
-
-	public void setBlogId(int blogId) {
-		this.blogId = blogId;
-	}
 
 	public LocalDateTime getCreatedId() {
 		return createdAt;
@@ -110,13 +104,19 @@ public class BlogComment {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BlogComment [id=").append(id).append(", body=").append(body).append(", blogId=").append(blogId)
-				.append(", createdId=").append(createdAt).append(", edited=").append(edited).append(", creatorId=") 
-				.append(", inReplyId=").append(inReplyId).append("]");
-		return builder.toString();
+	public Blog getBlog() {
+		return blog;
 	}
 
+	public void setBlog(Blog blog) {
+		this.blog = blog;
+	}
+
+	@Override
+	public String toString() {
+		return "BlogComment [id=" + id + ", body=" + body + ", createdAt=" + createdAt + ", edited=" + edited
+				+ ", inReplyId=" + inReplyId + ", user=" + user + ", blog=" + blog + "]";
+	}
+
+	
 }

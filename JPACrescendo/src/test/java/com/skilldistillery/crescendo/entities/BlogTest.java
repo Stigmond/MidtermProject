@@ -48,8 +48,8 @@ class BlogTest {
 	@DisplayName("testing blog entity")
 	void blogEntity() {
 		assertNotNull(blog);
-		assertEquals("BLOGS SUCK", blog.getTitle());
-		assertEquals("THEY REALLY DO SUCK", blog.getBody());
+		assertNotNull(blog.getTitle());
+		assertNotNull(blog.getBody());
 		assertEquals(0, blog.getEdited());
 
 	}
@@ -70,6 +70,7 @@ class BlogTest {
 
 		em.getTransaction().commit();
 
+		
 
 		assertNotNull(newBlog.getCreatedAt());
 
@@ -92,6 +93,15 @@ class BlogTest {
 		assertTrue(blog.getGenres().size() > 0);
 		assertEquals("NEO-CLASSICAL POST-METAL", blog.getGenres().get(0).getName());	
 	}
+	
+	@Test
+	@DisplayName("testing blog to blog commment")
+	void blogCommentToComment() {
+		
+		assertNotNull(blog);
+		assertEquals(2, blog.getBlogComments().size());
+	}
+	
 
 }
 

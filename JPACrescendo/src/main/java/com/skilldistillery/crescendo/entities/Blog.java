@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -53,6 +54,9 @@ public class Blog {
 	joinColumns = @JoinColumn(name = "blog_id"),
 	inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	private List <Genre> genres;
+	
+	@OneToMany(mappedBy="blog")
+	private List <BlogComment> blogComments;
 	
 	public Blog() {
 		super();
@@ -115,6 +119,14 @@ public class Blog {
 
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
+	}
+
+	public List<BlogComment> getBlogComments() {
+		return blogComments;
+	}
+
+	public void setBlogComments(List<BlogComment> blogComments) {
+		this.blogComments = blogComments;
 	}
 
 	@Override
