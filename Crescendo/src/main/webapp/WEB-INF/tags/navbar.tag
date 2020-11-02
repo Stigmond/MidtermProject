@@ -10,7 +10,7 @@
 	</div>
 	<div class="col">
 		<c:choose>
-			<c:when test="${not empty loggedIn }">
+			<c:when test="${not empty sessionScope.loggedIn }">
 Logged in as: ${sessionScope.loggedIn.username} <a href= "logout.do">Log out</a>
 </c:when>
 			<c:otherwise>
