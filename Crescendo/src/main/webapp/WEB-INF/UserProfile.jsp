@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,11 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div class="container">
+	<div class="container"> 
+	
+<!-- 	Put this at the top of the main container for every JSP-->
+	<t:navbar/>
+	
 		<!-- NavBar will go here-->
 		<div class="row">
 			<div class="col">
@@ -46,6 +51,9 @@
 				<label for="username">User name/email</label><br>
 				<input type="text" name="username" value="${user.username} "><br>
 				
+				<label for="password">User Password</label><br>
+				<input type="text" name="password" value="${user.password} "><br>
+				
 				<label for="firstName">First name</label><br>
 				<input type="text" name="firstName" value="${user.firstName} "><br>
 				
@@ -70,6 +78,14 @@
 		
 		<div class="row">
 		<h3>Recent Post</h3>
+		
+		<p> 
+		${user.blogs.get(0).body}
+		
+		<br>
+		
+		Comments: ${user.blogs.get(0).blogComments.size()}
+		</p>
 		
 		
 		
