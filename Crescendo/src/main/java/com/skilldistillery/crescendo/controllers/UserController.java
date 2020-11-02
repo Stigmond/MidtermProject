@@ -6,19 +6,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.skilldistillery.crescendo.data.TestDAO;
+import com.skilldistillery.crescendo.data.UserDAO;
+import com.skilldistillery.crescendo.entities.User;
 
 @Controller
-public class TestController {
+public class UserController {
 
 	@Autowired
-	private TestDAO dao;
-	
-	@RequestMapping(path="test.do")
+	private UserDAO dao;
+
+	@RequestMapping(path = "test.do")
 	public String home(Model model) {
 		model.addAttribute("user", dao.getTestUser());
 		return "test";
 	}
+
 	@RequestMapping(path = "/")
 	public ModelAndView userProfile() {
 		ModelAndView mv = new ModelAndView();
@@ -26,5 +28,18 @@ public class TestController {
 		mv.addObject("user", dao.getTestUser());
 		return mv;
 	}
-	
+
+	@RequestMapping(path = "home.do")
+	public String homePage(Model model) {
+		return "index";
+
+	}
+
+	@RequestMapping(path = "makeUserUpdates.do")
+	public String updateUser(int id, User user) {
+		User updateUser = dao.updateUser(id, user);
+		return "makeUserUpdates.do";
+
+	}
+
 }
