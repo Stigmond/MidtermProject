@@ -33,7 +33,7 @@
 			<div>
 				<div class="col">
 					<div class="row">
-						<h4>Album1</h4>
+						<h4>Album1 "${albums.get(0).title}"</h4>
 					</div>
 					<div class="row">
 						<h4>Album2</h4>

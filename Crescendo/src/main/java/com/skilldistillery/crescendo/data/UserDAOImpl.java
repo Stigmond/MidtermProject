@@ -1,11 +1,14 @@
 package com.skilldistillery.crescendo.data;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.User;
 
 @Service
@@ -47,4 +50,14 @@ public class UserDAOImpl implements UserDAO {
 		return dbuser;
 	}
 
+	public List<Album> getAlbums() {
+
+		List<Album> albums = null;
+
+		String sql = "SELECT a FROM Album a";
+
+		albums = em.createQuery(sql, Album.class).getResultList();
+		return albums;
+
+	}
 }
