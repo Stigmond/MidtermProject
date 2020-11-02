@@ -21,56 +21,73 @@
 							class="rounded float-left"
 							alt="No cover art uploaded for this album">
 					</c:otherwise>
-				</c:choose>
-			</div>
-
-			<div class="col">
+				</c:choose><br>
 				<h2>${album.title}</h2>
 				<br>
 				<h3>By ${album.artist.name} (${album.releaseYear})</h3>
 				<br><br>
 				<p>${album.description}</p>
 			</div>
+		
+		<div id="sampleComments" class="col">
+			<c:choose>
+				<c:when test="${ empty commentSample }">
+					No comments on this album. Be the first to write one!
+				</c:when>
+				<c:otherwise>
+				<%-- <div class="row">
+					<c:choose>
+						<c:when test="${not empty commentSample.get(0).getBody()}">
+							${commentSample.get(0).getBody()}
+						</c:when>
+					</c:choose>
+				</div>
+				<div class="row">
+					<c:choose>
+						<c:when test="${commentSample.size() > 1 && not empty commentSample.get(1).body}">
+							${commentSample.get(1).getBody()}
+						</c:when>
+					</c:choose>
+				</div>
+				<div class="row">
+					<c:choose>
+						<c:when test="${commentSample.size() > 2 && not empty commentSample.get(2).getBody()}">
+							${commentSample.get(2).getBody()}
+						</c:when>
+					</c:choose>
+				</div>
+		<p>View all comments on this album</p> --%>
+		
+					<div class="card" style="width: 18rem;">
+						<div class="card-header">Recent comments on this album:</div>
+  						<div class="card-body">
+  							<c:choose>
+								<c:when test="${ not empty commentSample.get(0).body }">
+    									<h5 class="card-title">${ commentSample.get(0).user.username } says:</h5>
+   										<p class="card-text">${commentSample.get(0).body }</p>
+								</c:when>
+							</c:choose>
+  						</div>
+  						<div class="card-body">
+  							<c:choose>
+								<c:when test="${ commentSample.size() > 1 && not empty commentSample.get(1).body }">
+    									<h5 class="card-title">${ commentSample.get(1).user.username } says:</h5>
+   										<p class="card-text">${commentSample.get(1).body}</p>
+								</c:when>
+							</c:choose>
+  						</div>
+  						<div class="card-body">
+  							<c:choose>
+								<c:when test="${ commentSample.size() > 2 && not empty commentSample.get(2).body }">
+    									<h5 class="card-title">${ commentSample.get(2).user.username } says:</h5>
+   										<p class="card-text">${commentSample.get(2).body}</p>
+								</c:when>
+							</c:choose>
+  						</div>
+  						
+				</c:otherwise>
+			</c:choose>
+		</div>
 
-		</div>
-		<c:choose>
-		<c:when test="${not empty commentSample}">
-		<div class="row">
-		<h3>Recent comments on this album: </h3>
-		</div>
-		<div class="row">
-		<div class="col">
-		<c:choose>
-		<c:when test="${not empty commentSample.get(0).getBody()}">
-		${commentSample.get(0).getBody()}
-		</c:when>
-		</c:choose>
-		
-		</div>
-		<div class="col">
-		<c:choose>
-		<c:when test="${commentSample.size() > 1 && not empty commentSample.get(1).getBody()}">
-		${commentSample.get(1).getBody()}
-		</c:when>
-		</c:choose>
-		
-		</div>
-		<div class="col">
-		<c:choose>
-		<c:when test="${commentSample.size() > 2 && not empty commentSample.get(2).getBody()}">
-		${commentSample.get(2).getBody()}
-		</c:when>
-		</c:choose>
-		View all comments on this album
-		
-		</div>
-		</div>
-		</c:when>
-		<c:otherwise>
-		<div class="row">
-		</div>
-		<h3>Be the first to talk about this album!</h3>
-		</c:otherwise>
-		</c:choose>
 	</jsp:attribute>
 </t:pageLayout>
