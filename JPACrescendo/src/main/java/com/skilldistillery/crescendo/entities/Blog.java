@@ -1,6 +1,7 @@
 package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -127,6 +128,36 @@ public class Blog {
 
 	public void setBlogComments(List<BlogComment> blogComments) {
 		this.blogComments = blogComments;
+	}
+	public void addBlogComment(BlogComment blogComment) {
+		if (blogComments == null) {
+			blogComments = new ArrayList<>();
+		}
+		if (!blogComments.contains(blogComment)) {
+			blogComments.add(blogComment);
+			blogComment.setBlog(this);
+		}
+	}
+	public void removeBlogComment(BlogComment blogComment) {
+		if (blogComments != null && blogComments.contains(blogComment)) {
+			blogComments.remove(blogComment);
+			blogComment.setBlog(null);
+		}
+	}
+	public void addGenre(Genre genre) {
+		if (genres == null) {
+			genres = new ArrayList<>();
+		}
+		if (!genres.contains(genre)) {
+			genres.add(genre);
+			genre.addBlog(this);
+		}
+	}
+	public void removeGenre(Genre genre) {
+		if (genres != null && genres.contains(genre)) {
+			genres.remove(genre);
+			genre.removeBlog(this);
+		}
 	}
 
 	@Override

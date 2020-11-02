@@ -1,5 +1,6 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -81,6 +82,52 @@ public class Genre {
 
 	public void setThreads(List<Thread> threads) {
 		this.threads = threads;
+	}
+	
+	public void addBlog(Blog blog) {
+		if (blogs == null) {
+			blogs = new ArrayList<>();
+		}
+		if (!blogs.contains(blog)) {
+			blogs.add(blog);
+			blog.addGenre(this);
+		}
+	}
+	public void removeBlog(Blog blog) {
+		if (blogs != null && blogs.contains(blog)) {
+			blogs.remove(blog);
+			blog.removeGenre(this);
+		}
+	}
+	public void addThread(Thread thread) {
+		if (threads == null) {
+			threads = new ArrayList<>();
+		}
+		if (!threads.contains(thread)) {
+			threads.add(thread);
+			thread.addGenre(this);
+		}
+	}
+	public void removeThread(Thread thread) {
+		if (threads != null && threads.contains(thread)) {
+			threads.remove(thread);
+			thread.removeGenre(this);
+		}
+	}
+	public void addAlbum(Album album) {
+		if (albums == null) {
+			albums = new ArrayList<>();
+		}
+		if (!albums.contains(album)) {
+			albums.add(album);
+			album.addGenre(this);
+		}
+	}
+	public void removeAlbum(Album album) {
+		if (albums != null && albums.contains(album)) {
+			albums.remove(album);
+			album.removeGenre(this);
+		}
 	}
 
 	@Override
