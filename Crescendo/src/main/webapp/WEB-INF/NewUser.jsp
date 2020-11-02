@@ -52,33 +52,9 @@
 				<input type="submit" value="Create New User">
 			</form>
 
-
-
-
-
-
 		</div>
 
-
-
-
-
-
-
-
-
-
-
 	</div>
-
-
-
-
-
-
-
-
-
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

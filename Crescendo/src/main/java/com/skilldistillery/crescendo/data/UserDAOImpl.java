@@ -9,6 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.crescendo.entities.Album;
+
+import com.skilldistillery.crescendo.entities.Blog;
+
 import com.skilldistillery.crescendo.entities.User;
 
 @Service
@@ -50,6 +53,29 @@ public class UserDAOImpl implements UserDAO {
 		return dbuser;
 	}
 
+
+	public List<Album> getAlbums() {
+
+		List<Album> albums = null;
+
+		String sql = "SELECT a FROM Album a";
+
+		albums = em.createQuery(sql, Album.class).getResultList();
+		return albums;
+
+	}
+
+	public List<Blog> getBlogs() {
+
+		List<Blog> blogs = null;
+
+		String sql = "SELECT b FROM Blog b";
+
+		blogs = em.createQuery(sql, Blog.class).getResultList();
+		return blogs;
+
+	}
+
 	@Override
 	public User attemptLogin(String username, String password) {
 		String query = "SELECT u FROM User u WHERE username = :name AND password = :password";
@@ -69,5 +95,6 @@ public class UserDAOImpl implements UserDAO {
 	
 
 	
+
 
 }
