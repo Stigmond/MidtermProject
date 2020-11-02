@@ -32,7 +32,7 @@ public class UserController {
 
 	@RequestMapping(path = "home.do")
 	public String homePage(Model model) {
-		return "NewUser";
+		return "index";
 
 	}
 
