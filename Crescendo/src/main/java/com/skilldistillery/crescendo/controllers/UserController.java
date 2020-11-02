@@ -38,7 +38,7 @@ public class UserController {
 	@RequestMapping(path = "makeUserUpdates.do")
 	public String updateUser(int id, User user) {
 		User updateUser = dao.updateUser(id, user);
-		return "makeUserUpdates.do";
+		return "UserProfile";
 
 	}
 
