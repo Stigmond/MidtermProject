@@ -90,6 +90,55 @@ public class ThreadComment {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + edited;
+		result = prime * result + id;
+		result = prime * result + ((thread == null) ? 0 : thread.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ThreadComment other = (ThreadComment) obj;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (edited != other.edited)
+			return false;
+		if (id != other.id)
+			return false;
+		if (thread == null) {
+			if (other.thread != null)
+				return false;
+		} else if (!thread.equals(other.thread))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ThreadComment [id=").append(id).append(", body=").append(body).append(", createdAt=")
