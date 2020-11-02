@@ -85,7 +85,15 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((avatarUrl == null) ? 0 : avatarUrl.hashCode());
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + enabled;
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -98,7 +106,44 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (avatarUrl == null) {
+			if (other.avatarUrl != null)
+				return false;
+		} else if (!avatarUrl.equals(other.avatarUrl))
+			return false;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (enabled != other.enabled)
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
 		if (id != other.id)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}
