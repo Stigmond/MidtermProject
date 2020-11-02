@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
-
-import com.skilldistillery.crescendo.entities.Blog;
-
 import com.skilldistillery.crescendo.entities.AlbumComment;
-
+import com.skilldistillery.crescendo.entities.Blog;
+import com.skilldistillery.crescendo.entities.Parent;
 import com.skilldistillery.crescendo.entities.User;
+import com.skilldistillery.crescendo.entities.Thread;
 
 @Controller
 public class UserController {
@@ -104,6 +104,39 @@ public class UserController {
 			commentSample = commentSample.subList(0, 3);
 		}
 		mv.addObject("commentSample", commentSample);
+		return mv;
+	}
+	
+	@RequestMapping(path= "viewComments.do")
+	public ModelAndView showCommentThread(String type, int id) {
+		Parent parent = null;
+		Object parentObject = null;
+		if (type.equals("blog")) {
+			parent = Parent.BLOG;
+//			parentObject = em.find(Blog.class, id);
+		} else if (type.equals("thread")) {
+			parent = Parent.THREAD;
+//			parentObject = em.find(Thread.class, id);
+		} else if (type.equals("album")) {
+			parent = Parent.ALBUM;
+			parentObject = dao.getAlbumById(id);
+		} 
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("parentType", parent);
+		switch (parent) {
+		case BLOG:
+			mv.addObject("commentList", ((Blog) parentObject).getBlogComments());
+			mv.addObject("parentObject", (Blog) parentObject);
+			break;
+		case THREAD:
+			mv.addObject("commentList", ((Thread) parentObject).getThreadComments());
+			mv.addObject("parentObject", (Thread) parentObject);
+			break;
+		case ALBUM:
+			mv.addObject("commentList", ((Album) parentObject).getAlbumComments());
+			mv.addObject("parentObject", (Album) parentObject);
+			break;
+		}
 		return mv;
 	}
 
