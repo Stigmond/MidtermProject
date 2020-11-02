@@ -13,41 +13,61 @@
 </head>
 <body>
 
-	<div class="container-fluid">
-
-
+	<div class="container" class="text-center">
+		<img
+			src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg"
+			alt="Crescendo Logo">
+	</div>
+	<div class="row">
 		<div class="col">
+			<h6 class="text-center">
+				<em> Bringing People together through Music, One Note at a Time</em>
+			</h6>
+			<br>
+			<h4 class="text-center">Here's What People are Talking About</h4>
+			<br>
+			<div class="col">${blogs.get(0).body}</div>
+			<br>
 			<div class="row">
-				<img
-					src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg"
-					alt="Crescendo Logo">
-			</div>
-			<div class="row">
-				<h6>Bringing People together through Music, One Note at a Time</h6>
-			</div>
-			<div class="col">
-				<h4>Here's What Others Are Saying</h4>
-			</div>
-			<div class="col">Insert Most Relevant Blogs Here</div>
-
-			<div>
 				<div class="col">
+					<hr>
+					<br>
+					<p class="text-center">
+						<strong> Here Are Today's Hottest Albums!!!</strong>
+					</p>
 					<div class="row">
-						<h4>Album1 "${albums.get(0).title}"</h4>
-					</div>
-					<div class="row">
-						<h4>Album2</h4>
-					</div>
-					<div class="row">
-						<h4>Album3</h4>
+						<div class="col">
+							<h4 class="text-center">
+								"${albums.get(0).title}"<br> <img
+									src="https://images.sk-static.com/images/media/profile_images/artists/509644/huge_avatar"
+									alt="album image" width="240"> <br>
+								${albums.get(0).albumComments.get(0).body}
+							</h4>
+						</div>
+						<div class="col">
+							<h4 class="text-center">
+								"${albums.get(1).title}" <br> <img
+									src="https://static.billboard.com/files/media/acdc-back-in-black-album-cover-650-compressed.jpg"
+									alt="album image" width="240"> <br>
+								${albums.get(0).albumComments.get(1).body}
+							</h4>
+						</div>
+						<div class="col">
+							<h4 class="text-center">
+								"${albums.get(2).title}" <br> <img
+									src="https://images-na.ssl-images-amazon.com/images/I/51OnocJWVWL._AC_SX466_.jpg"
+									alt="album image" width="240"> <br>
+								${albums.get(0).albumComments.get(2).body}
+							</h4>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
 	</div>
+	</div>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
