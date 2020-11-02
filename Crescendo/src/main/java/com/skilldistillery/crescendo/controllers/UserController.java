@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.User;
@@ -21,7 +22,7 @@ public class UserController {
 		return "test";
 	}
 
-	@RequestMapping(path = "/")
+	@RequestMapping(path = { "/" })
 	public ModelAndView userProfile() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("UserProfile");
@@ -31,16 +32,27 @@ public class UserController {
 
 	@RequestMapping(path = "home.do")
 	public String homePage(Model model) {
-		return "index";
+		return "NewUser";
 
 	}
 
 	@RequestMapping(path = "makeUserUpdates.do")
-	public ModelAndView updateUser(int id, User user) {
-	ModelAndView mv = new ModelAndView();
-	mv.addObject("user", dao.updateUser(id, user));
-	mv.setViewName("UserProfile");
-	return mv;
+	public ModelAndView updateUser(User user) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dao.updateUser(user));
+		mv.setViewName("UserProfile");
+		return mv;
+	}
+
+	@RequestMapping(path = "newUser.do")
+	public ModelAndView createUser(User user, RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+
+		redir.addFlashAttribute("user", dao.createUser(user));
+		mv.setViewName("redirect:makeUserUpdates.do");
+
+		return mv;
+
 	}
 
 }

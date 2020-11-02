@@ -25,15 +25,14 @@ public class UserDAOImpl implements UserDAO {
 	public User createUser(User user) {
 
 		em.persist(user);
-		// update the "local" Customer object
 		em.flush();
 		return user;
 	}
 
 	@Transactional
 	@Override
-	public User updateUser(int id, User user) {
-		User dbuser = em.find(User.class, id);
+	public User updateUser(User user) {
+		User dbuser = em.find(User.class, user.getId());
 		User newuser = user;
 
 		dbuser.setAvatarUrl(newuser.getAvatarUrl());
@@ -47,4 +46,5 @@ public class UserDAOImpl implements UserDAO {
 		em.close();
 		return dbuser;
 	}
+
 }
