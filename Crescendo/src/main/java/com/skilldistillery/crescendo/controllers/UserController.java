@@ -1,5 +1,7 @@
 package com.skilldistillery.crescendo.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +55,27 @@ public class UserController {
 
 		return mv;
 
+	}
+	// will load splash page and only load error if user is null after login attempt: aka they don't have a profile created yet/password was incorrect/etc...
+	@RequestMapping(path = "login.do")
+	public ModelAndView userLogin(String username, String password, HttpSession session, RedirectAttributes redir) {
+		session.setAttribute("loggedIn", dao.attemptLogin(username, password));
+		String loginError = "FAILED: Username does not exist or password is incorrect";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("UserProfile");
+		if (session.getAttribute("loggedIn") == null) {
+			mv.addObject("loginError", loginError);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(path= "logout.do")
+	public ModelAndView userLogout(HttpSession session) {
+		session.setAttribute("loggedIn", null);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("UserProfile");
+		mv.addObject("user", dao.getTestUser());
+		return mv;
 	}
 
 }
