@@ -29,68 +29,53 @@
 				<c:choose>
 					<c:when test="${not empty user.avatarUrl }">
 						<img style='height: 100%; width: 100%; object-fit: contain'
-							alt="User Avatar" src="${user.avatarUrl}" />
+							 src="${user.avatarUrl}"
+							 class="rounded float-left"
+							 alt="User Avatar" />
 					</c:when>
 					<c:otherwise>
 						<img style='height: 100%; width: 100%; object-fit: contain'
 							src="https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
-							class="rounded mx-auto d-block"
+							class="rounded float-left"
 							alt="User has not selected an avatar">
-
-
 					</c:otherwise>
-
 				</c:choose>
 			</div>
+			
 			<div class="col">
-			<h3>Welcome User</h3>
+			<h2>Hello, ${user.firstName }!</h2>
 			
 			<form action="makeUserUpdates.do">
-				<input type="hidden" name="id" value="${user.id}" required>
+				<input type="hidden" name="id" value="${user.id}">
 				
 				<label for="username">User name/email</label><br>
-				<input type="text" name="username" value="${user.username} "><br>
+				<input type="text" name="username" value="${user.username}" required><br>
 				
 				<label for="password">User Password</label><br>
-				<input type="text" name="password" value="${user.password} "><br>
+				<input type="text" name="password" value="${user.password}" required><br>
 				
 				<label for="firstName">First name</label><br>
-				<input type="text" name="firstName" value="${user.firstName} "><br>
+				<input type="text" name="firstName" value="${user.firstName}" required><br>
 				
 				<label for="lastName">Last name</label><br>
-				<input type="text" name="lastName" value="${user.lastName} "><br>
+				<input type="text" name="lastName" value="${user.lastName}" required><br>
 				
 				<label for="avatarUrl">Avatar Url</label><br>
-				<input type="text" name="avatarUrl" value="${user.avatarUrl} "><br>
+				<input type="text" name="avatarUrl" value="${user.avatarUrl}"><br>
 				
 				<label for="body">User Bio</label><br>
-				<input type="text" name="body" value="${user.body} "><br>
-				
-				<input type="submit" value="Update">
-				
-				
+				<textarea name="body" rows="4" cols="40">${user.body}</textarea><br>
+				<input type="submit" value="Update">	
 			</form>
 			
-			
-			</div>
+			</div>	
 			
 		</div>
-		
 		<div class="row">
-		<h3>Recent Post</h3>
-		
-		<p> 
-		${user.blogs.get(0).body}
-		
+		<h4>Most Recent Post</h4> 
 		<br>
-		
-		Comments: ${user.blogs.get(0).blogComments.size()}
-		</p>
-		
-		
-		
-		
-		
+		<p>${user.blogs.get(0).body}</p>
+		<p>Comments: ${user.blogs.get(0).blogComments.size()}</p>
 		</div>
 
 

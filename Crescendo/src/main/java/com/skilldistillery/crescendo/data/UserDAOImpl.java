@@ -45,6 +45,6 @@ public class UserDAOImpl implements UserDAO {
 
 		em.flush();
 		em.close();
-		return user;
+		return dbuser;
 	}
 }
