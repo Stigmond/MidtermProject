@@ -9,24 +9,24 @@
 	<jsp:attribute name="body">
 			<div class="row">
 			<div class="col">
+				<div class="card">
+					<h3 class="card-title">${album.title}</h3>
+				<h4>By ${album.artist.name} (${album.releaseYear})</h4><br>
+				<p>${album.description}</p>
+				</div>
 				<c:choose>
 					<c:when test="${not empty album.coverUrl }">
-						<img style='height: 100%; width: 100%; object-fit: contain'
+						<img class="card-image-bottom" style='height: 100%; width: 100%; object-fit: contain'
 							src="${album.coverUrl}" class="rounded float-left"
 							alt="Cover Art" />
 					</c:when>
 					<c:otherwise>
-						<img style='height: 100%; width: 100%; object-fit: contain'
+						<img class="card-image-bottom" style='height: 100%; width: 100%; object-fit: contain'
 							src="https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
 							class="rounded float-left"
 							alt="No cover art uploaded for this album">
 					</c:otherwise>
-				</c:choose><br>
-				<h2>${album.title}</h2>
-				<br>
-				<h3>By ${album.artist.name} (${album.releaseYear})</h3>
-				<br><br>
-				<p>${album.description}</p>
+				</c:choose>
 			</div>
 		
 		<div id="sampleComments" class="col">
@@ -35,29 +35,6 @@
 					No comments on this album. Be the first to write one!
 				</c:when>
 				<c:otherwise>
-				<%-- <div class="row">
-					<c:choose>
-						<c:when test="${not empty commentSample.get(0).getBody()}">
-							${commentSample.get(0).getBody()}
-						</c:when>
-					</c:choose>
-				</div>
-				<div class="row">
-					<c:choose>
-						<c:when test="${commentSample.size() > 1 && not empty commentSample.get(1).body}">
-							${commentSample.get(1).getBody()}
-						</c:when>
-					</c:choose>
-				</div>
-				<div class="row">
-					<c:choose>
-						<c:when test="${commentSample.size() > 2 && not empty commentSample.get(2).getBody()}">
-							${commentSample.get(2).getBody()}
-						</c:when>
-					</c:choose>
-				</div>
-		<p>View all comments on this album</p> --%>
-		
 					<div class="card" style="width: 18rem;">
 						<div class="card-header">Recent comments on this album:</div>
   						<div class="card-body">
@@ -85,6 +62,10 @@
 							</c:choose>
   						</div>
   						
+  						<!-- TODO add controller method to create new album comment and another to view different types of comments based on params  -->
+  						<a href="makeAlbumComment.do?id=${ album.id }" class="btn btn-secondary">Comment on this album</a><br>
+  						<a href="viewComments.do?album=${ album.id }" class="btn btn-info">View all commments on this album</a><br>
+  						</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
