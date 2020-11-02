@@ -1,6 +1,7 @@
 package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -208,6 +207,99 @@ public class User {
 		this.albumComments = albumComments;
 	}
 
+	public void addBlog(Blog blog) {
+		if (blogs == null) {
+			blogs = new ArrayList<>();
+		}
+		if (!blogs.contains(blog)) {
+			blogs.add(blog);
+			blog.setUser(this);
+		}
+	}
+	public void removeBlog(Blog blog) {
+		if (blogs != null && blogs.contains(blog)) {
+			blogs.remove(blog);
+			blog.setUser(null);
+		}
+	}
+	
+	public void addTrade(Trade trade) {
+		if (trades == null) {
+			trades = new ArrayList<>();
+		}
+		if (!trades.contains(trade)) {
+			trades.add(trade);
+			trade.setUser(this);
+		}
+	}
+	public void removeTrade(Trade trade) {
+		if (trades != null && trades.contains(trade)) {
+			trades.remove(trade);
+			trade.setUser(null);
+		}
+	}
+	public void addThread(Thread thread) {
+		if (threads == null) {
+			threads = new ArrayList<>();
+		}
+		if (!threads.contains(thread)) {
+			threads.add(thread);
+			thread.setUser(this);
+		}
+	}
+	public void removeThread(Thread thread) {
+		if (threads != null && threads.contains(thread)) {
+			threads.remove(thread);
+			thread.setUser(null);
+		}
+	}
+	public void addBlogComment(BlogComment blogComment) {
+		if (blogComments == null) {
+			blogComments = new ArrayList<>();
+		}
+		if (!blogComments.contains(blogComment)) {
+			blogComments.add(blogComment);
+			blogComment.setUser(this);
+		}
+	}
+	public void removeBlogComment(BlogComment blogComment) {
+		if (blogComments != null && blogComments.contains(blogComment)) {
+			blogComments.remove(blogComment);
+			blogComment.setUser(null);
+		}
+	}
+	public void addAlbumComment(AlbumComment albumComment) {
+		if (albumComments == null) {
+			albumComments = new ArrayList<>();
+		}
+		if (!albumComments.contains(albumComment)) {
+			albumComments.add(albumComment);
+			albumComment.setUser(this);
+		}
+	}
+	public void removeAlbumComment(AlbumComment albumComment) {
+		if (albumComments != null && albumComments.contains(albumComment)) {
+			albumComments.remove(albumComment);
+			albumComment.setUser(null);
+		}
+	}
+	public void addThreadComment(ThreadComment threadComment) {
+		if (threadComments == null) {
+			threadComments = new ArrayList<>();
+		}
+		if (!threadComments.contains(threadComment)) {
+			threadComments.add(threadComment);
+			threadComment.setUser(this);
+		}
+	}
+	public void removeThreadComment(ThreadComment threadComment) {
+		if (threadComments != null && threadComments.contains(threadComment)) {
+			threadComments.remove(threadComment);
+			threadComment.setUser(null);
+		}
+	}
+
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled

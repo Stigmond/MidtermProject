@@ -1,6 +1,7 @@
 package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -90,6 +91,36 @@ public class Thread {
 
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
+	}
+	public void addGenre(Genre genre) {
+		if (genres == null) {
+			genres = new ArrayList<>();
+		}
+		if (!genres.contains(genre)) {
+			genres.add(genre);
+			genre.addThread(this);
+		}
+	}
+	public void removeGenre(Genre genre) {
+		if (genres != null && genres.contains(genre)) {
+			genres.remove(genre);
+			genre.removeThread(null);
+		}
+	}
+	public void addThreadComment(ThreadComment threadComment) {
+		if (threadComments == null) {
+			threadComments = new ArrayList<>();
+		}
+		if (!threadComments.contains(threadComment)) {
+			threadComments.add(threadComment);
+			threadComment.setThread(this);
+		}
+	}
+	public void removeThreadComment(ThreadComment threadComment) {
+		if (threadComments != null && threadComments.contains(threadComment)) {
+			threadComments.remove(threadComment);
+			threadComment.setThread(null);
+		}
 	}
 
 	@Override

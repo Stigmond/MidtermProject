@@ -1,5 +1,6 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -116,7 +117,38 @@ public class Album {
 	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
 	}
-
+	public void addAlbumComment(AlbumComment albumComment) {
+		if (albumComments == null) {
+			albumComments = new ArrayList<>();
+		}
+		if (!albumComments.contains(albumComment)) {
+			albumComments.add(albumComment);
+			albumComment.setAlbum(this);
+		}
+	}
+	public void removeAlbumComment(AlbumComment albumComment) {
+		if (albumComments != null && albumComments.contains(albumComment)) {
+			albumComments.remove(albumComment);
+			albumComment.setAlbum(null);
+		}
+	}
+	public void addGenre(Genre genre) {
+		if (genres == null) {
+			genres = new ArrayList<>();
+		}
+		if (!genres.contains(genre)) {
+			genres.add(genre);
+			genre.addAlbum(this);
+		}
+	}
+	public void removeGenre(Genre genre) {
+		if (genres != null && genres.contains(genre)) {
+			genres.remove(genre);
+			genre.removeAlbum(null);
+		}
+	}
+  
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
