@@ -8,5 +8,5 @@ public interface UserDAO {
 
 	User createUser(User user);
 
-	User updateUser(int id, User user);
+	User updateUser(User user);
 }

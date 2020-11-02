@@ -2,6 +2,7 @@ package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,11 +33,11 @@ public class BlogComment {
 	@Column(name = "in_reply_id")
 	private Integer inReplyId;
 	
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name= "blog_id")
 	private Blog blog;
 	
@@ -110,6 +111,61 @@ public class BlogComment {
 
 	public void setBlog(Blog blog) {
 		this.blog = blog;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((blog == null) ? 0 : blog.hashCode());
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + edited;
+		result = prime * result + id;
+		result = prime * result + ((inReplyId == null) ? 0 : inReplyId.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BlogComment other = (BlogComment) obj;
+		if (blog == null) {
+			if (other.blog != null)
+				return false;
+		} else if (!blog.equals(other.blog))
+			return false;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (edited != other.edited)
+			return false;
+		if (id != other.id)
+			return false;
+		if (inReplyId == null) {
+			if (other.inReplyId != null)
+				return false;
+		} else if (!inReplyId.equals(other.inReplyId))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
 	}
 
 	@Override
