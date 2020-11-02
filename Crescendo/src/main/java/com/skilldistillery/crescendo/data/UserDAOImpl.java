@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.User;
 
 @Service
@@ -59,6 +60,13 @@ public class UserDAOImpl implements UserDAO {
 				.getResultList();
 		return (validUsers.size() == 0) ? null : validUsers.get(0);
 	}
+
+	@Override
+	public Album getAlbumById(int id) {
+		return em.find(Album.class, id);
+	}
+	
+	
 
 	
 

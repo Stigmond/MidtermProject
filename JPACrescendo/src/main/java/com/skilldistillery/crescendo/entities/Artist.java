@@ -1,9 +1,12 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Artist {
@@ -11,6 +14,10 @@ public class Artist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@OneToMany(mappedBy= "artist")
+	private List <Album> albums;
+	
 
 	private String name;
 
@@ -18,11 +25,6 @@ public class Artist {
 		super();
 	}
 
-	public Artist(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
 
 	public int getId() {
 		return id;

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,9 +26,10 @@ public class Album {
 
 	@Column(name = "cover_url")
 	private String coverUrl;
-
-	@Column(name = "artist_id")
-	private int artistId;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "artist_id")
+	private Artist artist;
 
 	private String description;
 
@@ -66,7 +68,6 @@ public class Album {
 		this.id = id;
 		this.title = title;
 		this.coverUrl = coverUrl;
-		this.artistId = artistId;
 		this.description = description;
 		this.releaseYear = releaseYear;
 	}
@@ -95,14 +96,6 @@ public class Album {
 		this.coverUrl = coverUrl;
 	}
 
-	public int getArtistId() {
-		return artistId;
-	}
-
-	public void setArtistId(int artistId) {
-		this.artistId = artistId;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -118,6 +111,14 @@ public class Album {
 	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
 	}
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
 	public void addAlbumComment(AlbumComment albumComment) {
 		if (albumComments == null) {
 			albumComments = new ArrayList<>();
@@ -152,18 +153,16 @@ public class Album {
 	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Album [id=").append(id).append(", title=").append(title).append(", coverUrl=").append(coverUrl)
-				.append(", artistId=").append(artistId).append(", description=").append(description)
-				.append(", releaseYear=").append(releaseYear).append("]");
-		return builder.toString();
+		return "Album [id=" + id + ", title=" + title + ", coverUrl=" + coverUrl + ", artist=" + artist
+				+ ", description=" + description + ", releaseYear=" + releaseYear + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + artistId;
+		result = prime * result + ((albumComments == null) ? 0 : albumComments.hashCode());
+		result = prime * result + ((artist == null) ? 0 : artist.hashCode());
 		result = prime * result + ((coverUrl == null) ? 0 : coverUrl.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
@@ -181,7 +180,15 @@ public class Album {
 		if (getClass() != obj.getClass())
 			return false;
 		Album other = (Album) obj;
-		if (artistId != other.artistId)
+		if (albumComments == null) {
+			if (other.albumComments != null)
+				return false;
+		} else if (!albumComments.equals(other.albumComments))
+			return false;
+		if (artist == null) {
+			if (other.artist != null)
+				return false;
+		} else if (!artist.equals(other.artist))
 			return false;
 		if (coverUrl == null) {
 			if (other.coverUrl != null)

@@ -1,5 +1,8 @@
 package com.skilldistillery.crescendo.controllers;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.crescendo.data.UserDAO;
+import com.skilldistillery.crescendo.entities.Album;
+import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.User;
 
 @Controller
@@ -75,6 +80,21 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("UserProfile");
 		mv.addObject("user", dao.getTestUser());
+		return mv;
+	}
+	
+	@RequestMapping(path= "viewAlbum.do")
+	public ModelAndView displaySingleAlbum(int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("AlbumInfo");
+		Album album = dao.getAlbumById(id);
+		mv.addObject("album", album);
+		List <AlbumComment> commentSample = album.getAlbumComments();
+		Collections.shuffle(commentSample);
+		if (commentSample.size() > 2) {
+			commentSample = commentSample.subList(0, 2);
+		}
+		mv.addObject("commentSample", commentSample);
 		return mv;
 	}
 
