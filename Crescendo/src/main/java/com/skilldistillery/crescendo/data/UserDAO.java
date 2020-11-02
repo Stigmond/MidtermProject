@@ -1,5 +1,6 @@
 package com.skilldistillery.crescendo.data;
 
+import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.User;
 
 public interface UserDAO {
@@ -11,4 +12,6 @@ public interface UserDAO {
 	User updateUser(User user);
 	
 	User attemptLogin(String username,  String password);
+	
+	Album getAlbumById(int id);
 }
