@@ -3,6 +3,7 @@ package com.skilldistillery.crescendo.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,11 +34,11 @@ public class Album {
 	@Column(name = "release_year")
 	private int releaseYear;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "album_has_genre", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	private List<Genre> genres;
 
-	@OneToMany(mappedBy = "album")
+	@OneToMany(mappedBy = "album", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<AlbumComment> albumComments;
 
 	public List<AlbumComment> getAlbumComments() {

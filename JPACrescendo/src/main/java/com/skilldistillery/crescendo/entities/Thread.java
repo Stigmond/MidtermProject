@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Thread {
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
-	@OneToMany(mappedBy = "thread")
+	@OneToMany(mappedBy = "thread", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<ThreadComment> threadComments;
 
 	public List<ThreadComment> getThreadComments() {
@@ -41,11 +42,11 @@ public class Thread {
 		this.threadComments = threadComments;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
 	private User user;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "thread_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "thread_id"))
 	private List<Genre> genres;
 
