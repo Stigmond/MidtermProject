@@ -1,5 +1,7 @@
 package com.skilldistillery.crescendo.data;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -46,5 +48,18 @@ public class UserDAOImpl implements UserDAO {
 		em.close();
 		return dbuser;
 	}
+
+	@Override
+	public User attemptLogin(String username, String password) {
+		String query = "SELECT u FROM User u WHERE username = :name AND password = :password";
+		List <User> validUsers = em 
+				.createQuery(query)
+				.setParameter("name", username)
+				.setParameter("password", password)
+				.getResultList();
+		return (validUsers.size() == 0) ? null : validUsers.get(0);
+	}
+
+	
 
 }
