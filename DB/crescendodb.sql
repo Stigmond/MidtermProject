@@ -326,12 +326,12 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `crescendodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (1, 'admin', 'admin', 1, 'admin', NULL, 'TEX', 'CONNECTICUT', 'A DUMMY USER RECORD', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (2, 'b_e_n_d_e_r', 'bender', 1, 'commenter', NULL, NULL, 'BENDER', 'RODRIGUEZ', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (3, 'FryDay', 'fryday', 1, 'robot', NULL, NULL, 'PHILIP', 'FRY', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (4, 'BugZapper', 'bugzapper', 1, 'monkey', NULL, NULL, 'ZAPP', 'BRANNIGAN', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (5, 'pr0f3ss0r', 'professor', 1, 'pirate', NULL, NULL, 'HUBERT', 'FARNSWORTH', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (6, 'richerthanYOU', 'richerthanyou', 0, 'zombie', NULL, NULL, 'AMY', 'WONG', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (1, 'admin', 'admin', 1, 'admin', NULL, 'TEX', 'CONNECTICUT', 'A DUMMY USER RECORD', 'NULL');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (2, 'b_e_n_d_e_r', 'bender', 1, 'commenter', NULL, 'BENDER', 'RODRIGUEZ', 'ROBOT', 'NULL');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (3, 'FryDay', 'fryday', 1, 'robot', NULL, 'PHILIP', 'FRY', 'DUDE', 'NULL');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (4, 'BugZapper', 'bugzapper', 1, 'monkey', NULL, 'ZAPP', 'BRANNIGAN', 'DUMBER DUDE', 'NULL');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (5, 'pr0f3ss0r', 'professor', 1, 'pirate', NULL, 'HUBERT', 'FARNSWORTH', 'PROFESSORIAL', 'NULL');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `created_at`, `first_name`, `last_name`, `body`, `avatar_url`) VALUES (6, 'richerthanYOU', 'richerthanyou', 0, 'zombie', NULL, 'AMY', 'WONG', 'OF THE MARS WONGS', 'NULL');
 
 COMMIT;
 
@@ -354,16 +354,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `crescendodb`;
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (1, 'THE #FFFFFF ALBUM', NULL, 1, 'IT\'S WHITE', 2019);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (2, 'AQUAMARINE DREAMS', NULL, 3, 'RED SEEMS PRETTY SUS', 2002);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (3, 'VIRGIN SACRIFICE', NULL, 2, 'WHY WOULD YOU CARE?', 2014);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (4, 'TANGERINE FLAVORED', NULL, 3, 'INSERT DESCRIPTION HERE', 2008);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (5, 'ROSES ARE #FF0000', NULL, 1, 'COLOR CODED', 1989);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (6, 'FLOWER CANNIBAL', NULL, 2, 'NEGATIVE FEEDBACK', 1995);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (7, 'FAILURE TRACE', NULL, 4, 'INTENTIONALLY LEFT BLANK', 2012);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (8, 'THE #0000FF ALBUM', NULL, 1, 'IT\'S BLUE. NO, REALLY', 2001);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (9, 'FORGOT TO GIVE THIS A TITLE', NULL, 1, 'HAS ANYONE REALLY EVER BEEN FAR...', 2020);
-INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (10, 'HELP, I\'M TRAPPED IN A CD FACTORY', NULL, 2, 'KLAATU BARATA NICTO', 2009);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (1, 'THE #FFFFFF ALBUM', 'https://cms-assets.tutsplus.com/uploads/users/114/posts/34296/final_image/Final-image.jpg', 1, 'IT\'S WHITE', 2019);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (2, 'AQUAMARINE DREAMS', 'https://images-na.ssl-images-amazon.com/images/I/717VbeZb0bL._AC_SX679_.jpg', 3, 'RED SEEMS PRETTY SUS', 2002);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (3, 'VIRGIN SACRIFICE', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170545/Radiohead-Pablo-Honey-575x575.jpg', 2, 'WHY WOULD YOU CARE?', 2014);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (4, 'TANGERINE FLAVORED', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170554/AFI-The-Art-of-Drowning.jpg', 3, 'INSERT DESCRIPTION HERE', 2008);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (5, 'ROSES ARE #FF0000', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170602/Led-Zeppelin-III.jpg', 1, 'COLOR CODED', 1989);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (6, 'FLOWER CANNIBAL', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170536/Steve-Hackett-Defector.jpg', 2, 'NEGATIVE FEEDBACK', 1995);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (7, 'FAILURE TRACE', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170613/Outkast-Southern-301x300.jpg', 4, 'INTENTIONALLY LEFT BLANK', 2012);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (8, 'THE #0000FF ALBUM', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170807/Stevie-Wonder-In-Square-Circle.jpg', 1, 'IT\'S BLUE. NO, REALLY', 2001);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (9, 'FORGOT TO GIVE THIS A TITLE', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170622/The-Black-Keys-Brothers.jpg', 1, 'HAS ANYONE REALLY EVER BEEN FAR...', 2020);
+INSERT INTO `album` (`id`, `title`, `cover_url`, `artist_id`, `description`, `release_year`) VALUES (10, 'HELP, I\'M TRAPPED IN A CD FACTORY', 'https://glide-assets-media.s3.amazonaws.com/wp-content/uploads/2013/10/21170626/The-Rolling-Stones-Dirty-Work-360x360.jpg', 2, 'KLAATU BARATA NICTO', 2009);
 
 COMMIT;
 
@@ -552,23 +552,19 @@ START TRANSACTION;
 USE `crescendodb`;
 INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (1, 1);
 INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 2);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 4);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 5);
 INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 3);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 5);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 9);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 4);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 8);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 5);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 10);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (1, 6);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 6);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 10);
 INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 7);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 8);
 INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 4);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 9);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 4);
 INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 6);
-INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 2);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 5);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (4, 1);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (1, 6);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 3);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (2, 6);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 8);
+INSERT INTO `album_has_genre` (`genre_id`, `album_id`) VALUES (3, 1);
 
 COMMIT;
 
