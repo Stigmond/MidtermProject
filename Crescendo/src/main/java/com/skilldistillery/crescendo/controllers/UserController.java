@@ -101,7 +101,7 @@ public class UserController {
 		List <AlbumComment> commentSample = album.getAlbumComments();
 		Collections.shuffle(commentSample);
 		if (commentSample.size() > 2) {
-			commentSample = commentSample.subList(0, 2);
+			commentSample = commentSample.subList(0, 3);
 		}
 		mv.addObject("commentSample", commentSample);
 		return mv;
