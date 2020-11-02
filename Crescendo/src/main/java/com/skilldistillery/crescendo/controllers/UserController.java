@@ -36,10 +36,11 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "makeUserUpdates.do")
-	public String updateUser(int id, User user) {
-		User updateUser = dao.updateUser(id, user);
-		return "UserProfile";
-
+	public ModelAndView updateUser(int id, User user) {
+	ModelAndView mv = new ModelAndView();
+	mv.addObject("user", dao.updateUser(id, user));
+	mv.setViewName("UserProfile");
+	return mv;
 	}
 
 }
