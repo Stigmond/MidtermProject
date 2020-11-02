@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Blog {
 
 	private String title;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
 	private User user;
 	
@@ -50,13 +51,13 @@ public class Blog {
 	@Column(name = "header_media_url")
 	private String headerMediaUrl;
 	
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "blog_has_genre",
 	joinColumns = @JoinColumn(name = "blog_id"),
 	inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	private List <Genre> genres;
 	
-	@OneToMany(mappedBy="blog")
+	@OneToMany(mappedBy="blog", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List <BlogComment> blogComments;
 	
 	public Blog() {
