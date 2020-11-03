@@ -33,7 +33,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "getUserProfile.do")
-	public ModelAndView getUserProfile(int id) {
+	public ModelAndView getUserProfile(int id){
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dao.getUser(id));
 		mv.setViewName("UserProfile");
@@ -48,7 +48,7 @@ public class UserController {
 	}
 
 	@RequestMapping(path = {"/", "home.do"})
-	public ModelAndView homePage(Model model) {
+	public ModelAndView homePage() {
 		ModelAndView mv = new ModelAndView();
 		
 		List<Album> albums = dao.getAlbums();
