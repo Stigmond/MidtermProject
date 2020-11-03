@@ -9,7 +9,8 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="text-center">
-			<img src="https://craigswilson.com/wp-content/uploads/2012/02/live2.jpg" alt="Crescendo Logo">
+<!-- 			<img src="https://craigswilson.com/wp-content/uploads/2012/02/live2.jpg" alt="Crescendo Logo">
+ -->			<img src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg" alt="Crescendo Logo">
 			</div>
 		</div>			
 	</div>
@@ -56,7 +57,7 @@
   				<hr>
  				<div class="card-body">
   					<c:if test="${ not empty album1.albumComments}"><div class="card-text"><p class="text-justify">"${album1.albumComments.get(0).body}"</p></div></c:if>
-  				 	<a href="#" class="btn btn-primary">See more</a>
+  				 	<a href="viewAlbum.do?id=${album1.id}" class="btn btn-primary">See more</a>
   				</div>
 			</div>
 		</div>
@@ -71,7 +72,7 @@
   				<hr>
  				<div class="card-body">
   					<c:if test="${ not empty album2.albumComments}"><div class="card-text"><p class="text-justify">"${album2.albumComments.get(0).body}"</p></div></c:if>
-  				 	<a href="#" class="btn btn-primary">See more</a>
+  				 	<a href="viewAlbum.do?id=${album2.id}" class="btn btn-primary">See more</a>
   				</div>
 			</div>
 		</div>
@@ -86,7 +87,7 @@
   				<hr>
  				<div class="card-body">
   					<c:if test="${ not empty album3.albumComments}"><div class="card-text"><p class="test-justify">"${album3.albumComments.get(0).body}"</p></div></c:if>
-  				 	<a href="#" class="btn btn-primary">See more</a>
+  				 	<a href="viewAlbum.do?id=${album3.id}" class="btn btn-primary">See more</a>
   				</div>
 			</div>
 		</div>
