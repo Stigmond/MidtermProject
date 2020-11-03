@@ -32,7 +32,7 @@ public class UserController {
 		return "test";
 	}
 
-	@RequestMapping(path = { "/" })
+	@RequestMapping(path = { "userProfile.do" })
 	public ModelAndView userProfile() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("UserProfile");
@@ -40,14 +40,18 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(path = "home.do")
+	@RequestMapping(path = { "/", "home.do" })
 	public ModelAndView homePage(Model model) {
 		ModelAndView mv = new ModelAndView();
-		List<Album> albums = dao.getAlbums();
-		List<Blog> blogs = dao.getBlogs();
-		Collections.shuffle(albums);
-		mv.addObject("albums", albums);
-		mv.addObject("blogs", blogs);
+		List<Album> albumSample = dao.getAlbums();
+		Collections.shuffle(albumSample);
+		mv.addObject("album1", albumSample.get(0));
+		mv.addObject("album2", albumSample.get(1));
+		mv.addObject("album3", albumSample.get(2));
+
+		List<Blog> blogComs = dao.getBlogs();
+		Collections.shuffle(blogComs);
+		mv.addObject("blogs", blogComs.get(0));
 		mv.setViewName("index");
 		return mv;
 	}
@@ -70,7 +74,10 @@ public class UserController {
 		return mv;
 
 	}
-	// will load splash page and only load error if user is null after login attempt: aka they don't have a profile created yet/password was incorrect/etc...
+
+	// will load splash page and only load error if user is null after login
+	// attempt: aka they don't have a profile created yet/password was
+	// incorrect/etc...
 	@RequestMapping(path = "login.do")
 	public ModelAndView userLogin(String username, String password, HttpSession session, RedirectAttributes redir) {
 		session.setAttribute("loggedIn", dao.attemptLogin(username, password));
@@ -82,8 +89,8 @@ public class UserController {
 		}
 		return mv;
 	}
-	
-	@RequestMapping(path= "logout.do")
+
+	@RequestMapping(path = "logout.do")
 	public ModelAndView userLogout(HttpSession session) {
 		session.setAttribute("loggedIn", null);
 		ModelAndView mv = new ModelAndView();
@@ -91,14 +98,14 @@ public class UserController {
 		mv.addObject("user", dao.getTestUser());
 		return mv;
 	}
-	
-	@RequestMapping(path= "viewAlbum.do")
+
+	@RequestMapping(path = "viewAlbum.do")
 	public ModelAndView displaySingleAlbum(int id) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("AlbumInfo");
 		Album album = dao.getAlbumById(id);
 		mv.addObject("album", album);
-		List <AlbumComment> commentSample = album.getAlbumComments();
+		List<AlbumComment> commentSample = album.getAlbumComments();
 		Collections.shuffle(commentSample);
 		if (commentSample.size() > 2) {
 			commentSample = commentSample.subList(0, 2);
