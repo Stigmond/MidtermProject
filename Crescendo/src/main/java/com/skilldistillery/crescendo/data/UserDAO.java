@@ -13,16 +13,16 @@ import com.skilldistillery.crescendo.entities.User;
 public interface UserDAO {
 
 	User getTestUser();
+	
+	User getUser(int id);
 
 	User createUser(User user);
 
 	User updateUser(User user);
 
-
 	List<Album> getAlbums();
 
 	List<Blog> getBlogs();
-
 	
 	User attemptLogin(String username,  String password);
 	

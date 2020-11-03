@@ -31,8 +31,15 @@ public class UserController {
 		model.addAttribute("user", dao.getTestUser());
 		return "test";
 	}
-
-	@RequestMapping(path = { "userProfile.do" })
+	
+	@RequestMapping(path = "getUserProfile.do")
+	public ModelAndView getUserProfile(int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dao.getUser(id));
+		mv.setViewName("UserProfile");
+		return mv;
+	}
+	@RequestMapping(path = {"userProfile.do"})
 	public ModelAndView userProfile() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("UserProfile");
@@ -40,19 +47,21 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(path = { "/", "home.do" })
+	@RequestMapping(path = {"/", "home.do"})
 	public ModelAndView homePage(Model model) {
 		ModelAndView mv = new ModelAndView();
-		List<Album> albumSample = dao.getAlbums();
-		Collections.shuffle(albumSample);
-		mv.addObject("album1", albumSample.get(0));
-		mv.addObject("album2", albumSample.get(1));
-		mv.addObject("album3", albumSample.get(2));
+		
+		List<Album> albums = dao.getAlbums();
+		Collections.shuffle(albums);
+		mv.addObject("album1", albums.get(0));
+		mv.addObject("album2", albums.get(1));
+		mv.addObject("album3", albums.get(2));
 
 		List<Blog> blogs = dao.getBlogs();
 		Collections.shuffle(blogs);
 		mv.addObject("blogs", blogs.get(0));
 		mv.setViewName("index");
+		
 		return mv;
 	}
 
@@ -64,7 +73,7 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(path = "newUser.do")
+	@RequestMapping(path = "createUser.do")
 	public ModelAndView createUser(User user, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 

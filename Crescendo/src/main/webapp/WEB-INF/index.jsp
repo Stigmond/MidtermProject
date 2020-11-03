@@ -10,7 +10,7 @@
 		<div class="col-12">
 			<div class="text-center">
 <!-- 			<img src="https://craigswilson.com/wp-content/uploads/2012/02/live2.jpg" alt="Crescendo Logo">
- -->			<img src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg" alt="Crescendo Logo">
+ -->			<img src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg" width="100%" height="auto" alt="Crescendo Logo">
 			</div>
 		</div>			
 	</div>
@@ -32,10 +32,17 @@
 	<div class="row">
 	
 		<div class="col-4">
-			<img src="https://familyguyaddicts.files.wordpress.com/2015/08/rockstar-peter-2.png" width="240">
+			<c:choose>
+				<c:when test="${not empty blogs.user.avatarUrl}">
+				<a href="getUserProfile.do?id=${blogs.user.id}"><img src="${blogs.user.avatarUrl}" width="100%" height="auto" class="rounded float-left" alt="Blogger Avatar"></a>
+				</c:when>
+				<c:otherwise>
+				<a href="getUserProfile.do?id=${blogs.user.id}"><img src="https://familyguyaddicts.files.wordpress.com/2015/08/rockstar-peter-2.png" width="100%" height="auto" class="rounded float-left" alt="Default Avatar"></a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="col-8">
-			<p class="text-justify" class="font-weight-light">${blogs.body}</p>
+			<p class="text-justify">${blogs.body}</p>
 		</div>
 	</div>
 	<hr>	
