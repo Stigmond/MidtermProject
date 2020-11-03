@@ -15,10 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
+import com.skilldistillery.crescendo.entities.Artist;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.Parent;
-import com.skilldistillery.crescendo.entities.User;
 import com.skilldistillery.crescendo.entities.Thread;
+import com.skilldistillery.crescendo.entities.User;
 
 @Controller
 public class UserController {
@@ -31,15 +32,16 @@ public class UserController {
 		model.addAttribute("user", dao.getTestUser());
 		return "test";
 	}
-	
+
 	@RequestMapping(path = "getUserProfile.do")
-	public ModelAndView getUserProfile(int id){
+	public ModelAndView getUserProfile(int id) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dao.getUser(id));
 		mv.setViewName("UserProfile");
 		return mv;
 	}
-	@RequestMapping(path = {"userProfile.do"})
+
+	@RequestMapping(path = { "userProfile.do" })
 	public ModelAndView userProfile() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("UserProfile");
@@ -47,21 +49,21 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(path = {"/", "home.do"})
+	@RequestMapping(path = { "/", "home.do" })
 	public ModelAndView homePage() {
 		ModelAndView mv = new ModelAndView();
-		
-		List<Album> albums = dao.getAlbums();
-		Collections.shuffle(albums);
-		mv.addObject("album1", albums.get(0));
-		mv.addObject("album2", albums.get(1));
-		mv.addObject("album3", albums.get(2));
+//		
+//		List<Album> albums = dao.getAlbums();
+//		Collections.shuffle(albums);
+//		mv.addObject("album1", albums.get(0));
+//		mv.addObject("album2", albums.get(1));
+//		mv.addObject("album3", albums.get(2));
+//
+//		List<Blog> blogs = dao.getBlogs();
+//		Collections.shuffle(blogs);
+//		mv.addObject("blogs", blogs.get(0));
+		mv.setViewName("AddAlbum");
 
-		List<Blog> blogs = dao.getBlogs();
-		Collections.shuffle(blogs);
-		mv.addObject("blogs", blogs.get(0));
-		mv.setViewName("index");
-		
 		return mv;
 	}
 
@@ -122,8 +124,8 @@ public class UserController {
 		mv.addObject("commentSample", commentSample);
 		return mv;
 	}
-	
-	@RequestMapping(path= "viewComments.do")
+
+	@RequestMapping(path = "viewComments.do")
 	public ModelAndView showCommentThread(String type, int id) {
 		Parent parent = null;
 		Object parentObject = null;
@@ -136,7 +138,7 @@ public class UserController {
 		} else if (type.equals("album")) {
 			parent = Parent.ALBUM;
 			parentObject = dao.getAlbumById(id);
-		} 
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("parentType", parent);
 		switch (parent) {
@@ -154,6 +156,17 @@ public class UserController {
 			break;
 		}
 		return mv;
+	}
+
+	@RequestMapping(path = "createAlbum.do")
+	public ModelAndView createAlbum(Album album, String artistName, RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+
+		redir.addFlashAttribute("album", album = dao.createAlbum(album, artistName));
+		mv.setViewName("redirect:viewAlbum.do?id=" + album.getId());
+
+		return mv;
+
 	}
 
 }

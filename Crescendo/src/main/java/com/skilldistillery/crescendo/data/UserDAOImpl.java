@@ -9,9 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.crescendo.entities.Album;
-
+import com.skilldistillery.crescendo.entities.Artist;
 import com.skilldistillery.crescendo.entities.Blog;
-
 import com.skilldistillery.crescendo.entities.User;
 
 @Service
@@ -25,13 +24,12 @@ public class UserDAOImpl implements UserDAO {
 	public User getTestUser() {
 		return em.find(User.class, 1);
 	}
-	
+
 	@Override
 	public User getUser(int id) {
 		return em.find(User.class, id);
 	}
-	
-	@Transactional
+
 	@Override
 	public User createUser(User user) {
 
@@ -40,7 +38,6 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
-	@Transactional
 	@Override
 	public User updateUser(User user) {
 		User dbuser = em.find(User.class, user.getId());
@@ -57,7 +54,6 @@ public class UserDAOImpl implements UserDAO {
 		em.close();
 		return dbuser;
 	}
-
 
 	public List<Album> getAlbums() {
 
@@ -84,11 +80,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User attemptLogin(String username, String password) {
 		String query = "SELECT u FROM User u WHERE username = :name AND password = :password";
-		List <User> validUsers = em 
-				.createQuery(query)
-				.setParameter("name", username)
-				.setParameter("password", password)
-				.getResultList();
+		List<User> validUsers = em.createQuery(query, User.class).setParameter("name", username)
+				.setParameter("password", password).getResultList();
 		return (validUsers.size() == 0) ? null : validUsers.get(0);
 	}
 
@@ -96,10 +89,54 @@ public class UserDAOImpl implements UserDAO {
 	public Album getAlbumById(int id) {
 		return em.find(Album.class, id);
 	}
-	
-	
 
-	
+	@Override
+	public Album createAlbum(Album album, String artistName) {
+		Artist tempArtist = null;
+		tempArtist = findArtistByName(artistName);
+		if (tempArtist == null) {
+			tempArtist = new Artist();
+			tempArtist.setName(artistName);
+			tempArtist.addAlbum(album);
+			album.setArtist(tempArtist);
+		} else {
+			tempArtist.addAlbum(album);
+			album.setArtist(tempArtist);
+		}
+		em.persist(tempArtist);
+		em.persist(album);
+		em.flush();
+		return album;
+	}
 
+	@Override
+	public Artist findArtist(int id) {
+
+		Artist artist = em.find(Artist.class, id);
+
+		return artist;
+	}
+
+	@Override
+	public Artist findArtistByName(String artistName) {
+
+		String sql = "SELECT a FROM Artist a WHERE a.name = :name";
+		Artist artist;
+		try {
+			artist = em.createQuery(sql, Artist.class).setParameter("name", artistName).getSingleResult();
+		} catch (Exception e) {
+			artist = null;
+
+		}
+		return artist;
+	}
+
+	@Override
+	public Artist createArtist(Artist artist) {
+
+		em.persist(artist);
+		em.flush();
+		return artist;
+	}
 
 }
