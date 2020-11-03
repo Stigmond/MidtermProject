@@ -54,6 +54,25 @@ public class UserController {
 	public ModelAndView homePage() {
 		ModelAndView mv = new ModelAndView();
 
+		List<Album> albums = dao.getAlbums();
+		Collections.shuffle(albums);
+		mv.addObject("album1", albums.get(0));
+		mv.addObject("album2", albums.get(1));
+		mv.addObject("album3", albums.get(2));
+
+		List<Blog> blogs = dao.getBlogs();
+		Collections.shuffle(blogs);
+		mv.addObject("blogs", blogs.get(0));
+
+		mv.setViewName("index");
+
+		return mv;
+	}
+	
+	@RequestMapping( path = "editAlbum.do" )
+	public ModelAndView editAlbum() {
+		ModelAndView mv = new ModelAndView();
+
 //		List<Album> albums = dao.getAlbums();
 //		Collections.shuffle(albums);
 //		mv.addObject("album1", albums.get(0));
