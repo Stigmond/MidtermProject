@@ -17,8 +17,10 @@ import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.Parent;
-import com.skilldistillery.crescendo.entities.User;
+import com.skilldistillery.crescendo.entities.ResultType;
+import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
+import com.skilldistillery.crescendo.entities.User;
 
 @Controller
 public class UserController {
@@ -152,6 +154,60 @@ public class UserController {
 			mv.addObject("commentList", ((Album) parentObject).getAlbumComments());
 			mv.addObject("parentObject", (Album) parentObject);
 			break;
+		}
+		return mv;
+	}
+	
+	@RequestMapping(path= "search.do")
+	public ModelAndView searchResults(String val, String resultType, String searchType) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("searchResult");
+		switch(SearchType.get(searchType)) {
+			case KEYWORD:
+				switch(ResultType.get(resultType)) {
+					case BLOG:
+						mv.addObject("resultList", dao.getBlogsByKeyword(val));
+						break;
+					case ALBUM:
+						mv.addObject("resultList", dao.getAlbumsByKeyword(val));
+						break;
+					case TOPIC:
+						mv.addObject("resultList", dao.getTopicsByKeyword(val));
+						break;
+					case BLOG_COMMENT:
+						mv.addObject("resultList", dao.getBlogCommentsByKeyword(val));
+						break;
+					case ALBUM_COMMENT:
+						mv.addObject("resultList", dao.getAlbumCommentsByKeyword(val));
+						break;
+					case TOPIC_COMMENT:
+						mv.addObject("resultList", dao.getTopicCommentsByKeyword(val));
+						break;
+				}
+				break;
+			case USERNAME:
+				switch(ResultType.get(resultType)) {
+				case BLOG:
+					mv.addObject("resultList", dao.getBlogsByUser(val));
+					break;
+				case ALBUM:
+					mv.addObject("resultList", null);
+					mv.addObject("albumError", "...");
+					break;
+				case TOPIC:
+					mv.addObject("resultList", dao.getTopicsByUser(val));
+					break;
+				case BLOG_COMMENT:
+					mv.addObject("resultList", dao.getBlogCommentsByUser(val));
+					break;
+				case ALBUM_COMMENT:
+					mv.addObject("resultList", dao.getAlbumCommentsByUser(val));
+					break;
+				case TOPIC_COMMENT:
+					mv.addObject("resultList", dao.getTopicCommentsByUser(val));
+					break;
+				}
+				break;
 		}
 		return mv;
 	}
