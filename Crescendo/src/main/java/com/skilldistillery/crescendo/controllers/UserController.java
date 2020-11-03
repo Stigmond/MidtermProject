@@ -118,6 +118,8 @@ public class UserController {
 		mv.setViewName("UserProfile");
 		if (session.getAttribute("loggedIn") == null) {
 			mv.addObject("loginError", loginError);
+		} else {
+			mv.addObject("user" , session.getAttribute( "loggedIn" ) );
 		}
 		return mv;
 	}
