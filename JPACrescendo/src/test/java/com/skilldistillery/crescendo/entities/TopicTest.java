@@ -17,11 +17,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ThreadCommentTest {
+class TopicTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private ThreadComment tcomment;
+	private Topic thread;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -36,35 +36,55 @@ class ThreadCommentTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		tcomment = em.find(ThreadComment.class, 1);
+		thread = em.find(Topic.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		tcomment = null;
+		thread = null;
 		em = null;
 	}
 
 	@Test
-	@DisplayName("testing thread comment entity")
+	@DisplayName("testing thread entity")
 	void threadEntity() {
-		assertNotNull(tcomment);
-		assertEquals("OH GODS WHY", tcomment.getBody());
+		assertNotNull(thread);
+		assertEquals("RANDOM DISCUSSION THREAD", thread.getTitle());
+
 	}
 
 	@Test
-	@DisplayName("testing thread comment to thread entity")
-	void threadToComment() {
-		assertNotNull(tcomment);
-		assertEquals("RANDOM DISCUSSION THREAD", tcomment.getThread().getTitle());
+	@DisplayName("testing thread creation time stamp")
+	void threadTime() {
+
+		Topic newThread = new Topic();
+
+		newThread.setTitle("title");
+		newThread.setUser(em.find(User.class, 1));
+		em.getTransaction().begin();
+		em.persist(newThread);
+		em.flush();
+
+		em.getTransaction().commit();
+
+		assertNotNull(newThread.getCreatedAt());
+
 	}
 
 	@Test
-	@DisplayName("testing thread comment to user entity")
-	void threadToUser() {
-		assertNotNull(tcomment);
-//		assertEquals("TEX", tcomment.getUser().getFirstName());
-		assertEquals("A DUMMY USER RECORD", tcomment.getUser().getBody());
+	@DisplayName("testing thread user mapping")
+	void threadToUserMapping() {
+		assertNotNull(thread);
+		assertEquals("TEX", thread.getUser().getFirstName());
+
+	}
+
+	@Test
+	@DisplayName("Thread to Genre Mapping")
+	void threadToGenre() {
+		assertNotNull(thread);
+		assertTrue(thread.getGenres().size() > 0);
+		assertEquals("NEO-CLASSICAL POST-METAL", thread.getGenres().get(0).getName());
 	}
 
 }
