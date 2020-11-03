@@ -18,7 +18,7 @@ import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.Parent;
 import com.skilldistillery.crescendo.entities.User;
-import com.skilldistillery.crescendo.entities.Thread;
+import com.skilldistillery.crescendo.entities.Topic;
 
 @Controller
 public class UserController {
@@ -145,8 +145,8 @@ public class UserController {
 			mv.addObject("parentObject", (Blog) parentObject);
 			break;
 		case THREAD:
-			mv.addObject("commentList", ((Thread) parentObject).getThreadComments());
-			mv.addObject("parentObject", (Thread) parentObject);
+			mv.addObject("commentList", ((Topic) parentObject).getThreadComments());
+			mv.addObject("parentObject", (Topic) parentObject);
 			break;
 		case ALBUM:
 			mv.addObject("commentList", ((Album) parentObject).getAlbumComments());

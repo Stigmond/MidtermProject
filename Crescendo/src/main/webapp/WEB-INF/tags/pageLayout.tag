@@ -26,7 +26,7 @@
 		<jsp:invoke fragment="body" />
 
 	</div>
-
+<t:searchbar/>
 	<t:bootstrapjs />
 
 </body>

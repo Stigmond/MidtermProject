@@ -15,11 +15,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
-
+@Table(name= "thread")
 @Entity
-public class Thread {
+public class Topic {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +33,13 @@ public class Thread {
 	private LocalDateTime createdAt;
 
 	@OneToMany(mappedBy = "thread", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private List<ThreadComment> threadComments;
+	private List<TopicComment> threadComments;
 
-	public List<ThreadComment> getThreadComments() {
+	public List<TopicComment> getThreadComments() {
 		return threadComments;
 	}
 
-	public void setThreadComments(List<ThreadComment> threadComments) {
+	public void setThreadComments(List<TopicComment> threadComments) {
 		this.threadComments = threadComments;
 	}
 
@@ -50,7 +51,7 @@ public class Thread {
 	@JoinTable(name = "thread_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "thread_id"))
 	private List<Genre> genres;
 
-	public Thread() {
+	public Topic() {
 		super();
 	}
 
@@ -108,7 +109,7 @@ public class Thread {
 			genre.removeThread(null);
 		}
 	}
-	public void addThreadComment(ThreadComment threadComment) {
+	public void addThreadComment(TopicComment threadComment) {
 		if (threadComments == null) {
 			threadComments = new ArrayList<>();
 		}
@@ -117,7 +118,7 @@ public class Thread {
 			threadComment.setThread(this);
 		}
 	}
-	public void removeThreadComment(ThreadComment threadComment) {
+	public void removeThreadComment(TopicComment threadComment) {
 		if (threadComments != null && threadComments.contains(threadComment)) {
 			threadComments.remove(threadComment);
 			threadComment.setThread(null);
@@ -148,7 +149,7 @@ public class Thread {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Thread other = (Thread) obj;
+		Topic other = (Topic) obj;
 		if (createdAt == null) {
 			if (other.createdAt != null)
 				return false;
