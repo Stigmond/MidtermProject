@@ -1,6 +1,6 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:pageLayout>
 	<jsp:attribute name="title">Crescendo Home Page</jsp:attribute>
@@ -9,7 +9,9 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="text-center">
-	 			<img src="https://craigswilson.com/wp-content/uploads/2012/02/live2.jpg" alt="Crescendo Logo">
+	 			<img
+						src="https://craigswilson.com/wp-content/uploads/2012/02/live2.jpg"
+						alt="Crescendo Logo">
 <!--  				<img src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg" width="100%" height="auto" alt="Crescendo Logo">
  -->			</div>
 		</div>			
@@ -34,10 +36,15 @@
 		<div class="col-4">
 			<c:choose>
 				<c:when test="${not empty blogs.user.avatarUrl}">
-				<a href="getUserProfile.do?id=${blogs.user.id}"><img src="${blogs.user.avatarUrl}" width="100%" height="auto" class="rounded float-left" alt="Blogger Avatar"></a>
+				<a href="getUserProfile.do?id=${blogs.user.id}"><img
+							src="${blogs.user.avatarUrl}" width="100%" height="auto"
+							class="rounded float-left" alt="Blogger Avatar"></a>
 				</c:when>
 				<c:otherwise>
-				<a href="getUserProfile.do?id=${blogs.user.id}"><img src="https://familyguyaddicts.files.wordpress.com/2015/08/rockstar-peter-2.png" width="100%" height="auto" class="rounded float-left" alt="Default Avatar"></a>
+				<a href="getUserProfile.do?id=${blogs.user.id}"><img
+							src="https://familyguyaddicts.files.wordpress.com/2015/08/rockstar-peter-2.png"
+							width="100%" height="auto" class="rounded float-left"
+							alt="Default Avatar"></a>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -60,10 +67,15 @@
   				<div class="text-center">
   					<h5 class="card-title">${album1.title}</h5>
   				</div>
-  				<img class="card-img-top" src="${album1.coverUrl}" alt="Album Image">
+  				<img class="card-img-top" src="${album1.coverUrl}"
+						alt="Album Image">
   				<hr>
  				<div class="card-body">
-  					<c:if test="${ not empty album1.albumComments}"><div class="card-text"><p class="text-justify">"${album1.albumComments.get(0).body}"</p></div></c:if>
+  					<c:if test="${ not empty album1.albumComments}">
+							<div class="card-text">
+								<p class="text-justify">"${album1.albumComments.get(0).body}"</p>
+							</div>
+						</c:if>
   				 	<a href="viewAlbum.do?id=${album1.id}" class="btn btn-primary">See more</a>
   				</div>
 			</div>
@@ -75,10 +87,15 @@
   				<div class="text-center">
   					<h5 class="card-title">${album2.title}</h5>
   				</div>
-  				<img class="card-img-top" src="${album2.coverUrl}" alt="Album Image">
+  				<img class="card-img-top" src="${album2.coverUrl}"
+						alt="Album Image">
   				<hr>
  				<div class="card-body">
-  					<c:if test="${ not empty album2.albumComments}"><div class="card-text"><p class="text-justify">"${album2.albumComments.get(0).body}"</p></div></c:if>
+  					<c:if test="${ not empty album2.albumComments}">
+							<div class="card-text">
+								<p class="text-justify">"${album2.albumComments.get(0).body}"</p>
+							</div>
+						</c:if>
   				 	<a href="viewAlbum.do?id=${album2.id}" class="btn btn-primary">See more</a>
   				</div>
 			</div>
@@ -90,16 +107,21 @@
   				<div class="text-center">
   					<h5 class="card-title">${album3.title}</h5>
   				</div>
-  				<img class="card-img-top" src="${album3.coverUrl}" alt="Album Image">
+  				<img class="card-img-top" src="${album3.coverUrl}"
+						alt="Album Image">
   				<hr>
  				<div class="card-body">
-  					<c:if test="${ not empty album3.albumComments}"><div class="card-text"><p class="test-justify">"${album3.albumComments.get(0).body}"</p></div></c:if>
+  					<c:if test="${ not empty album3.albumComments}">
+							<div class="card-text">
+								<p class="test-justify">"${album3.albumComments.get(0).body}"</p>
+							</div>
+						</c:if>
   				 	<a href="viewAlbum.do?id=${album3.id}" class="btn btn-primary">See more</a>
   				</div>
 			</div>
 		</div>
-		
-	</div>
+		<a href="newAlbum.do">Create A New Album Here!</a>
+		</div>
 		
 	</jsp:attribute>
 </t:pageLayout>

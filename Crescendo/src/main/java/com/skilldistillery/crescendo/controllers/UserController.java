@@ -52,17 +52,17 @@ public class UserController {
 	@RequestMapping(path = { "/", "home.do" })
 	public ModelAndView homePage() {
 		ModelAndView mv = new ModelAndView();
-//		
-//		List<Album> albums = dao.getAlbums();
-//		Collections.shuffle(albums);
-//		mv.addObject("album1", albums.get(0));
-//		mv.addObject("album2", albums.get(1));
-//		mv.addObject("album3", albums.get(2));
-//
-//		List<Blog> blogs = dao.getBlogs();
-//		Collections.shuffle(blogs);
-//		mv.addObject("blogs", blogs.get(0));
-		mv.setViewName("AddAlbum");
+
+		List<Album> albums = dao.getAlbums();
+		Collections.shuffle(albums);
+		mv.addObject("album1", albums.get(0));
+		mv.addObject("album2", albums.get(1));
+		mv.addObject("album3", albums.get(2));
+
+		List<Blog> blogs = dao.getBlogs();
+		Collections.shuffle(blogs);
+		mv.addObject("blogs", blogs.get(0));
+		mv.setViewName("index");
 
 		return mv;
 	}
@@ -167,6 +167,14 @@ public class UserController {
 
 		return mv;
 
+	}
+
+	@RequestMapping(path = "newAlbum.do")
+	public ModelAndView newAlbum() {
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName("AddAlbum");
+		return mv;
 	}
 
 }
