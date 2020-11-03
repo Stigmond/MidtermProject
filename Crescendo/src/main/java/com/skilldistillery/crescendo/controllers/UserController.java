@@ -49,9 +49,9 @@ public class UserController {
 		mv.addObject("album2", albumSample.get(1));
 		mv.addObject("album3", albumSample.get(2));
 
-		List<Blog> blogComs = dao.getBlogs();
-		Collections.shuffle(blogComs);
-		mv.addObject("blogs", blogComs.get(0));
+		List<Blog> blogs = dao.getBlogs();
+		Collections.shuffle(blogs);
+		mv.addObject("blogs", blogs.get(0));
 		mv.setViewName("index");
 		return mv;
 	}
