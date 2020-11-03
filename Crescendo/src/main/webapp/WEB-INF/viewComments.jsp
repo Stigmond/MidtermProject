@@ -4,7 +4,7 @@
 <t:pageLayout>
 <jsp:attribute name="title">Viewing comment thread</jsp:attribute>
 <jsp:attribute name="body">
-<div class="card">
+
 <!-- FIXME: Header is not displaying properly-->
 <c:choose>
 <c:when test="${parentType == Parent.BLOG}">
@@ -18,14 +18,11 @@
 </c:when>
 </c:choose>
 <c:forEach var= "c" items= "${commentList}">
-<div class= "card-body">
+<div class= "card">
 <h4 class= "card-title">${c.user.username} (${c.createdAt}) says: </h4><br>
-<p>${c.body}</p>
+<p class="card-text">${c.body}</p>
 </div>
 </c:forEach>
 
-
-
-</div>
 </jsp:attribute>
 </t:pageLayout>
