@@ -25,7 +25,12 @@ public class UserDAOImpl implements UserDAO {
 	public User getTestUser() {
 		return em.find(User.class, 1);
 	}
-
+	
+	@Override
+	public User getUser(int id) {
+		return em.find(User.class, id);
+	}
+	
 	@Transactional
 	@Override
 	public User createUser(User user) {

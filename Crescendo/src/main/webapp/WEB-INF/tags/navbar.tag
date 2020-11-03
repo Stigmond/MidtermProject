@@ -5,7 +5,7 @@
 <nav class="navbar">
 	<div class="row">
 		<div class="col">
-			<a class="navbar-nav" href="/">Home</a>
+			<a class="navbar-nav" href="home.do">Home</a>
 		</div>
 	</div>
 	<div class="col">
