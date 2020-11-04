@@ -16,6 +16,7 @@ import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
 import com.skilldistillery.crescendo.entities.Topic;
 import com.skilldistillery.crescendo.entities.TopicComment;
+import com.skilldistillery.crescendo.entities.Trade;
 import com.skilldistillery.crescendo.entities.User;
 
 @Service
@@ -233,6 +234,36 @@ public class UserDAOImpl implements UserDAO {
 		em.persist(artist);
 		em.flush();
 		return artist;
+	}
+
+	@Override
+	public List<Trade> getBuySell() {
+		String query = "SELECT t FROM Trade t WHERE (t.direction = 'buy' OR t.direction = 'sell') AND t.active=1";
+		return em
+				.createQuery(query, Trade.class)
+				.getResultList();
+	}
+
+	@Override
+	public List<Trade> getTrades() {
+		String query = "SELECT t FROM Trade t WHERE t.direction = 'trade' AND t.active=1";
+		return em
+				.createQuery(query, Trade.class)
+				.getResultList();
+	}
+
+	@Override
+	public Trade getTradeById(int id) {
+		return em.find(Trade.class, id);
+	}
+
+	@Override
+	public List<Trade> getTradesByUser(int id) {
+		String query = "SELECT t FROM Trade t WHERE t.user.id=:cid";
+		return em
+				.createQuery(query, Trade.class)
+				.setParameter("cid", id)
+				.getResultList();
 	}
 
 }
