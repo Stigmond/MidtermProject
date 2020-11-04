@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="form-row">
-      <label for="validationCustom02">Cover Image (Url)</label>
+      <label for="validationCustom02">Cover Image (URL)</label>
       <input type="text" class="form-control" id="validationCustom02"
 									name="coverUrl" value="${album.coverUrl}" required>
       <div class="valid-feedback">
@@ -81,7 +81,8 @@
       </div>
 							
 							</div>
-  <button class="btn btn-primary" type="submit">Submit form</button>
+		<br>
+  <button class="btn btn-primary" type="submit">Update</button>
 </form>
 					</div>
 <script>

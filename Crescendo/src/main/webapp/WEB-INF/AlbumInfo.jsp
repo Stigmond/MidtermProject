@@ -14,6 +14,9 @@
 				<h4>By ${album.artist.name} (${album.releaseYear})</h4>
 					<br>
 				<p>${album.description}</p>
+					<c:if test="${not empty sessionScope.loggedIn}">
+				    <a href="editAlbum.do?id=${album.id}" class="btn btn-info">Edit Album Info</a>
+				    </c:if>
 				</div>
 				<c:choose>
 					<c:when test="${not empty album.coverUrl }">
@@ -76,7 +79,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-<a href="editAlbum.do?id=${album.id}">Update/Edit The Album</a>
+
 	
 	</jsp:attribute>
 </t:pageLayout>
