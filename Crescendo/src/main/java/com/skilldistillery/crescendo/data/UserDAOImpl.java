@@ -34,10 +34,7 @@ public class UserDAOImpl implements UserDAO {
 	public User getUser(int id) {
 		return em.find(User.class, id);
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 536d6ad9e09ff107a2be8773d5ae2108199adfa0
 	@Override
 	public User createUser(User user) {
 
@@ -89,14 +86,6 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT u FROM User u WHERE username = :name AND password = :password";
 		List<User> validUsers = em.createQuery(query, User.class).setParameter("name", username)
 				.setParameter("password", password).getResultList();
-<<<<<<< HEAD
-=======
-		List <User> validUsers = em 
-				.createQuery(query, User.class)
-				.setParameter("name", username)
-				.setParameter("password", password)
-				.getResultList();
->>>>>>> 536d6ad9e09ff107a2be8773d5ae2108199adfa0
 		return (validUsers.size() == 0) ? null : validUsers.get(0);
 	}
 
@@ -174,7 +163,6 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT a FROM Album a WHERE a.description LIKE :kw OR a.title LIKE :kw";
 		return em.createQuery(query, Album.class).setParameter("kw", "%" + keyword + "%").getResultList();
 
-<<<<<<< HEAD
 	}
 
 	@Override
@@ -188,7 +176,8 @@ public class UserDAOImpl implements UserDAO {
 		dalbum.setReleaseYear(newalbum.getReleaseYear());
 		em.flush();
 		return dalbum;
-=======
+	}
+
 	@Override
 	public Album createAlbum(Album album, String artistName) {
 		Artist tempArtist = null;
@@ -236,7 +225,6 @@ public class UserDAOImpl implements UserDAO {
 		em.persist(artist);
 		em.flush();
 		return artist;
->>>>>>> 536d6ad9e09ff107a2be8773d5ae2108199adfa0
 	}
 
 }
