@@ -156,7 +156,7 @@ public class Trade {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Trade [id=").append(id).append(", direction=").append(direction).append(", goodType=")
 				.append(goodType).append(", body=").append(body).append(", title=").append(title).append(", createdAt=")
-				.append(createdAt).append(", active=").append(active).append("]");
+				.append(createdAt).append(", active=").append(active).append(", user=").append(user).append("]");
 		return builder.toString();
 	}
 

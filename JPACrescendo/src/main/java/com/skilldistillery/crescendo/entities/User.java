@@ -348,9 +348,10 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", createdAt=" + createdAt + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", body=" + body + ", avatarUrl=" + avatarUrl + ", blogs=" + blogs + ", trades=" + trades + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [username=").append(username).append(", firstName=").append(firstName)
+				.append(", lastName=").append(lastName).append("]");
+		return builder.toString();
 	}
 
 	

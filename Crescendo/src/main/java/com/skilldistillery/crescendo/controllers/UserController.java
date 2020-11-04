@@ -16,10 +16,11 @@ import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
-import com.skilldistillery.crescendo.entities.Parent;
+import com.skilldistillery.crescendo.entities.BlogComment;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
+import com.skilldistillery.crescendo.entities.TopicComment;
 import com.skilldistillery.crescendo.entities.User;
 
 @Controller
@@ -153,33 +154,21 @@ public class UserController {
 
 	@RequestMapping(path = "viewComments.do")
 	public ModelAndView showCommentThread(String type, int id) {
-		Parent parent = null;
 		Object parentObject = null;
-		if (type.equals("blog")) {
-			parent = Parent.BLOG;
-//			parentObject = em.find(Blog.class, id);
-		} else if (type.equals("thread")) {
-			parent = Parent.THREAD;
-//			parentObject = em.find(Thread.class, id);
-		} else if (type.equals("album")) {
-			parent = Parent.ALBUM;
-			parentObject = dao.getAlbumById(id);
-		}
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("parentType", parent);
-		switch (parent) {
-		case BLOG:
+		if (type.toLowerCase().equals("blog")) {
+			parentObject = dao.getBlogById(id);
 			mv.addObject("commentList", ((Blog) parentObject).getBlogComments());
 			mv.addObject("parentObject", (Blog) parentObject);
-			break;
-		case THREAD:
+		} else if (type.toLowerCase().equals("topic")) {
+			parentObject = dao.getTopicById(id);
 			mv.addObject("commentList", ((Topic) parentObject).getThreadComments());
 			mv.addObject("parentObject", (Topic) parentObject);
-			break;
-		case ALBUM:
+			mv.addObject("firstComment", dao.getFirstCommentOnTopic(id));
+		} else if (type.toLowerCase().equals("album")) {
+			parentObject = dao.getAlbumById(id);
 			mv.addObject("commentList", ((Album) parentObject).getAlbumComments());
 			mv.addObject("parentObject", (Album) parentObject);
-			break;
 		}
 		return mv;
 	}
@@ -261,35 +250,122 @@ public class UserController {
 		mv.setViewName("AddAlbum");
 		return mv;
 	}
-	
-	@RequestMapping(path= "openTrades.do")
+
+	@RequestMapping(path = "openTrades.do")
 	public ModelAndView showAllTrades() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("openTrades");
 		mv.addObject("buySellList", dao.getBuySell());
 		mv.addObject("tradeList", dao.getTrades());
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(path= "tradePage.do")
+
+	@RequestMapping(path = "tradePage.do")
 	public ModelAndView showSingleTrade(int id) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("tradePage");
 		mv.addObject("t", dao.getTradeById(id));
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(path= "tradeSearch.do", params= "cid")
+
+	@RequestMapping(path = "tradeSearch.do", params = "cid")
 	public ModelAndView showTradesByCreator(int cid) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("tradeList");
 		mv.addObject("resultList", dao.getTradesByUser(cid));
-		
+
 		return mv;
 	}
-	
-	
+
+	@RequestMapping(path = "commentReply.do")
+	public ModelAndView postCommentReply(String body, HttpSession session, RedirectAttributes redir) {
+
+		ModelAndView mv = new ModelAndView();
+
+//		mv.setViewName("viewComments");
+		if (session.getAttribute("replyingTo").getClass().getSimpleName().toLowerCase().equals("album")) {
+			mv.setViewName(String.format("redirect:viewComments.do?type=%s&id=%s",
+					session.getAttribute("replyingTo").getClass().getSimpleName().toLowerCase(),
+					((Album) session.getAttribute("replyingTo")).getId()));
+			AlbumComment comment = new AlbumComment();
+			comment.setUser(dao.getUser(((User) session.getAttribute("loggedIn")).getId()));
+			comment.setBody(body);
+			comment.setEdited(0);
+			comment.setAlbum(dao.getAlbumById(((Album) session.getAttribute("replyingTo")).getId()));
+			comment = dao.addReplyToAlbum(comment);
+			redir.addFlashAttribute("parentObject",
+					dao.getAlbumById(((Album) session.getAttribute("replyingTo")).getId()));
+			redir.addFlashAttribute("commentList",
+					dao.getAlbumById(((Album) session.getAttribute("replyingTo")).getId()).getAlbumComments());
+
+//			mv.addObject("commentList", ((Album) session.getAttribute("replyingTo")).getAlbumComments());
+//			mv.addObject("parentObject", (Album) session.getAttribute("replyingTo"));
+
+		} else if (session.getAttribute("replyingTo").getClass().getSimpleName().toLowerCase().equals("topic")) {
+			mv.setViewName(String.format("redirect:viewComments.do?type=%s&id=%s",
+					session.getAttribute("replyingTo").getClass().getSimpleName().toLowerCase(),
+					((Topic) session.getAttribute("replyingTo")).getId()));
+			TopicComment comment = new TopicComment();
+			comment.setUser(dao.getUser(((User) session.getAttribute("loggedIn")).getId()));
+			comment.setBody(body);
+			comment.setEdited(0);
+			comment.setThread(dao.getTopicById(((Topic) session.getAttribute("replyingTo")).getId()));
+			comment = dao.addReplyToTopic(comment);
+			redir.addFlashAttribute("parentObject",
+					dao.getTopicById(((Topic) session.getAttribute("replyingTo")).getId()));
+			redir.addFlashAttribute("commentList",
+					dao.getTopicById(((Topic) session.getAttribute("replyingTo")).getId()).getThreadComments());
+
+//			mv.addObject("commentList", ((Topic) session.getAttribute("replyingTo")).getThreadComments());
+//			mv.addObject("parentObject", (Topic) session.getAttribute("replyingTo"));
+
+		} else if (session.getAttribute("replyingTo").getClass().getSimpleName().toLowerCase().equals("blog")) {
+			mv.setViewName(String.format("redirect:viewComments.do?type=%s&id=%s",
+					session.getAttribute("replyingTo").getClass().getSimpleName().toLowerCase(),
+					((Blog) session.getAttribute("replyingTo")).getId()));
+			BlogComment comment = new BlogComment();
+			comment.setUser(dao.getUser(((User) session.getAttribute("loggedIn")).getId()));
+			comment.setBody(body);
+			comment.setEdited(0);
+			comment.setBlog(dao.getBlogById(((Blog) session.getAttribute("replyingTo")).getId()));
+			comment = dao.addReplyToBlog(comment);
+			redir.addFlashAttribute("parentObject",
+					dao.getBlogById(((Blog) session.getAttribute("replyingTo")).getId()));
+			redir.addFlashAttribute("commentList",
+					dao.getBlogById(((Blog) session.getAttribute("replyingTo")).getId()).getBlogComments());
+
+//			mv.addObject("commentList", ((Blog) session.getAttribute("replyingTo")).getBlogComments());
+//			mv.addObject("parentObject", (Blog) session.getAttribute("replyingTo"));
+
+		}
+
+//		session.setAttribute("replyingTo", null);
+//		if (type.toLowerCase().equals("blog")) {
+//			parentObject = dao.getBlogById(id);
+//			mv.addObject("commentList", ((Blog) parentObject).getBlogComments());
+//			mv.addObject("parentObject", (Blog) parentObject);}
+
+		return mv;
+
+	}
+
+	@RequestMapping(path = "reply.do")
+	public String startReply(String parent, int id, HttpSession session) {
+		if (session.getAttribute("loggedIn") == null) {
+			return "index";
+		}
+		if (parent.toLowerCase().equals("album")) {
+			session.setAttribute("replyingTo", dao.getAlbumById(id));
+		} else if (parent.toLowerCase().equals("blog")) {
+			session.setAttribute("replyingTo", dao.getBlogById(id));
+
+		} else if (parent.toLowerCase().equals("topic")) {
+			session.setAttribute("replyingTo", dao.getTopicById(id));
+		}
+
+		return "Reply";
+	}
 
 }
