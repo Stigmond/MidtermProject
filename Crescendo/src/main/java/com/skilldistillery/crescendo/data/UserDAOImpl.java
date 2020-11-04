@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.crescendo.entities.Album;
+import com.skilldistillery.crescendo.entities.Artist;
+import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
@@ -27,12 +29,11 @@ public class UserDAOImpl implements UserDAO {
 	public User getTestUser() {
 		return em.find(User.class, 1);
 	}
-	
+
 	@Override
 	public User getUser(int id) {
 		return em.find(User.class, id);
 	}
-	
 	@Override
 	public User createUser(User user) {
 
@@ -56,7 +57,6 @@ public class UserDAOImpl implements UserDAO {
 		em.flush();
 		return dbuser;
 	}
-
 
 	public List<Album> getAlbums() {
 
@@ -83,6 +83,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User attemptLogin(String username, String password) {
 		String query = "SELECT u FROM User u WHERE username = :name AND password = :password";
+		List<User> validUsers = em.createQuery(query, User.class).setParameter("name", username)
+				.setParameter("password", password).getResultList();
 		List <User> validUsers = em 
 				.createQuery(query, User.class)
 				.setParameter("name", username)
@@ -201,7 +203,53 @@ public class UserDAOImpl implements UserDAO {
 				
 		}
 
-	
+	@Override
+	public Album createAlbum(Album album, String artistName) {
+		Artist tempArtist = null;
+		tempArtist = findArtistByName(artistName);
+		if (tempArtist == null) {
+			tempArtist = new Artist();
+			tempArtist.setName(artistName);
+			tempArtist.addAlbum(album);
+			album.setArtist(tempArtist);
+		} else {
+			tempArtist.addAlbum(album);
+			album.setArtist(tempArtist);
+		}
+		em.persist(tempArtist);
+		em.persist(album);
+		em.flush();
+		return album;
+	}
 
+	@Override
+	public Artist findArtist(int id) {
+
+		Artist artist = em.find(Artist.class, id);
+
+		return artist;
+	}
+
+	@Override
+	public Artist findArtistByName(String artistName) {
+
+		String sql = "SELECT a FROM Artist a WHERE a.name = :name";
+		Artist artist;
+		try {
+			artist = em.createQuery(sql, Artist.class).setParameter("name", artistName).getSingleResult();
+		} catch (Exception e) {
+			artist = null;
+
+		}
+		return artist;
+	}
+
+	@Override
+	public Artist createArtist(Artist artist) {
+
+		em.persist(artist);
+		em.flush();
+		return artist;
+	}
 
 }

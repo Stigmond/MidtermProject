@@ -15,8 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
+import com.skilldistillery.crescendo.entities.Artist;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.Parent;
+import com.skilldistillery.crescendo.entities.Thread;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
@@ -232,6 +234,25 @@ public class UserController {
 				}
 				break;
 		}
+		return mv;
+	}
+
+	@RequestMapping(path = "createAlbum.do")
+	public ModelAndView createAlbum(Album album, String artistName, RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+
+		redir.addFlashAttribute("album", album = dao.createAlbum(album, artistName));
+		mv.setViewName("redirect:viewAlbum.do?id=" + album.getId());
+
+		return mv;
+
+	}
+
+	@RequestMapping(path = "newAlbum.do")
+	public ModelAndView newAlbum() {
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName("AddAlbum");
 		return mv;
 	}
 
