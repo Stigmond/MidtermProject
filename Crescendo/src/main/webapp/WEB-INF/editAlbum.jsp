@@ -37,7 +37,7 @@
 						<div class="card-header">Update the Selected Album:</div>
   						<div class="card-body">
   						<form class="needs-validation" novalidate
-							action="createAlbum.do"> 
+							action="updateAlbum.do"> 
   <div class="form-row">
       <label for="validationCustom01">Title</label>
       <input type="text" class="form-control" id="validationCustom01"

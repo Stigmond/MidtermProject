@@ -68,24 +68,24 @@ public class UserController {
 
 		return mv;
 	}
-	
-	@RequestMapping( path = "editAlbum.do" )
-	public ModelAndView editAlbum() {
+
+	@RequestMapping(path = "editAlbum.do")
+	public ModelAndView editAlbum(int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("album", dao.getAlbumById(id));
+		mv.setViewName("editAlbum");
+		return mv;
+	}
+
+	@RequestMapping(path = "updateAlbum.do")
+	public ModelAndView updateAlbum(Album album) {
 		ModelAndView mv = new ModelAndView();
 
-//		List<Album> albums = dao.getAlbums();
-//		Collections.shuffle(albums);
-//		mv.addObject("album1", albums.get(0));
-//		mv.addObject("album2", albums.get(1));
-//		mv.addObject("album3", albums.get(2));
-//
-//		List<Blog> blogs = dao.getBlogs();
-//		Collections.shuffle(blogs);
-//		mv.addObject("blogs", blogs.get(0));
-		mv.addObject("album", dao.getAlbumById(14));
-		mv.setViewName("editAlbum");
+		mv.addObject("album", dao.editAlbum(album));
+		mv.setViewName("AlbumInfo");
 
 		return mv;
+
 	}
 
 	@RequestMapping(path = "makeUserUpdates.do")
@@ -119,7 +119,7 @@ public class UserController {
 		if (session.getAttribute("loggedIn") == null) {
 			mv.addObject("loginError", loginError);
 		} else {
-			mv.addObject("user" , session.getAttribute( "loggedIn" ) );
+			mv.addObject("user", session.getAttribute("loggedIn"));
 		}
 		return mv;
 	}
@@ -180,57 +180,57 @@ public class UserController {
 		}
 		return mv;
 	}
-	
-	@RequestMapping(path= "search.do")
+
+	@RequestMapping(path = "search.do")
 	public ModelAndView searchResults(String val, String resultType, String searchType) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("searchResult");
-		switch(SearchType.get(searchType)) {
-			case KEYWORD:
-				switch(ResultType.get(resultType)) {
-					case BLOG:
-						mv.addObject("resultList", dao.getBlogsByKeyword(val));
-						break;
-					case ALBUM:
-						mv.addObject("resultList", dao.getAlbumsByKeyword(val));
-						break;
-					case TOPIC:
-						mv.addObject("resultList", dao.getTopicsByKeyword(val));
-						break;
-					case BLOG_COMMENT:
-						mv.addObject("resultList", dao.getBlogCommentsByKeyword(val));
-						break;
-					case ALBUM_COMMENT:
-						mv.addObject("resultList", dao.getAlbumCommentsByKeyword(val));
-						break;
-					case TOPIC_COMMENT:
-						mv.addObject("resultList", dao.getTopicCommentsByKeyword(val));
-						break;
-				}
+		switch (SearchType.get(searchType)) {
+		case KEYWORD:
+			switch (ResultType.get(resultType)) {
+			case BLOG:
+				mv.addObject("resultList", dao.getBlogsByKeyword(val));
 				break;
-			case USERNAME:
-				switch(ResultType.get(resultType)) {
-				case BLOG:
-					mv.addObject("resultList", dao.getBlogsByUser(val));
-					break;
-				case ALBUM:
-					mv.addObject("resultList", null);
-					mv.addObject("albumError", "...");
-					break;
-				case TOPIC:
-					mv.addObject("resultList", dao.getTopicsByUser(val));
-					break;
-				case BLOG_COMMENT:
-					mv.addObject("resultList", dao.getBlogCommentsByUser(val));
-					break;
-				case ALBUM_COMMENT:
-					mv.addObject("resultList", dao.getAlbumCommentsByUser(val));
-					break;
-				case TOPIC_COMMENT:
-					mv.addObject("resultList", dao.getTopicCommentsByUser(val));
-					break;
-				}
+			case ALBUM:
+				mv.addObject("resultList", dao.getAlbumsByKeyword(val));
 				break;
+			case TOPIC:
+				mv.addObject("resultList", dao.getTopicsByKeyword(val));
+				break;
+			case BLOG_COMMENT:
+				mv.addObject("resultList", dao.getBlogCommentsByKeyword(val));
+				break;
+			case ALBUM_COMMENT:
+				mv.addObject("resultList", dao.getAlbumCommentsByKeyword(val));
+				break;
+			case TOPIC_COMMENT:
+				mv.addObject("resultList", dao.getTopicCommentsByKeyword(val));
+				break;
+			}
+			break;
+		case USERNAME:
+			switch (ResultType.get(resultType)) {
+			case BLOG:
+				mv.addObject("resultList", dao.getBlogsByUser(val));
+				break;
+			case ALBUM:
+				mv.addObject("resultList", null);
+				mv.addObject("albumError", "...");
+				break;
+			case TOPIC:
+				mv.addObject("resultList", dao.getTopicsByUser(val));
+				break;
+			case BLOG_COMMENT:
+				mv.addObject("resultList", dao.getBlogCommentsByUser(val));
+				break;
+			case ALBUM_COMMENT:
+				mv.addObject("resultList", dao.getAlbumCommentsByUser(val));
+				break;
+			case TOPIC_COMMENT:
+				mv.addObject("resultList", dao.getTopicCommentsByUser(val));
+				break;
+			}
+			break;
 		}
 		return mv;
 	}

@@ -41,4 +41,6 @@ public interface UserDAO {
 	List<BlogComment> getBlogCommentsByUser(String username);
 	List<Album> getAlbumsByKeyword(String keyword);
 
+	Album editAlbum(Album album);
+
 }
