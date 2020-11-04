@@ -35,20 +35,20 @@
 		<div class="form-row">
 			<div class="form-group col-2">Search for</div>
 			<div class="form-group col-3">
-				<select class="form-control form-control-sm" name= "resultType">
-					<option value= "blogComment">blog comments</option>
-					<option value= "albumComment">album comments</option>
-					<option value= "topicComment">topic comments</option>
-					<option value= "blog">blog posts</option>
-					<option value= "topic">topic threads</option>
-					<option value= "album">albums</option>
+				<select class="form-control form-control-sm" name="resultType">
+					<option value="BlogComment">blog comments</option>
+					<option value="AlbumComment">album comments</option>
+					<option value="TopicComment">topic comments</option>
+					<option value="Blog">blog posts</option>
+					<option value="Topic">topic threads</option>
+					<option value="Album">albums</option>
 				</select>
 			</div>
 			<div class="form-group col-1">by</div>
 			<div class="form-group col-2">
-				<select class="form-control form-control-sm" name= "searchType">
-					<option value= "keyword">keyword</option>
-					<option value= "username">username</option>
+				<select class="form-control form-control-sm" name="searchType">
+					<option value="keyword">keyword</option>
+					<option value="username">username</option>
 				</select>
 			</div>
 			<div class="form-group col-2">

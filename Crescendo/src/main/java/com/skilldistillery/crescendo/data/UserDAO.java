@@ -27,6 +27,8 @@ public interface UserDAO {
 
 	List<Blog> getBlogs();
 
+	Blog getBlogById(int id);
+
 	User attemptLogin(String username, String password);
 
 	Album getAlbumById(int id);
@@ -47,13 +49,21 @@ public interface UserDAO {
 
 	List<Blog> getBlogsByUser(String username);
 
+	Topic getTopicById(int id);
+
+	TopicComment addReplyToTopic(TopicComment comment);
+
 	List<TopicComment> getTopicCommentsByKeyword(String keyword);
 
 	List<TopicComment> getTopicCommentsByUser(String username);
 
+	TopicComment getFirstCommentOnTopic(int topicId);
+
 	List<AlbumComment> getAlbumCommentsByKeyword(String keyword);
 
 	List<AlbumComment> getAlbumCommentsByUser(String username);
+	
+	AlbumComment addReplyToAlbum(AlbumComment comment);
 
 	List<BlogComment> getBlogCommentsByKeyword(String keyword);
 
@@ -62,13 +72,22 @@ public interface UserDAO {
 	List<Album> getAlbumsByKeyword(String keyword);
 
 	Album editAlbum(Album album, String artistName);
+
 	List<Trade> getBuySell();
+
 	List<Trade> getTrades();
+
 	Trade getTradeById(int id);
+
 	List<Trade> getTradesByUser(int id);
+
 	
 	Blog getBlogById(int id);
 	Blog addBlog(Blog blog);
 	Genre getGenreById(int id);
 	
+
+
+	BlogComment addReplyToBlog(BlogComment comment);
+
 }
