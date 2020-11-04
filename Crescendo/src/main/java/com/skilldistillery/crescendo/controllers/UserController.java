@@ -1,5 +1,6 @@
 package com.skilldistillery.crescendo.controllers;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.Parent;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
@@ -288,6 +290,43 @@ public class UserController {
 		mv.addObject("resultList", dao.getTradesByUser(cid));
 		
 		return mv;
+	}
+	
+	@RequestMapping(path= "showBlog.do")
+	public ModelAndView showBlog(int id) {
+	ModelAndView mv = new ModelAndView();
+	mv.setViewName("showBlog");
+	mv.addObject("blog", dao.getBlogById(id));
+	
+	return mv;
+	}
+	
+	@RequestMapping(path= "newPost.do")
+	public ModelAndView addBlog(String postType,
+			String body,
+			String[] genre,
+			String postTitle,
+			String headerMediaUrl,
+			HttpSession session) {
+	ModelAndView mv = new ModelAndView();
+	User user = (User) session.getAttribute("loggedIn");
+	Blog newBlog = new Blog();
+
+	List<Genre> genreList = new ArrayList<>();
+	for (String gId : genre) {
+		genreList.add(dao.getGenreById(Integer.parseInt(gId)));
+	}
+	newBlog.setBody(body);
+	newBlog.setTitle(postTitle);
+	newBlog.setHeaderMediaUrl(headerMediaUrl);
+	newBlog.setUser(dao.getUser(user.getId()));
+	newBlog.setGenres(genreList);
+	System.out.println(newBlog);
+	System.out.println(newBlog.getUser().toString());
+	mv.addObject("blog", dao.addBlog(newBlog));
+	mv.setViewName("showBlog");
+	
+	return mv;
 	}
 	
 	

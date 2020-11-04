@@ -7,6 +7,7 @@ import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Artist;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.Topic;
 import com.skilldistillery.crescendo.entities.TopicComment;
 import com.skilldistillery.crescendo.entities.Trade;
@@ -65,5 +66,9 @@ public interface UserDAO {
 	List<Trade> getTrades();
 	Trade getTradeById(int id);
 	List<Trade> getTradesByUser(int id);
-
+	
+	Blog getBlogById(int id);
+	Blog addBlog(Blog blog);
+	Genre getGenreById(int id);
+	
 }

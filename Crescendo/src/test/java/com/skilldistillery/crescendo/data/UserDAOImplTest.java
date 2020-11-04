@@ -19,6 +19,7 @@ import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.Topic;
 import com.skilldistillery.crescendo.entities.TopicComment;
 
@@ -156,6 +157,23 @@ class UserDAOImplTest {
 		assertNotNull(album);
 		assertEquals(3, album.size());
 		
+		
+	}
+	
+	@Test
+	@DisplayName("show Blog by id number")
+	void showBlogIdNum() {
+		Blog b = dao.getBlogById(1);
+		assertNotNull(b);
+		assertEquals("BLOGS SUCK", b.getTitle());
+	}
+	
+	@Test
+	@DisplayName("show Genre byid number")
+	void showGenreIdNum() {
+		Genre g = dao.getGenreById(1);
+		assertNotNull(g);
+		assertEquals(g.getName(), "NEO-CLASSICAL POST-METAL");
 		
 	}
 
