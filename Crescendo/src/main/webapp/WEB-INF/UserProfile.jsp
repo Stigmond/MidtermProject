@@ -21,15 +21,18 @@
 			</div>
 
 			<div class="col">
-				<h2>Hello, ${user.firstName }!</h2>
+			
+				
+					<c:if test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
+					<h2>Hello, ${user.firstName }!</h2>
+					<a class= "btn btn-primary" href= "newTopic.do" role= "button">Start a conversation </a>
+					</c:if>
+	
 				<c:choose>
 					<c:when test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
-					<a class= "btn btn-primary" href= "newTopic.do" role= "button">Start a conversation </a>
-					</c:when>
-				</c:choose>
-
-
-				<form action="makeUserUpdates.do">
+					<br><br>
+					<div class="card">
+					<form action="makeUserUpdates.do">
 					<input type="hidden" name="id" value="${user.id}"> <label
 						for="username">User name/email</label><br> <input type="text"
 						name="username" value="${user.username}" required><br>
@@ -50,7 +53,21 @@
 					<textarea name="body" rows="4" cols="40">${user.body}</textarea>
 					<br> <input type="submit" value="Update">
 				</form>
-
+					</div>
+					</c:when>
+					
+					
+					<c:otherwise>
+					<div class="card bg-light mb-3" style="max-width: 18rem;">
+ 					 <div class="card-header"><span>${user.firstName}</span> <span>${user.lastName}</span> <span>(${user.username})</span></div>
+  						<div class="card-body">
+   						 <h5 class="card-title">About Me:</h5>
+  						  <p class="card-text">${user.body}</p>
+  					</div>
+					</div>
+					</c:otherwise>
+				</c:choose>
+	
 			</div>
 
 		</div>
