@@ -78,11 +78,14 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "updateAlbum.do")
-	public ModelAndView updateAlbum(Album album) {
+	public ModelAndView updateAlbum(Album album, String artistName, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 
-		mv.addObject("album", dao.editAlbum(album));
-		mv.setViewName("AlbumInfo");
+//		mv.addObject("album", dao.editAlbum(album, artistName));
+
+		redir.addFlashAttribute("album", dao.editAlbum(album, artistName));
+
+		mv.setViewName("redirect:viewAlbum.do?id=" + album.getId());
 
 		return mv;
 
@@ -234,12 +237,11 @@ public class UserController {
 		}
 		return mv;
 	}
-	
-	@RequestMapping(path= "newTopic.do")
+
+	@RequestMapping(path = "newTopic.do")
 	public String startPost(HttpSession session) {
 		return session.getAttribute("loggedIn") == null ? "index" : "NewTopic";
 	}
-	
 
 	@RequestMapping(path = "createAlbum.do")
 	public ModelAndView createAlbum(Album album, String artistName, RedirectAttributes redir) {

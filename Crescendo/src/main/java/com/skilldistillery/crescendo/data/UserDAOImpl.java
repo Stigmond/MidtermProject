@@ -44,22 +44,6 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
-	@Override
-	public User updateUser(User user) {
-		User dbuser = em.find(User.class, user.getId());
-		User newuser = user;
-
-		dbuser.setAvatarUrl(newuser.getAvatarUrl());
-		dbuser.setFirstName(newuser.getFirstName());
-		dbuser.setLastName(newuser.getLastName());
-		dbuser.setUsername(newuser.getUsername());
-		dbuser.setPassword(newuser.getPassword());
-		dbuser.setBody(newuser.getBody());
-
-		em.flush();
-		return dbuser;
-	}
-
 	public List<Album> getAlbums() {
 
 		List<Album> albums = null;
@@ -167,14 +151,38 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Album editAlbum(Album album) {
+	public User updateUser(User user) {
+		User dbuser = em.find(User.class, user.getId());
+		User newuser = user;
+
+		dbuser.setAvatarUrl(newuser.getAvatarUrl());
+		dbuser.setFirstName(newuser.getFirstName());
+		dbuser.setLastName(newuser.getLastName());
+		dbuser.setUsername(newuser.getUsername());
+		dbuser.setPassword(newuser.getPassword());
+		dbuser.setBody(newuser.getBody());
+
+		em.flush();
+		return dbuser;
+	}
+
+	@Override
+	public Album editAlbum(Album album, String artistName) {
 		Album dalbum = em.find(Album.class, album.getId());
 		Album newalbum = album;
 		dalbum.setTitle(newalbum.getTitle());
 		dalbum.setCoverUrl(newalbum.getCoverUrl());
-		dalbum.setArtist(newalbum.getArtist());
 		dalbum.setDescription(newalbum.getDescription());
 		dalbum.setReleaseYear(newalbum.getReleaseYear());
+
+		if (!dalbum.getArtist().getName().equals(artistName)) {
+
+			Artist updatedArtist = new Artist();
+			updatedArtist.setName(artistName);
+			updatedArtist.addAlbum(album);
+			dalbum.setArtist(updatedArtist);
+// TO-DO: Create a remove old album from artist list
+		}
 		em.flush();
 		return dalbum;
 	}
