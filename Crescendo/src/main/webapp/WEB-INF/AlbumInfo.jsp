@@ -71,15 +71,16 @@
   						</div>
   						
   						<!-- TODO add controller method to create new album comment and another to view different types of comments based on params  -->
-  						<a href="makeComment.do?type=album&id=${ album.id }"
+  						<a href="makeComment.do?type=Album&id=${ album.id }"
 								class="btn btn-secondary">Comment on this album</a><br>
-  						<a href="viewComments.do?type=album&id=${ album.id }"
-								class="btn btn-info">View all commments on this album</a><br>
+  						<a href="viewComments.do?type=Album&id=${ album.id }"
+								class="btn btn-info">View all comments on this album</a><br>
   						</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
 
+	
 	
 	</jsp:attribute>
 </t:pageLayout>

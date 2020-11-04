@@ -9,9 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.crescendo.entities.Album;
-import com.skilldistillery.crescendo.entities.Artist;
-import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.AlbumComment;
+import com.skilldistillery.crescendo.entities.Artist;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
 import com.skilldistillery.crescendo.entities.Topic;
@@ -76,7 +75,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public Album getAlbumById(int id) {
-		return em.find(Album.class, id);
+		Album album = em.find(Album.class, id);
+		album.getAlbumComments().size();
+		return album;
 	}
 
 	@Override
@@ -239,17 +240,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<Trade> getBuySell() {
 		String query = "SELECT t FROM Trade t WHERE (t.direction = 'buy' OR t.direction = 'sell') AND t.active=1";
-		return em
-				.createQuery(query, Trade.class)
-				.getResultList();
+		return em.createQuery(query, Trade.class).getResultList();
 	}
 
 	@Override
 	public List<Trade> getTrades() {
 		String query = "SELECT t FROM Trade t WHERE t.direction = 'trade' AND t.active=1";
-		return em
-				.createQuery(query, Trade.class)
-				.getResultList();
+		return em.createQuery(query, Trade.class).getResultList();
 	}
 
 	@Override
@@ -260,10 +257,52 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<Trade> getTradesByUser(int id) {
 		String query = "SELECT t FROM Trade t WHERE t.user.id=:cid";
-		return em
-				.createQuery(query, Trade.class)
-				.setParameter("cid", id)
-				.getResultList();
+		return em.createQuery(query, Trade.class).setParameter("cid", id).getResultList();
+	}
+
+	@Override
+	public Blog getBlogById(int id) {
+		Blog blog = em.find(Blog.class, id);
+		blog.getBlogComments().size();
+		return blog;
+	}
+
+	@Override
+	public Topic getTopicById(int id) {
+
+		Topic topic = em.find(Topic.class, id);
+		topic.getThreadComments().size();
+
+		return topic;
+	}
+
+	@Override
+	public TopicComment getFirstCommentOnTopic(int topicId) {
+		String query = "SELECT tc FROM TopicComment tc WHERE tc.thread.id = :tid ORDER BY tc.id ASC";
+
+		return em.createQuery(query, TopicComment.class).setParameter("tid", topicId).getResultList().get(0);
+	}
+
+	@Override
+	public TopicComment addReplyToTopic(TopicComment comment) {
+
+		em.persist(comment);
+		em.flush();
+		return comment;
+	}
+
+	@Override
+	public AlbumComment addReplyToAlbum(AlbumComment comment) {
+		em.persist(comment);
+		em.flush();
+		return comment;
+	}
+
+	@Override
+	public BlogComment addReplyToBlog(BlogComment comment) {
+		em.persist(comment);
+		em.flush();
+		return comment;
 	}
 
 }
