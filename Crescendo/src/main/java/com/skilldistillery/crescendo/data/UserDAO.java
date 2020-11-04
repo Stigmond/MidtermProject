@@ -82,7 +82,6 @@ public interface UserDAO {
 	List<Trade> getTradesByUser(int id);
 
 	
-	Blog getBlogById(int id);
 	Blog addBlog(Blog blog);
 	Genre getGenreById(int id);
 	

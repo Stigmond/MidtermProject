@@ -306,10 +306,6 @@ public class UserDAOImpl implements UserDAO {
 		return comment;
 	}
 
-	@Override
-	public Blog getBlogById(int id) {
-		return em.find(Blog.class, id);
-	}
 
 	@Override
 	public Blog addBlog(Blog blog) {
