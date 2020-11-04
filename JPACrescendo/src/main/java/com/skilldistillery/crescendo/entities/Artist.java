@@ -1,5 +1,6 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,17 +15,15 @@ public class Artist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@OneToMany(mappedBy= "artist")
-	private List <Album> albums;
-	
+
+	@OneToMany(mappedBy = "artist")
+	private List<Album> albums;
 
 	private String name;
 
 	public Artist() {
 		super();
 	}
-
 
 	public int getId() {
 		return id;
@@ -40,6 +39,23 @@ public class Artist {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void addAlbum(Album album) {
+		if (albums == null) {
+			albums = new ArrayList<>();
+		}
+		if (!albums.contains(album)) {
+			albums.add(album);
+			album.setArtist(this);
+		}
+	}
+
+	public void removeAlbum(Album album) {
+		if (albums != null && albums.contains(album)) {
+			albums.remove(album);
+			album.setArtist(null);
+		}
 	}
 
 	@Override

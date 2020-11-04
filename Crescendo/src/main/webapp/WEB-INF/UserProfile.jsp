@@ -22,6 +22,11 @@
 
 			<div class="col">
 				<h2>Hello, ${user.firstName }!</h2>
+				<c:choose>
+					<c:when test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
+					<a class= "btn btn-primary" href= "newTopic.do" role= "button">Start a conversation </a>
+					</c:when>
+				</c:choose>
 
 
 				<form action="makeUserUpdates.do">
