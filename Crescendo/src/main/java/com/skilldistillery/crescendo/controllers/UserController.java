@@ -236,6 +236,12 @@ public class UserController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(path= "newTopic.do")
+	public String startPost(HttpSession session) {
+		return session.getAttribute("loggedIn") == null ? "index" : "NewTopic";
+	}
+	
 
 	@RequestMapping(path = "createAlbum.do")
 	public ModelAndView createAlbum(Album album, String artistName, RedirectAttributes redir) {
