@@ -36,18 +36,29 @@ public interface UserDAO {
 	Artist findArtistByName(String name);
 
 	Artist createArtist(Artist artist);
+
 	List<Topic> getTopicsByKeyword(String keyword);
+
 	List<Topic> getTopicsByUser(String username);
+
 	List<Blog> getBlogsByKeyword(String keyword);
+
 	List<Blog> getBlogsByUser(String username);
+
 	List<TopicComment> getTopicCommentsByKeyword(String keyword);
+
 	List<TopicComment> getTopicCommentsByUser(String username);
+
 	List<AlbumComment> getAlbumCommentsByKeyword(String keyword);
+
 	List<AlbumComment> getAlbumCommentsByUser(String username);
+
 	List<BlogComment> getBlogCommentsByKeyword(String keyword);
+
 	List<BlogComment> getBlogCommentsByUser(String username);
+
 	List<Album> getAlbumsByKeyword(String keyword);
 
-	Album editAlbum(Album album);
+	Album editAlbum(Album album, String artistName);
 
 }
