@@ -13,6 +13,7 @@ import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Artist;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.Topic;
 import com.skilldistillery.crescendo.entities.TopicComment;
 import com.skilldistillery.crescendo.entities.Trade;
@@ -303,6 +304,24 @@ public class UserDAOImpl implements UserDAO {
 		em.persist(comment);
 		em.flush();
 		return comment;
+	}
+
+	@Override
+	public Blog getBlogById(int id) {
+		return em.find(Blog.class, id);
+	}
+
+	@Override
+	public Blog addBlog(Blog blog) {
+		em.persist(blog);
+		em.flush();
+		return blog;
+	}
+
+	@Override
+	public Genre getGenreById(int id) {
+	return	em.find(Genre.class, id);
+		
 	}
 
 }
