@@ -259,5 +259,35 @@ public class UserController {
 		mv.setViewName("AddAlbum");
 		return mv;
 	}
+	
+	@RequestMapping(path= "openTrades.do")
+	public ModelAndView showAllTrades() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("openTrades");
+		mv.addObject("buySellList", dao.getBuySell());
+		mv.addObject("tradeList", dao.getTrades());
+		
+		return mv;
+	}
+	
+	@RequestMapping(path= "tradePage.do")
+	public ModelAndView showSingleTrade(int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("tradePage");
+		mv.addObject("t", dao.getTradeById(id));
+		
+		return mv;
+	}
+	
+	@RequestMapping(path= "tradeSearch.do", params= "cid")
+	public ModelAndView showTradesByCreator(int cid) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("tradeList");
+		mv.addObject("resultList", dao.getTradesByUser(cid));
+		
+		return mv;
+	}
+	
+	
 
 }
