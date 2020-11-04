@@ -17,11 +17,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ThreadTest {
+class TopicCommentTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Thread thread;
+	private TopicComment tcomment;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -36,55 +36,35 @@ class ThreadTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		thread = em.find(Thread.class, 1);
+		tcomment = em.find(TopicComment.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		thread = null;
+		tcomment = null;
 		em = null;
 	}
 
 	@Test
-	@DisplayName("testing thread entity")
+	@DisplayName("testing thread comment entity")
 	void threadEntity() {
-		assertNotNull(thread);
-		assertEquals("RANDOM DISCUSSION THREAD", thread.getTitle());
-
+		assertNotNull(tcomment);
+		assertEquals("OH GODS WHY", tcomment.getBody());
 	}
 
 	@Test
-	@DisplayName("testing thread creation time stamp")
-	void threadTime() {
-
-		Thread newThread = new Thread();
-
-		newThread.setTitle("title");
-		newThread.setUser(em.find(User.class, 1));
-		em.getTransaction().begin();
-		em.persist(newThread);
-		em.flush();
-
-		em.getTransaction().commit();
-
-		assertNotNull(newThread.getCreatedAt());
-
+	@DisplayName("testing thread comment to thread entity")
+	void threadToComment() {
+		assertNotNull(tcomment);
+		assertEquals("RANDOM DISCUSSION THREAD", tcomment.getThread().getTitle());
 	}
 
 	@Test
-	@DisplayName("testing thread user mapping")
-	void threadToUserMapping() {
-		assertNotNull(thread);
-		assertEquals("TEX", thread.getUser().getFirstName());
-
-	}
-
-	@Test
-	@DisplayName("Thread to Genre Mapping")
-	void threadToGenre() {
-		assertNotNull(thread);
-		assertTrue(thread.getGenres().size() > 0);
-		assertEquals("NEO-CLASSICAL POST-METAL", thread.getGenres().get(0).getName());
+	@DisplayName("testing thread comment to user entity")
+	void threadToUser() {
+		assertNotNull(tcomment);
+//		assertEquals("TEX", tcomment.getUser().getFirstName());
+		assertEquals("A DUMMY USER RECORD", tcomment.getUser().getBody());
 	}
 
 }

@@ -22,7 +22,7 @@ Logged in as: ${sessionScope.loggedIn.username} <a href= "logout.do">Log out</a>
 				</form>
 				<c:choose>
 				<c:when test="${not empty loginError }">
-					<p class="error">${loginError }</p>
+					<p class="text-danger">${loginError }</p>
 				</c:when>
 
 			</c:choose>

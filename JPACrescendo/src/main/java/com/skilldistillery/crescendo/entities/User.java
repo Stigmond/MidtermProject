@@ -43,7 +43,7 @@ public class User {
 	private List<Trade> trades;
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private List<Thread> threads;
+	private List<Topic> threads;
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<BlogComment> blogComments;
@@ -52,13 +52,13 @@ public class User {
 	private List<AlbumComment> albumComments;
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private List<ThreadComment> threadComments;
+	private List<TopicComment> threadComments;
 
-	public List<ThreadComment> getThreadComments() {
+	public List<TopicComment> getThreadComments() {
 		return threadComments;
 	}
 
-	public void setThreadComments(List<ThreadComment> threadComments) {
+	public void setThreadComments(List<TopicComment> threadComments) {
 		this.threadComments = threadComments;
 	}
 
@@ -229,11 +229,11 @@ public class User {
 		this.trades = trades;
 	}
 
-	public List<Thread> getThreads() {
+	public List<Topic> getThreads() {
 		return threads;
 	}
 
-	public void setThreads(List<Thread> threads) {
+	public void setThreads(List<Topic> threads) {
 		this.threads = threads;
 	}
 
@@ -284,7 +284,7 @@ public class User {
 			trade.setUser(null);
 		}
 	}
-	public void addThread(Thread thread) {
+	public void addThread(Topic thread) {
 		if (threads == null) {
 			threads = new ArrayList<>();
 		}
@@ -293,7 +293,7 @@ public class User {
 			thread.setUser(this);
 		}
 	}
-	public void removeThread(Thread thread) {
+	public void removeThread(Topic thread) {
 		if (threads != null && threads.contains(thread)) {
 			threads.remove(thread);
 			thread.setUser(null);
@@ -329,7 +329,7 @@ public class User {
 			albumComment.setUser(null);
 		}
 	}
-	public void addThreadComment(ThreadComment threadComment) {
+	public void addThreadComment(TopicComment threadComment) {
 		if (threadComments == null) {
 			threadComments = new ArrayList<>();
 		}
@@ -338,7 +338,7 @@ public class User {
 			threadComment.setUser(this);
 		}
 	}
-	public void removeThreadComment(ThreadComment threadComment) {
+	public void removeThreadComment(TopicComment threadComment) {
 		if (threadComments != null && threadComments.contains(threadComment)) {
 			threadComments.remove(threadComment);
 			threadComment.setUser(null);

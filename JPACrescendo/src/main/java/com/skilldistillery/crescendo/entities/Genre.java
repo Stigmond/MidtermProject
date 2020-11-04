@@ -27,7 +27,7 @@ public class Genre {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "thread_has_genre", joinColumns = @JoinColumn(name = "thread_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
-	private List<Thread> threads;
+	private List<Topic> threads;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "album_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "album_id"))
@@ -75,11 +75,11 @@ public class Genre {
 		this.blogs = blogs;
 	}
 
-	public List<Thread> getThreads() {
+	public List<Topic> getThreads() {
 		return threads;
 	}
 
-	public void setThreads(List<Thread> threads) {
+	public void setThreads(List<Topic> threads) {
 		this.threads = threads;
 	}
 	
@@ -98,7 +98,7 @@ public class Genre {
 			blog.removeGenre(this);
 		}
 	}
-	public void addThread(Thread thread) {
+	public void addThread(Topic thread) {
 		if (threads == null) {
 			threads = new ArrayList<>();
 		}
@@ -107,7 +107,7 @@ public class Genre {
 			thread.addGenre(this);
 		}
 	}
-	public void removeThread(Thread thread) {
+	public void removeThread(Topic thread) {
 		if (threads != null && threads.contains(thread)) {
 			threads.remove(thread);
 			thread.removeGenre(this);

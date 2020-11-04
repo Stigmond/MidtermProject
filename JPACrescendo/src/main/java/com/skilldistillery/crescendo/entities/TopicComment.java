@@ -16,7 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "thread_comment")
-public class ThreadComment {
+public class TopicComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class ThreadComment {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "thread_id")
-	private Thread thread;
+	private Topic thread;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
@@ -46,7 +46,7 @@ public class ThreadComment {
 		this.user = user;
 	}
 
-	public ThreadComment() {
+	public TopicComment() {
 		super();
 	}
 
@@ -82,11 +82,11 @@ public class ThreadComment {
 		this.edited = edited;
 	}
 
-	public Thread getThread() {
+	public Topic getThread() {
 		return thread;
 	}
 
-	public void setThread(Thread thread) {
+	public void setThread(Topic thread) {
 		this.thread = thread;
 	}
 
@@ -111,7 +111,7 @@ public class ThreadComment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ThreadComment other = (ThreadComment) obj;
+		TopicComment other = (TopicComment) obj;
 		if (body == null) {
 			if (other.body != null)
 				return false;
