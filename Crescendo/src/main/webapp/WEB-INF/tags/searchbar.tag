@@ -47,15 +47,15 @@
 			<div class="form-group col-1">by</div>
 			<div class="form-group col-2">
 				<select class="form-control form-control-sm" name="searchType">
-					<option value="keyword">keyword</option>
-					<option value="username">username</option>
+					<option value="keyword" required>keyword</option>
+					<option value="username" required>username</option>
 				</select>
 			</div>
 			<div class="form-group col-2">
-				<input type="text" class="form-control" name="val">
+				<input type="text" class="form-control" name="val" required>
 			</div>
 			<div class="form-group col-1">
-				<button class="btn btn-secondary" type="submit">Search</button>
+				<button class="btn btn-secondary" required type="submit">Search</button>
 			</div>
 		</div>
 	</form>
