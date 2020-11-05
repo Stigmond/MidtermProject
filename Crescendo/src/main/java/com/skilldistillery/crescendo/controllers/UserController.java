@@ -387,6 +387,54 @@ public class UserController {
 		mv.addObject("topic", dao.getTopicById(id));
 		return mv;
 	}
+	
+//	@RequestMapping( path = "deleteComment.do")
+//	public ModelAndView deleteComment( String parent, int parentId , int commentId ) {
+//		String succ = "deletion successful";
+//		String fail = "deletion failed";
+//		ModelAndView mv = new ModelAndView();
+//		
+//		if( parent.toLowerCase().equals("album") ) {
+//			return displaySingleAlbum(parentId).addObject("warningMessage", dao.deleteComment( dao.getAlbumCommentById(commentId) ) ? succ : fail);
+//		} else if( parent.toLowerCase().equals("blog") ) {
+//			return showBlog(parentId).addObject("warningMessage", dao.deleteComment( dao.getBlogCommentById(commentId) ) ? succ : fail);
+//		} else if( parent.toLowerCase().equals("topic") ) {
+//			mv = showCommentThread("topic", parentId);
+//			mv.addObject("warningMessage", dao.deleteComment( dao.getTopicCommentById(commentId) ) ? succ : fail);
+//			mv.setViewName("viewComments");
+//		} else {
+//			//shouldn't ever actually happen, only exists to satisfy compiler
+//			mv.setViewName("index");			
+//		}
+//		
+//		return mv;
+//		
+//	}
+	
+	@RequestMapping( path = "deleteComment.do")
+	public ModelAndView deleteComment( String parent, int parentId , int commentId, RedirectAttributes redir ) {
+		String succ = "deletion successful";
+		String fail = "deletion failed";
+		ModelAndView mv = new ModelAndView();
+		
+		if( parent.toLowerCase().equals("album") ) {
+			redir.addFlashAttribute("warningMessage", dao.deleteComment( dao.getAlbumCommentById(commentId) ) ? succ : fail );
+			mv.setViewName( "redirect:viewAlbum.do?id=" + parentId );
+		} else if( parent.toLowerCase().equals("blog") ) {
+			redir.addFlashAttribute( "warningMessage" , dao.deleteComment( dao.getBlogCommentById(commentId) ) ? succ : fail );
+			mv.setViewName("redirect:showBlog.do?id=" + parentId);
+		} else if( parent.toLowerCase().equals("topic") ) {
+			mv = showCommentThread("topic", parentId);
+			redir.addFlashAttribute( "warningMessage" , dao.deleteComment( dao.getTopicCommentById(commentId) ) ? succ : fail );
+			mv.setViewName("redirect:viewComments.do?type=topic&id=" + parentId);
+		} else {
+			//shouldn't ever actually happen, only exists to satisfy compiler
+			mv.setViewName("index");			
+		}
+		
+		return mv;
+		
+	}
 
 	@RequestMapping(path = "newPost.do")
 	public ModelAndView addPost(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,

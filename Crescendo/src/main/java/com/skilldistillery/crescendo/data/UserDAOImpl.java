@@ -331,6 +331,63 @@ public class UserDAOImpl implements UserDAO {
 		return em.find(Genre.class, id);
 
 	}
+	
+	@Override
+	public BlogComment getBlogCommentById(int id) {
+		return em.find(BlogComment.class, id);
+	}
+
+	@Override
+	public AlbumComment getAlbumCommentById(int id) {
+		return em.find(AlbumComment.class, id);
+	}
+
+	@Override
+	public TopicComment getTopicCommentById(int id) {
+		return em.find(TopicComment.class, id);
+	}
+	
+	@Override
+	public Boolean deleteComment( TopicComment comment ) {
+		try {
+			String delete= "DELETE FROM TopicComment tc WHERE tc.id = :cid";
+
+			em.createQuery(delete).setParameter("cid", comment.getId()).executeUpdate();
+			
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+	
+	@Override
+	public Boolean deleteComment( AlbumComment comment ) {
+		try {
+			String delete= "DELETE FROM AlbumComment ac WHERE ac.id = :cid";
+
+			em.createQuery(delete).setParameter("cid", comment.getId()).executeUpdate();
+			
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+	
+	@Override
+	public Boolean deleteComment( BlogComment comment ) {
+		try {
+			String delete= "DELETE FROM BlogComment bc WHERE bc.id = :cid";
+
+			em.createQuery(delete).setParameter("cid", comment.getId()).executeUpdate();
+			
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
 
 	@Override
 	public Boolean deleteDiscussionTopic(Topic topic) {
