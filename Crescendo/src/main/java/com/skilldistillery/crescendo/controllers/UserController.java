@@ -290,6 +290,14 @@ public class UserController {
 		return mv;
 	}
 
+	@RequestMapping(path = "tradeDelete.do")
+	public ModelAndView deleteTradeByCreator(int id) {
+		System.out.println("ID BEING PASSED IN BY JSP:" + id);
+		ModelAndView mv = new ModelAndView();
+		dao.deleteBST(id);
+		mv.setViewName("openTrades");
+		return mv;
+	}
 	@RequestMapping(path = "commentReply.do")
 	public ModelAndView postCommentReply(String body, HttpSession session, RedirectAttributes redir) {
 

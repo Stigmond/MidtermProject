@@ -26,7 +26,7 @@
 		<div class= "col">
 		<c:if test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == t.user.id}">
 			<hr>
-			<a class="btn btn-danger btn-sm" href="#" role="button">Delete Ad</a>
+			<a class="btn btn-danger btn-sm" href="tradeDelete.do?id=${t.id}" role="button">Delete Ad</a>
 		</c:if>
 		</div>
 	</div>

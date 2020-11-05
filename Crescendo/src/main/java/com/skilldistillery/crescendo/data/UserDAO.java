@@ -102,4 +102,6 @@ public interface UserDAO {
 	List<Trade> getBSTByKeyword(String keyword);
 
 	List<Trade> getBSTByUser(String username);
+	
+	Boolean deleteBST(int id);
 }

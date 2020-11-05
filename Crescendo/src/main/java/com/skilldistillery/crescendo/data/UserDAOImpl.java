@@ -408,5 +408,14 @@ public class UserDAOImpl implements UserDAO {
 		return comment;
 	}
 	
-
+		public Boolean deleteBST(int id) {
+		boolean deleted = true;
+		System.out.println("ID BEING PASSED IN:" + id);
+		Trade trade = em.find(Trade.class, id);
+		System.out.println("TRADE AFTER SEEKING BY ID:" + trade);
+		em.remove(trade);
+		em.flush();
+		return deleted;
+	}
+	
 }
