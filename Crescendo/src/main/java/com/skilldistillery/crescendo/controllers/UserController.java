@@ -17,12 +17,8 @@ import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
-
-import com.skilldistillery.crescendo.entities.Genre;
-import com.skilldistillery.crescendo.entities.Parent;
-
 import com.skilldistillery.crescendo.entities.BlogComment;
-
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
@@ -448,6 +444,27 @@ public class UserController {
 		}
 		return mv;
 
+	}
+	
+	@RequestMapping(path = "signUp.do")
+	public String NewUser() {
+		
+		return "NewUser";
+	}
+	
+	@RequestMapping(path= "newUser.do")
+	public String signUp(String username, String password, String firstName, String lastName, RedirectAttributes redir) {
+		User newUser = new User();
+		newUser.setUsername(username);
+		newUser.setPassword(password);
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		dao.createUser(newUser);
+		redir.addFlashAttribute("warningMessage", "User created successfully");
+		return "redirect:getUserProfile.do?id=" + newUser.getId();
+		
+		
+		
 	}
 
 }
