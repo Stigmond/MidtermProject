@@ -12,9 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
-@Table(name = "album_comment")
-public class AlbumComment {
+@Table(name = "thread_comment")
+public class TopicComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,28 +24,29 @@ public class AlbumComment {
 
 	private String body;
 
+	@CreationTimestamp
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 
 	private int edited;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "thread_id")
+	private Topic thread;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
 	private User user;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	@JoinColumn(name = "album_id")
-	private Album album;
-
-	public Album getAlbum() {
-		return album;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAlbum(Album album) {
-		this.album = album;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public AlbumComment() {
+	public TopicComment() {
 		super();
 	}
 
@@ -79,23 +82,23 @@ public class AlbumComment {
 		this.edited = edited;
 	}
 
-	public User getUser() {
-		return user;
+	public Topic getThread() {
+		return thread;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setThread(Topic thread) {
+		this.thread = thread;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((album == null) ? 0 : album.hashCode());
 		result = prime * result + ((body == null) ? 0 : body.hashCode());
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + edited;
 		result = prime * result + id;
+		result = prime * result + ((thread == null) ? 0 : thread.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -108,12 +111,7 @@ public class AlbumComment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AlbumComment other = (AlbumComment) obj;
-		if (album == null) {
-			if (other.album != null)
-				return false;
-		} else if (!album.equals(other.album))
-			return false;
+		TopicComment other = (TopicComment) obj;
 		if (body == null) {
 			if (other.body != null)
 				return false;
@@ -128,6 +126,11 @@ public class AlbumComment {
 			return false;
 		if (id != other.id)
 			return false;
+		if (thread == null) {
+			if (other.thread != null)
+				return false;
+		} else if (!thread.equals(other.thread))
+			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
@@ -139,9 +142,8 @@ public class AlbumComment {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AlbumComment [id=").append(id).append(", body=").append(body).append(", createdAt=")
-				.append(createdAt).append(", edited=").append(edited).append(", user=").append(user).append(", album=")
-				.append(album).append("]");
+		builder.append("TopicComment [body=").append(body).append(", createdAt=").append(createdAt).append(", edited=")
+				.append(edited).append(", thread=").append(thread).append(", user=").append(user).append("]");
 		return builder.toString();
 	}
 

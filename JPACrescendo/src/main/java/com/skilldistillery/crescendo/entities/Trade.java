@@ -2,6 +2,7 @@ package com.skilldistillery.crescendo.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -41,7 +42,7 @@ public class Trade {
 	private int active;
 	// creator_Id
 	
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
 	private User user;
 	
@@ -155,7 +156,7 @@ public class Trade {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Trade [id=").append(id).append(", direction=").append(direction).append(", goodType=")
 				.append(goodType).append(", body=").append(body).append(", title=").append(title).append(", createdAt=")
-				.append(createdAt).append(", active=").append(active).append("]");
+				.append(createdAt).append(", active=").append(active).append(", user=").append(user).append("]");
 		return builder.toString();
 	}
 

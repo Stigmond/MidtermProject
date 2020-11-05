@@ -15,11 +15,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
-
+@Table(name= "thread")
 @Entity
-public class Blog {
+public class Topic {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,43 +28,32 @@ public class Blog {
 
 	private String title;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	@JoinColumn(name = "creator_id")
-	private User user;
-	
-	private int edited;
-
-	public int getEdited() {
-		return edited;
-	}
-
-	public void setEdited(int edited) {
-		this.edited = edited;
-	}
-
-
 	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
-	private String body;
+	@OneToMany(mappedBy = "thread", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	private List<TopicComment> threadComments;
 
-	@Column(name = "header_media_url")
-	private String headerMediaUrl;
-	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	@JoinTable(name = "blog_has_genre",
-	joinColumns = @JoinColumn(name = "blog_id"),
-	inverseJoinColumns = @JoinColumn(name = "genre_id"))
-	private List <Genre> genres;
-	
-	@OneToMany(mappedBy="blog", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private List <BlogComment> blogComments;
-	
-	public Blog() {
-		super();
+	public List<TopicComment> getThreadComments() {
+		return threadComments;
 	}
 
+	public void setThreadComments(List<TopicComment> threadComments) {
+		this.threadComments = threadComments;
+	}
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "creator_id")
+	private User user;
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinTable(name = "thread_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "thread_id"))
+	private List<Genre> genres;
+
+	public Topic() {
+		super();
+	}
 
 	public int getId() {
 		return id;
@@ -81,7 +71,6 @@ public class Blog {
 		this.title = title;
 	}
 
-
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -89,23 +78,6 @@ public class Blog {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	public String getHeaderMediaUrl() {
-		return headerMediaUrl;
-	}
-
-	public void setHeaderMediaUrl(String headerMediaUrl) {
-		this.headerMediaUrl = headerMediaUrl;
-	}
-
 
 	public User getUser() {
 		return user;
@@ -122,62 +94,47 @@ public class Blog {
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
 	}
-
-	public List<BlogComment> getBlogComments() {
-		return blogComments;
-	}
-
-	public void setBlogComments(List<BlogComment> blogComments) {
-		this.blogComments = blogComments;
-	}
-	public void addBlogComment(BlogComment blogComment) {
-		if (blogComments == null) {
-			blogComments = new ArrayList<>();
-		}
-		if (!blogComments.contains(blogComment)) {
-			blogComments.add(blogComment);
-			blogComment.setBlog(this);
-		}
-	}
-	public void removeBlogComment(BlogComment blogComment) {
-		if (blogComments != null && blogComments.contains(blogComment)) {
-			blogComments.remove(blogComment);
-			blogComment.setBlog(null);
-		}
-	}
 	public void addGenre(Genre genre) {
 		if (genres == null) {
 			genres = new ArrayList<>();
 		}
 		if (!genres.contains(genre)) {
 			genres.add(genre);
-			genre.addBlog(this);
+			genre.addThread(this);
 		}
 	}
 	public void removeGenre(Genre genre) {
 		if (genres != null && genres.contains(genre)) {
 			genres.remove(genre);
-			genre.removeBlog(this);
+			genre.removeThread(null);
+		}
+	}
+	public void addThreadComment(TopicComment threadComment) {
+		if (threadComments == null) {
+			threadComments = new ArrayList<>();
+		}
+		if (!threadComments.contains(threadComment)) {
+			threadComments.add(threadComment);
+			threadComment.setThread(this);
+		}
+	}
+	public void removeThreadComment(TopicComment threadComment) {
+		if (threadComments != null && threadComments.contains(threadComment)) {
+			threadComments.remove(threadComment);
+			threadComment.setThread(null);
 		}
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Blog [id=").append(id).append(", title=").append(title).append(", creatorId=")
-				.append(", createdAt=").append(createdAt).append(", body=").append(body).append(", headerMediaUrl=")
-				.append(headerMediaUrl).append("]");
-		return builder.toString();
+		return "Thread [id=" + id + ", title=" + title + ", createdAt=" + createdAt + ", user=" + user + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((body == null) ? 0 : body.hashCode());
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + edited;
-		result = prime * result + ((headerMediaUrl == null) ? 0 : headerMediaUrl.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -192,23 +149,11 @@ public class Blog {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Blog other = (Blog) obj;
-		if (body == null) {
-			if (other.body != null)
-				return false;
-		} else if (!body.equals(other.body))
-			return false;
+		Topic other = (Topic) obj;
 		if (createdAt == null) {
 			if (other.createdAt != null)
 				return false;
 		} else if (!createdAt.equals(other.createdAt))
-			return false;
-		if (edited != other.edited)
-			return false;
-		if (headerMediaUrl == null) {
-			if (other.headerMediaUrl != null)
-				return false;
-		} else if (!headerMediaUrl.equals(other.headerMediaUrl))
 			return false;
 		if (id != other.id)
 			return false;

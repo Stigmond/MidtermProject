@@ -1,7 +1,9 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,20 +26,21 @@ public class Album {
 
 	@Column(name = "cover_url")
 	private String coverUrl;
-
-	@Column(name = "artist_id")
-	private int artistId;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "artist_id")
+	private Artist artist;
 
 	private String description;
 
 	@Column(name = "release_year")
 	private int releaseYear;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "album_has_genre", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	private List<Genre> genres;
 
-	@OneToMany(mappedBy = "album")
+	@OneToMany(mappedBy = "album", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<AlbumComment> albumComments;
 
 	public List<AlbumComment> getAlbumComments() {
@@ -64,7 +68,6 @@ public class Album {
 		this.id = id;
 		this.title = title;
 		this.coverUrl = coverUrl;
-		this.artistId = artistId;
 		this.description = description;
 		this.releaseYear = releaseYear;
 	}
@@ -93,14 +96,6 @@ public class Album {
 		this.coverUrl = coverUrl;
 	}
 
-	public int getArtistId() {
-		return artistId;
-	}
-
-	public void setArtistId(int artistId) {
-		this.artistId = artistId;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -116,14 +111,105 @@ public class Album {
 	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
 	}
+	public Artist getArtist() {
+		return artist;
+	}
 
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
+	public void addAlbumComment(AlbumComment albumComment) {
+		if (albumComments == null) {
+			albumComments = new ArrayList<>();
+		}
+		if (!albumComments.contains(albumComment)) {
+			albumComments.add(albumComment);
+			albumComment.setAlbum(this);
+		}
+	}
+	public void removeAlbumComment(AlbumComment albumComment) {
+		if (albumComments != null && albumComments.contains(albumComment)) {
+			albumComments.remove(albumComment);
+			albumComment.setAlbum(null);
+		}
+	}
+	public void addGenre(Genre genre) {
+		if (genres == null) {
+			genres = new ArrayList<>();
+		}
+		if (!genres.contains(genre)) {
+			genres.add(genre);
+			genre.addAlbum(this);
+		}
+	}
+	public void removeGenre(Genre genre) {
+		if (genres != null && genres.contains(genre)) {
+			genres.remove(genre);
+			genre.removeAlbum(null);
+		}
+	}
+  
+	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Album [id=").append(id).append(", title=").append(title).append(", coverUrl=").append(coverUrl)
-				.append(", artistId=").append(artistId).append(", description=").append(description)
-				.append(", releaseYear=").append(releaseYear).append("]");
-		return builder.toString();
+		return "Album [id=" + id + ", title=" + title + ", coverUrl=" + coverUrl + ", artist=" + artist
+				+ ", description=" + description + ", releaseYear=" + releaseYear + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((albumComments == null) ? 0 : albumComments.hashCode());
+		result = prime * result + ((artist == null) ? 0 : artist.hashCode());
+		result = prime * result + ((coverUrl == null) ? 0 : coverUrl.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
+		result = prime * result + releaseYear;
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Album other = (Album) obj;
+		if (albumComments == null) {
+			if (other.albumComments != null)
+				return false;
+		} else if (!albumComments.equals(other.albumComments))
+			return false;
+		if (artist == null) {
+			if (other.artist != null)
+				return false;
+		} else if (!artist.equals(other.artist))
+			return false;
+		if (coverUrl == null) {
+			if (other.coverUrl != null)
+				return false;
+		} else if (!coverUrl.equals(other.coverUrl))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
+			return false;
+		if (releaseYear != other.releaseYear)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
 	}
 
 }

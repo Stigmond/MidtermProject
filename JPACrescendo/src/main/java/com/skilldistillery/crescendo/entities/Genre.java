@@ -1,8 +1,9 @@
 package com.skilldistillery.crescendo.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Genre {
@@ -21,15 +21,15 @@ public class Genre {
 
 	private String name;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "blog_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "blog_id"))
 	private List<Blog> blogs;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "thread_has_genre", joinColumns = @JoinColumn(name = "thread_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
-	private List<Thread> threads;
+	private List<Topic> threads;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "album_has_genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "album_id"))
 	private List<Album> albums;
 
@@ -75,12 +75,58 @@ public class Genre {
 		this.blogs = blogs;
 	}
 
-	public List<Thread> getThreads() {
+	public List<Topic> getThreads() {
 		return threads;
 	}
 
-	public void setThreads(List<Thread> threads) {
+	public void setThreads(List<Topic> threads) {
 		this.threads = threads;
+	}
+	
+	public void addBlog(Blog blog) {
+		if (blogs == null) {
+			blogs = new ArrayList<>();
+		}
+		if (!blogs.contains(blog)) {
+			blogs.add(blog);
+			blog.addGenre(this);
+		}
+	}
+	public void removeBlog(Blog blog) {
+		if (blogs != null && blogs.contains(blog)) {
+			blogs.remove(blog);
+			blog.removeGenre(this);
+		}
+	}
+	public void addThread(Topic thread) {
+		if (threads == null) {
+			threads = new ArrayList<>();
+		}
+		if (!threads.contains(thread)) {
+			threads.add(thread);
+			thread.addGenre(this);
+		}
+	}
+	public void removeThread(Topic thread) {
+		if (threads != null && threads.contains(thread)) {
+			threads.remove(thread);
+			thread.removeGenre(this);
+		}
+	}
+	public void addAlbum(Album album) {
+		if (albums == null) {
+			albums = new ArrayList<>();
+		}
+		if (!albums.contains(album)) {
+			albums.add(album);
+			album.addGenre(this);
+		}
+	}
+	public void removeAlbum(Album album) {
+		if (albums != null && albums.contains(album)) {
+			albums.remove(album);
+			album.removeGenre(this);
+		}
 	}
 
 	@Override
@@ -88,6 +134,34 @@ public class Genre {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Genre [id=").append(id).append(", name=").append(name).append("]");
 		return builder.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Genre other = (Genre) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }

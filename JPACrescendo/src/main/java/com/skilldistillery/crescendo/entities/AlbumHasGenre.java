@@ -57,6 +57,34 @@ public class AlbumHasGenre {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + albumId;
+		result = prime * result + genreId;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AlbumHasGenre other = (AlbumHasGenre) obj;
+		if (albumId != other.albumId)
+			return false;
+		if (genreId != other.genreId)
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("AlbumHasGenre [id=").append(id).append(", genreId=").append(genreId).append(", albumId=")
