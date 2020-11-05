@@ -32,13 +32,20 @@
 <h3 class="card-header"> Viewing all comments on ${parentObject.title}</h3>
 </c:when>
 </c:choose>
+<c:if test="${ not empty sessionScope.loggedIn }">
 <a class="btn btn-warning" href="reply.do?parent=${parentObject.getClass().getSimpleName()}&id=${parentObject.id}">Reply to This</a>
+</c:if>
 </div>
 <c:forEach var="c" items="${commentList}">
 <div class="card">
 <h4 class="card-title">${c.user.username} (${c.createdAt}) says: </h4>
 				<br>
 <p class="card-text">${c.body}</p>
+	<c:choose>
+	<c:when test="${ sessionScope.loggedIn.id == c.user.id }">
+	<a class="btn btn-warning btn-sm" href="deleteComment.do?parent=${ parentObject.getClass().getSimpleName() }&parentId=${parentObject.id}&commentId=${c.id}">DELETE THIS COMMENT</a>
+	</c:when>
+	</c:choose>
 </div>
 </c:forEach>
 

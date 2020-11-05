@@ -96,6 +96,18 @@ public interface UserDAO {
 	Boolean deleteAlbum(Album album);
 	
 	Boolean deleteBlog(Blog blog);
+	
+	Boolean deleteComment(TopicComment comment);
+	
+	Boolean deleteComment(AlbumComment comment);
+	
+	Boolean deleteComment(BlogComment comment);
+	
+	BlogComment getBlogCommentById( int id );
+	
+	AlbumComment getAlbumCommentById( int id );
+	
+	TopicComment getTopicCommentById( int id );
 
 	public TopicComment addTopicComment(TopicComment comment);
 }
