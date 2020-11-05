@@ -22,7 +22,6 @@
 			<h6 class="text-center">Bringing the World Together, One Note at a Time...</h6>
 		</div>
 	</div>
-	<a href="openTrades.do">openTrades</a>
 		
 	<hr>
 	
