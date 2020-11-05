@@ -88,7 +88,7 @@ public class AlbumComment {
 	}
 	
 	public String getSample() {
-		return this.body.substring(0, 280);
+		return this.body.length() < 280 ? this.body : this.body.substring(0, 280);
 	}
 
 	@Override
