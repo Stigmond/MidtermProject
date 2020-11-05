@@ -17,12 +17,8 @@ import com.skilldistillery.crescendo.data.UserDAO;
 import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
-
-import com.skilldistillery.crescendo.entities.Genre;
-import com.skilldistillery.crescendo.entities.Parent;
-
 import com.skilldistillery.crescendo.entities.BlogComment;
-
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
@@ -144,8 +140,9 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "viewAlbum.do")
-	public ModelAndView displaySingleAlbum(int id) {
+	public ModelAndView displaySingleAlbum(int id, HttpSession session, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
+		session.setAttribute("loggedIn", null);
 		mv.setViewName("AlbumInfo");
 		Album album = dao.getAlbumById(id);
 		mv.addObject("album", album);
@@ -382,7 +379,7 @@ public class UserController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "showTopic.do")
 	public ModelAndView showTopic(int id) {
 		ModelAndView mv = new ModelAndView();
@@ -426,7 +423,7 @@ public class UserController {
 			mv.addObject("topic", topic);
 			mv.setViewName("showTopic");
 		}
-		
+
 		return mv;
 	}
 

@@ -39,8 +39,15 @@
 			<c:choose>
 				<c:when test="${ empty commentSample }">
 					No comments on this album. <br>
+					<c:if
+							test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
+					<a class="btn btn-primary" href="newTopic.do" role="button">Start a conversation </a>
+					</c:if> 
+					<c:if test="${not empty sessionScope.loggedIn}">
 					<a href="reply.do?parent=Album&id=${ album.id }"
-								class="btn btn-secondary">Be the First to Write One!</a><br>
+								class="btn btn-secondary">Be the First to Write One!</a>
+							<br>
+								</c:if>
 				</c:when>
 				<c:otherwise>
 					<div class="card" style="width: 18rem;">
@@ -82,6 +89,7 @@
 			</c:choose>
 		</div>
 
+	
 	
 	
 	</jsp:attribute>
