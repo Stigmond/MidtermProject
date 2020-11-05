@@ -10,7 +10,7 @@
 				<h5> <a href="showBlog.do?id=${c.id }">${c.title }</a></h5>
 			<em> by <a href="getUserProfile.do?id=${c.user.id}">${c.user.username}</a>${c.edited == 0 ? "" : "(edited)" }:</em>
 					<br>
-			<p> ${ c.getSample() }</p>
+			<p><em>${ c.getSample() }...</em></p>
 			<p>(${ c.blogComments.size() } replies ) }</p>
 				</c:when>
 				<c:when test="${c.getClass().getSimpleName().equals(\"Topic\")}">
