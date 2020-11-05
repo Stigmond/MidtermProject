@@ -382,28 +382,51 @@ public class UserController {
 
 		return mv;
 	}
+	
+	@RequestMapping(path = "showTopic.do")
+	public ModelAndView showTopic(int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("showTopic");
+		mv.addObject("topic", dao.getTopicById(id));
+		return mv;
+	}
 
 	@RequestMapping(path = "newPost.do")
-	public ModelAndView addBlog(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,
+	public ModelAndView addPost(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,
 			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User user = (User) session.getAttribute("loggedIn");
-		Blog newBlog = new Blog();
 
-		List<Genre> genreList = new ArrayList<>();
-		for (String gId : genre) {
-			genreList.add(dao.getGenreById(Integer.parseInt(gId)));
+		if (postType.equals("blog")) {
+			Blog newBlog = new Blog();
+
+			List<Genre> genreList = new ArrayList<>();
+			for (String gId : genre) {
+				genreList.add(dao.getGenreById(Integer.parseInt(gId)));
+			}
+
+			newBlog.setBody(body);
+			newBlog.setTitle(postTitle);
+			newBlog.setHeaderMediaUrl(headerMediaUrl);
+			newBlog.setUser(dao.getUser(user.getId()));
+			newBlog.setGenres(genreList);
+			mv.addObject("blog", dao.addBlog(newBlog));
+			mv.setViewName("showBlog");
 		}
-		newBlog.setBody(body);
-		newBlog.setTitle(postTitle);
-		newBlog.setHeaderMediaUrl(headerMediaUrl);
-		newBlog.setUser(dao.getUser(user.getId()));
-		newBlog.setGenres(genreList);
-		System.out.println(newBlog);
-		System.out.println(newBlog.getUser().toString());
-		mv.addObject("blog", dao.addBlog(newBlog));
-		mv.setViewName("showBlog");
-
+		if (postType.equals("topic")) {
+			TopicComment topicPost = new TopicComment();
+			Topic topic = dao.getTopicByTitle(postTitle);
+			if (topic == null) {
+				topic = dao.createTopic(user, postTitle);
+			}
+			topicPost.setThread(topic);
+			topicPost.setBody(body);
+			topicPost.setUser(dao.getUser(user.getId()));
+			dao.addTopicComment(topicPost);
+			mv.addObject("topic", topic);
+			mv.setViewName("showTopic");
+		}
+		
 		return mv;
 	}
 

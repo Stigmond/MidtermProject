@@ -50,6 +50,10 @@ public interface UserDAO {
 	List<Blog> getBlogsByUser(String username);
 
 	Topic getTopicById(int id);
+	
+	Topic getTopicByTitle(String title);
+	
+	Topic createTopic(User user, String topicTitle);
 
 	TopicComment addReplyToTopic(TopicComment comment);
 
@@ -93,4 +97,5 @@ public interface UserDAO {
 	
 	Boolean deleteBlog(Blog blog);
 
+	public TopicComment addTopicComment(TopicComment comment);
 }
