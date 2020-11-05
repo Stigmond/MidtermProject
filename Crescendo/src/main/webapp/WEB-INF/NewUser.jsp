@@ -23,31 +23,31 @@
 			<form action="newUser.do">
 				<label for="username">User name/email</label>
 					<br>
-					<input type="text"name="username" value="${user.username}" required>
+					<input type="text"name="username" required>
 					<br>
 
 				<label for="password">User Password</label>
 				<br> 
-				<input type="text" name="password" value="${user.password}" required>
+				<input type="text" name="password" required>
 				<br>
 
 				<label for="firstName">First name</label>
 				<br> 
-				<input type="text" name="firstName" value="${user.firstName}" required>
+				<input type="text" name="firstName" required>
 				<br>
 <label for="lastName">Last name</label>
 <br> 
-<input type="text" name="lastName" value="${user.lastName}" required>
+<input type="text" name="lastName" required>
 <br>
 
 <label for="avatarUrl">Avatar Url</label>
 <br>
- <input type="text" name="avatarUrl" value="${user.avatarUrl}">
+ <input type="text" name="avatarUrl" >
  <br>
 
 				<label for="body">User Bio</label>
 				<br>
-				<textarea name="body" rows="4" cols="40">${user.body}</textarea>
+				<textarea name="body" rows="4" cols="40"></textarea>
 				<br> 
 				<input type="submit" value="Create New User">
 			</form>

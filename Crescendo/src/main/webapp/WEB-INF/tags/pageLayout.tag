@@ -26,7 +26,10 @@
 		<jsp:invoke fragment="body" />
 
 	</div>
-<t:searchbar/>
+
+	<div class="row"><h1>&nbsp;</h1></div>
+	<div class="row"><h1>&nbsp;</h1></div>
+	<t:searchbar/>
 	<t:bootstrapjs />
 
 </body>

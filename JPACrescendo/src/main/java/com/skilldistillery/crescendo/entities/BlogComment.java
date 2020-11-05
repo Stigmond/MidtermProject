@@ -29,9 +29,6 @@ public class BlogComment {
 	private LocalDateTime createdAt;
 
 	private int edited;
-
-	@Column(name = "in_reply_id")
-	private Integer inReplyId;
 	
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "creator_id")
@@ -40,7 +37,6 @@ public class BlogComment {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name= "blog_id")
 	private Blog blog;
-	
 	
 
 	public BlogComment() {
@@ -80,15 +76,6 @@ public class BlogComment {
 		this.edited = edited;
 	}
 
-	public Integer getInReplyId() {
-		return inReplyId;
-	}
-
-	public void setInReplyId(Integer inReplyId) {
-//		this.inReplyId = inReplyId;
-		this.inReplyId = (inReplyId == null) ? 0 : inReplyId;
-	}
-
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -112,6 +99,10 @@ public class BlogComment {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
+	
+	public String getSample() {
+		return this.body.length() < 280 ? this.body : this.body.substring(0, 280);
+	}
 
 	@Override
 	public int hashCode() {
@@ -122,7 +113,6 @@ public class BlogComment {
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + edited;
 		result = prime * result + id;
-		result = prime * result + ((inReplyId == null) ? 0 : inReplyId.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -155,11 +145,6 @@ public class BlogComment {
 			return false;
 		if (id != other.id)
 			return false;
-		if (inReplyId == null) {
-			if (other.inReplyId != null)
-				return false;
-		} else if (!inReplyId.equals(other.inReplyId))
-			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
@@ -171,7 +156,7 @@ public class BlogComment {
 	@Override
 	public String toString() {
 		return "BlogComment [id=" + id + ", body=" + body + ", createdAt=" + createdAt + ", edited=" + edited
-				+ ", inReplyId=" + inReplyId + ", user=" + user + ", blog=" + blog + "]";
+				+ ", user=" + user + ", blog=" + blog + "]";
 	}
 
 	

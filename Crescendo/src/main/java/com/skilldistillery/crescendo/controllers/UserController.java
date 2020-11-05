@@ -21,6 +21,7 @@ import com.skilldistillery.crescendo.entities.BlogComment;
 import com.skilldistillery.crescendo.entities.Direction;
 import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.GoodType;
+import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
@@ -143,8 +144,9 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "viewAlbum.do")
-	public ModelAndView displaySingleAlbum(int id) {
+	public ModelAndView displaySingleAlbum(int id, HttpSession session, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
+		session.setAttribute("loggedIn", null);
 		mv.setViewName("AlbumInfo");
 		Album album = dao.getAlbumById(id);
 		mv.addObject("album", album);
@@ -417,13 +419,61 @@ public class UserController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "showTopic.do")
 	public ModelAndView showTopic(int id) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("showTopic");
 		mv.addObject("topic", dao.getTopicById(id));
 		return mv;
+	}
+	
+//	@RequestMapping( path = "deleteComment.do")
+//	public ModelAndView deleteComment( String parent, int parentId , int commentId ) {
+//		String succ = "deletion successful";
+//		String fail = "deletion failed";
+//		ModelAndView mv = new ModelAndView();
+//		
+//		if( parent.toLowerCase().equals("album") ) {
+//			return displaySingleAlbum(parentId).addObject("warningMessage", dao.deleteComment( dao.getAlbumCommentById(commentId) ) ? succ : fail);
+//		} else if( parent.toLowerCase().equals("blog") ) {
+//			return showBlog(parentId).addObject("warningMessage", dao.deleteComment( dao.getBlogCommentById(commentId) ) ? succ : fail);
+//		} else if( parent.toLowerCase().equals("topic") ) {
+//			mv = showCommentThread("topic", parentId);
+//			mv.addObject("warningMessage", dao.deleteComment( dao.getTopicCommentById(commentId) ) ? succ : fail);
+//			mv.setViewName("viewComments");
+//		} else {
+//			//shouldn't ever actually happen, only exists to satisfy compiler
+//			mv.setViewName("index");			
+//		}
+//		
+//		return mv;
+//		
+//	}
+	
+	@RequestMapping( path = "deleteComment.do")
+	public ModelAndView deleteComment( String parent, int parentId , int commentId, RedirectAttributes redir ) {
+		String succ = "deletion successful";
+		String fail = "deletion failed";
+		ModelAndView mv = new ModelAndView();
+		
+		if( parent.toLowerCase().equals("album") ) {
+			redir.addFlashAttribute("warningMessage", dao.deleteComment( dao.getAlbumCommentById(commentId) ) ? succ : fail );
+			mv.setViewName( "redirect:viewAlbum.do?id=" + parentId );
+		} else if( parent.toLowerCase().equals("blog") ) {
+			redir.addFlashAttribute( "warningMessage" , dao.deleteComment( dao.getBlogCommentById(commentId) ) ? succ : fail );
+			mv.setViewName("redirect:showBlog.do?id=" + parentId);
+		} else if( parent.toLowerCase().equals("topic") ) {
+			mv = showCommentThread("topic", parentId);
+			redir.addFlashAttribute( "warningMessage" , dao.deleteComment( dao.getTopicCommentById(commentId) ) ? succ : fail );
+			mv.setViewName("redirect:viewComments.do?type=topic&id=" + parentId);
+		} else {
+			//shouldn't ever actually happen, only exists to satisfy compiler
+			mv.setViewName("index");			
+		}
+		
+		return mv;
+		
 	}
 
 	@RequestMapping(path = "newPost.do")
@@ -461,7 +511,7 @@ public class UserController {
 			mv.addObject("topic", topic);
 			mv.setViewName("showTopic");
 		}
-		
+
 		return mv;
 	}
 
@@ -483,6 +533,27 @@ public class UserController {
 		}
 		return mv;
 
+	}
+	
+	@RequestMapping(path = "signUp.do")
+	public String NewUser() {
+		
+		return "NewUser";
+	}
+	
+	@RequestMapping(path= "newUser.do")
+	public String signUp(String username, String password, String firstName, String lastName, RedirectAttributes redir) {
+		User newUser = new User();
+		newUser.setUsername(username);
+		newUser.setPassword(password);
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		dao.createUser(newUser);
+		redir.addFlashAttribute("warningMessage", "User created successfully");
+		return "redirect:getUserProfile.do?id=" + newUser.getId();
+		
+		
+		
 	}
 
 }

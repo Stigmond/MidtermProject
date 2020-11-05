@@ -89,6 +89,10 @@ public class TopicComment {
 	public void setThread(Topic thread) {
 		this.thread = thread;
 	}
+	
+	public String getSample() {
+		return this.body.length() < 280 ? this.body : this.body.substring(0, 280);
+	}
 
 	@Override
 	public int hashCode() {

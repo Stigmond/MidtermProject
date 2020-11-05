@@ -86,6 +86,10 @@ public class AlbumComment {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public String getSample() {
+		return this.body.length() < 280 ? this.body : this.body.substring(0, 280);
+	}
 
 	@Override
 	public int hashCode() {
