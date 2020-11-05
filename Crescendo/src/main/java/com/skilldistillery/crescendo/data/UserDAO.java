@@ -103,5 +103,7 @@ public interface UserDAO {
 
 	List<Trade> getBSTByUser(String username);
 	
+	public Trade addBST(Trade trade);
+	
 	Boolean deleteBST(int id);
 }

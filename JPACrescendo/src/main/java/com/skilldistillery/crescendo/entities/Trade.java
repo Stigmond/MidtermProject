@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,13 +21,18 @@ public class Trade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Enumerated(EnumType.STRING)
-	private Direction direction;
+//	@Enumerated(EnumType.STRING)
+//	private Direction direction;
 
-	@Enumerated(EnumType.STRING)
+//	@Enumerated(EnumType.STRING)
+//	@Column(name="good_type")
+//	private GoodType goodType;
+
+	private String direction;
 	@Column(name="good_type")
-	private GoodType goodType;
-
+	private String goodType;
+	
+	
 	private String body;
 
 	private String title;
@@ -83,19 +86,36 @@ public class Trade {
 		this.active = active;
 	}
 
-	public Direction getDirection() {
+//	public Direction getDirection() {
+//		return direction;
+//	}
+//
+//	public void setDirection(Direction direction) {
+//		this.direction = direction;
+//	}
+//
+//	public GoodType getGoodType() {
+//		return goodType;
+//	}
+//
+//	public void setGoodType(GoodType goodType) {
+//		this.goodType = goodType;
+//	}
+
+	
+	public String getDirection() {
 		return direction;
 	}
 
-	public void setDirection(Direction direction) {
+	public void setDirection(String direction) {
 		this.direction = direction;
 	}
 
-	public GoodType getGoodType() {
+	public String getGoodType() {
 		return goodType;
 	}
 
-	public void setGoodType(GoodType goodType) {
+	public void setGoodType(String goodType) {
 		this.goodType = goodType;
 	}
 

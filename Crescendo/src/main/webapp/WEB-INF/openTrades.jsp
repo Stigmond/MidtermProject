@@ -59,7 +59,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="text-center">
-					<div><br><a class="btn btn-secondary btn-sm" href="#" role="button">Add Good/Service</a></div>
+					<div><br><a class="btn btn-secondary btn-sm" href="createTrade.do" role="button">Add Good/Service</a></div>
 				</div>	
 			</div>
 		</div>

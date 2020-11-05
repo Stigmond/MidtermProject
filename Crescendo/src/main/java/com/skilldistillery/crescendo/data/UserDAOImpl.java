@@ -426,4 +426,12 @@ public class UserDAOImpl implements UserDAO {
 		return true;
 	}
 	
+		public Trade addBST(Trade trade) {
+			User tempUser = em.find(User.class, trade.getUser().getId());
+			trade.setUser(tempUser);
+			em.persist(trade);
+			em.flush();
+			System.out.println("THIS WAS ADDED" + trade);
+			return trade;
+		}
 }
