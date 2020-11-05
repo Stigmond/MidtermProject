@@ -409,13 +409,21 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 		public Boolean deleteBST(int id) {
-		boolean deleted = true;
-		System.out.println("ID BEING PASSED IN:" + id);
-		Trade trade = em.find(Trade.class, id);
-		System.out.println("TRADE AFTER SEEKING BY ID:" + trade);
-		em.remove(trade);
-		em.flush();
-		return deleted;
+//		boolean deleted = true;
+//		System.out.println("ID BEING PASSED IN:" + id);
+//		Trade trade = em.find(Trade.class, id);
+//		System.out.println("TRADE AFTER SEEKING BY ID:" + trade);
+//		em.remove(trade);
+//		em.flush();
+//		return deleted;
+		try {
+			String delete = "DELETE FROM Trade t WHERE t.id = :id";
+			em.createQuery(delete).setParameter("id", id).executeUpdate();
+			
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 	
 }

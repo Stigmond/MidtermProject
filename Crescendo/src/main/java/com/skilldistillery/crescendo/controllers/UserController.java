@@ -291,12 +291,12 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "tradeDelete.do")
-	public ModelAndView deleteTradeByCreator(int id) {
-		System.out.println("ID BEING PASSED IN BY JSP:" + id);
+	public String deleteTradeByCreator(int id, RedirectAttributes redir) {
+		String succ = "deletion successful";
+		String fail = "deletion failed";
 		ModelAndView mv = new ModelAndView();
-		dao.deleteBST(id);
-		mv.setViewName("openTrades");
-		return mv;
+		redir.addFlashAttribute("warningMessage", dao.deleteBST(id) ? succ : fail);
+		return "redirect:openTrades.do";
 	}
 	@RequestMapping(path = "commentReply.do")
 	public ModelAndView postCommentReply(String body, HttpSession session, RedirectAttributes redir) {
