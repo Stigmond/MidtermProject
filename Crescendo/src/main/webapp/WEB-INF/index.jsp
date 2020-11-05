@@ -22,7 +22,8 @@
 			<h6 class="text-center">Bringing the World Together, One Note at a Time...</h6>
 		</div>
 	</div>
-	
+	<a href="openTrades.do">openTrades</a>
+		
 	<hr>
 	
 	<div class="row">
@@ -120,7 +121,7 @@
   				</div>
 			</div>
 		</div>
-		<a href="newAlbum.do">Create A New Album Here!</a>
+		
 		</div>
 		
 	</jsp:attribute>

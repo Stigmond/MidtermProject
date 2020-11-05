@@ -204,6 +204,9 @@ public class UserController {
 			case TOPIC_COMMENT:
 				mv.addObject("resultList", dao.getTopicCommentsByKeyword(val));
 				break;
+			case BUYSELLTRADE:
+				mv.addObject("resultList", dao.getBSTByKeyword(val));
+				break;
 			}
 			break;
 		case USERNAME:
@@ -227,6 +230,8 @@ public class UserController {
 			case TOPIC_COMMENT:
 				mv.addObject("resultList", dao.getTopicCommentsByUser(val));
 				break;
+			case BUYSELLTRADE:
+				mv.addObject("resultList", dao.getBSTByUser(val));
 			}
 			break;
 		}

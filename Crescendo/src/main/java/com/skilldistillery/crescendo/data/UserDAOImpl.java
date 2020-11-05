@@ -153,6 +153,18 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public List<Trade> getBSTByKeyword(String keyword) {
+		String query = "SELECT t FROM Trade t WHERE t.body LIKE :kw OR t.title LIKE :kw";
+		return em.createQuery(query, Trade.class).setParameter("kw", "%" + keyword + "%").getResultList();
+	}
+	
+	
+	@Override
+	public List<Trade> getBSTByUser(String username) {
+		String query = "SELECT t FROM Trade t WHERE t.user.username LIKE :kw";
+		return em.createQuery(query, Trade.class).setParameter("kw", "%" + username + "%").getResultList();
+	}
+	@Override
 	public User updateUser(User user) {
 		User dbuser = em.find(User.class, user.getId());
 		User newuser = user;

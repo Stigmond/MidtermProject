@@ -15,7 +15,7 @@
 	<div class= "col">
 	<table>
 	<tr><td>Listed Since:</td><td>${t.createdAt}</td></tr>
-	<tr><td colspan="2">Contact the poster</td></tr>
+	<tr><td colspan="2"><a href="getUserProfile.do?id=${t.user.id}">Contact the poster</a></td></tr>
 	</table>
 	</div>
 	</div>

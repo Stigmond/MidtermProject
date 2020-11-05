@@ -98,4 +98,8 @@ public interface UserDAO {
 	Boolean deleteBlog(Blog blog);
 
 	public TopicComment addTopicComment(TopicComment comment);
+
+	List<Trade> getBSTByKeyword(String keyword);
+
+	List<Trade> getBSTByUser(String username);
 }
