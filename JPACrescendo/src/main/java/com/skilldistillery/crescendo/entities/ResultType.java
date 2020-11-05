@@ -10,7 +10,8 @@ public enum ResultType {
 	ALBUM("album"),
 	ALBUM_COMMENT("albumComment"), 
 	TOPIC("topic"),
-	TOPIC_COMMENT("topicComment");
+	TOPIC_COMMENT("topicComment"),
+	BUYSELLTRADE("bst");
 	
 	private String type;
 	

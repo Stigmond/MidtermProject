@@ -42,6 +42,7 @@
 					<option value="Blog">blog posts</option>
 					<option value="Topic">topic threads</option>
 					<option value="Album">albums</option>
+					<option value="bst">buy/sell/trades</option>
 				</select>
 			</div>
 			<div class="form-group col-1">by</div>

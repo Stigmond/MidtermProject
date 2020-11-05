@@ -110,4 +110,12 @@ public interface UserDAO {
 	TopicComment getTopicCommentById( int id );
 
 	public TopicComment addTopicComment(TopicComment comment);
+
+	List<Trade> getBSTByKeyword(String keyword);
+
+	List<Trade> getBSTByUser(String username);
+	
+	public Trade addBST(Trade trade);
+	
+	Boolean deleteBST(int id);
 }

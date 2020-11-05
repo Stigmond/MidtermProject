@@ -6,6 +6,7 @@
 	<jsp:attribute name="body">
 	<div class= "row justify-content-center">
 		<h3>Buy/Sell/Trade Offers</h3>
+		
 		</div>
 		<div class="row">
 			<div class="col">
@@ -54,6 +55,13 @@
 			</tbody>
 			</table>
 		</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="text-center">
+					<div><br><a class="btn btn-secondary btn-sm" href="createTrade.do" role="button">Add Good/Service</a></div>
+				</div>	
+			</div>
 		</div>
 	
 	

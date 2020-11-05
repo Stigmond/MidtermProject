@@ -7,6 +7,9 @@
 		<div class="col">
 			<a class="navbar-nav" href="home.do">Home</a>
 		</div>
+		<div class="col">
+			<a class="navbar-nav" href="openTrades.do">Buy/Sell/Trade</a>
+		</div>
 	</div>
 	<div class="col">
 		<c:choose>

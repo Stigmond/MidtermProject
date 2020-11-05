@@ -153,6 +153,18 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public List<Trade> getBSTByKeyword(String keyword) {
+		String query = "SELECT t FROM Trade t WHERE t.body LIKE :kw OR t.title LIKE :kw";
+		return em.createQuery(query, Trade.class).setParameter("kw", "%" + keyword + "%").getResultList();
+	}
+	
+	
+	@Override
+	public List<Trade> getBSTByUser(String username) {
+		String query = "SELECT t FROM Trade t WHERE t.user.username LIKE :kw";
+		return em.createQuery(query, Trade.class).setParameter("kw", "%" + username + "%").getResultList();
+	}
+	@Override
 	public User updateUser(User user) {
 		User dbuser = em.find(User.class, user.getId());
 		User newuser = user;
@@ -453,5 +465,30 @@ public class UserDAOImpl implements UserDAO {
 		return comment;
 	}
 	
-
+		public Boolean deleteBST(int id) {
+//		boolean deleted = true;
+//		System.out.println("ID BEING PASSED IN:" + id);
+//		Trade trade = em.find(Trade.class, id);
+//		System.out.println("TRADE AFTER SEEKING BY ID:" + trade);
+//		em.remove(trade);
+//		em.flush();
+//		return deleted;
+		try {
+			String delete = "DELETE FROM Trade t WHERE t.id = :id";
+			em.createQuery(delete).setParameter("id", id).executeUpdate();
+			
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+		public Trade addBST(Trade trade) {
+			User tempUser = em.find(User.class, trade.getUser().getId());
+			trade.setUser(tempUser);
+			em.persist(trade);
+			em.flush();
+			System.out.println("THIS WAS ADDED" + trade);
+			return trade;
+		}
 }

@@ -18,11 +18,15 @@ import com.skilldistillery.crescendo.entities.Album;
 import com.skilldistillery.crescendo.entities.AlbumComment;
 import com.skilldistillery.crescendo.entities.Blog;
 import com.skilldistillery.crescendo.entities.BlogComment;
+import com.skilldistillery.crescendo.entities.Direction;
+import com.skilldistillery.crescendo.entities.Genre;
+import com.skilldistillery.crescendo.entities.GoodType;
 import com.skilldistillery.crescendo.entities.Genre;
 import com.skilldistillery.crescendo.entities.ResultType;
 import com.skilldistillery.crescendo.entities.SearchType;
 import com.skilldistillery.crescendo.entities.Topic;
 import com.skilldistillery.crescendo.entities.TopicComment;
+import com.skilldistillery.crescendo.entities.Trade;
 import com.skilldistillery.crescendo.entities.User;
 
 @Controller
@@ -201,6 +205,9 @@ public class UserController {
 			case TOPIC_COMMENT:
 				mv.addObject("resultList", dao.getTopicCommentsByKeyword(val));
 				break;
+			case BUYSELLTRADE:
+				mv.addObject("resultList", dao.getBSTByKeyword(val));
+				break;
 			}
 			break;
 		case USERNAME:
@@ -224,6 +231,8 @@ public class UserController {
 			case TOPIC_COMMENT:
 				mv.addObject("resultList", dao.getTopicCommentsByUser(val));
 				break;
+			case BUYSELLTRADE:
+				mv.addObject("resultList", dao.getBSTByUser(val));
 			}
 			break;
 		}
@@ -282,6 +291,37 @@ public class UserController {
 		return mv;
 	}
 
+	@RequestMapping(path = "tradeDelete.do")
+	public String deleteTradeByCreator(int id, RedirectAttributes redir) {
+		String succ = "deletion successful";
+		String fail = "deletion failed";
+		redir.addFlashAttribute("warningMessage", dao.deleteBST(id) ? succ : fail);
+		return "redirect:openTrades.do";
+	}
+	
+	@RequestMapping(path = "createTrade.do")
+	public String createTrade() {
+		return "createTrade";
+	}
+	
+	
+	
+	@RequestMapping(path = "addTrade.do")
+	public String addTrade(String direction, String body, String goodType, String title, RedirectAttributes redir, HttpSession session) {
+	Trade trade = new Trade();
+	trade.setGoodType(goodType);
+	trade.setDirection(direction);
+	trade.setTitle(title);
+	trade.setBody(body);
+	trade.setUser((User) session.getAttribute("loggedIn"));
+	trade.setActive(1);
+	dao.addBST(trade);
+	
+		return "redirect:tradePage.do?id=" + trade.getId();
+	}
+	
+	
+	
 	@RequestMapping(path = "commentReply.do")
 	public ModelAndView postCommentReply(String body, HttpSession session, RedirectAttributes redir) {
 
