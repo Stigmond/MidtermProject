@@ -160,6 +160,10 @@ public class Blog {
 			genre.removeBlog(this);
 		}
 	}
+	
+	public String getSample() {
+		return this.body.substring(0, 280);
+	}
 
 	@Override
 	public String toString() {

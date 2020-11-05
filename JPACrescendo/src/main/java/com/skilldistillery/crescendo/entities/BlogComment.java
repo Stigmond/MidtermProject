@@ -99,6 +99,10 @@ public class BlogComment {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
+	
+	public String getSample() {
+		return this.body.substring(0, 280);
+	}
 
 	@Override
 	public int hashCode() {
