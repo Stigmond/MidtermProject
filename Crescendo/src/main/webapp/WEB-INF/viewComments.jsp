@@ -18,6 +18,14 @@
 <h3 class="card-header">Viewing replies to ${parentObject.user.username}'s thread "${parentObject.title}"</h3>
 <p class="text-justify">
 					<em>${firstComment.body }</em> </p>
+					<c:choose>
+					<c:when test ="${sessionScope.loggedIn.id == parentObject.user.id }">
+					<a class="btn btn-danger" 
+					href="delete.do?parent=${parentObject.getClass().getSimpleName().toLowerCase() }&id=${parentObject.id}">
+					DELETE THIS POST
+					</a>
+					
+					</c:when></c:choose>
 </c:when>
 <c:when
 					test="${parentObject.getClass().getSimpleName().equals(\"Album\")}">
