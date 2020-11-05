@@ -62,7 +62,7 @@ public interface UserDAO {
 	List<AlbumComment> getAlbumCommentsByKeyword(String keyword);
 
 	List<AlbumComment> getAlbumCommentsByUser(String username);
-	
+
 	AlbumComment addReplyToAlbum(AlbumComment comment);
 
 	List<BlogComment> getBlogCommentsByKeyword(String keyword);
@@ -81,12 +81,16 @@ public interface UserDAO {
 
 	List<Trade> getTradesByUser(int id);
 
-	
 	Blog addBlog(Blog blog);
-	Genre getGenreById(int id);
-	
 
+	Genre getGenreById(int id);
 
 	BlogComment addReplyToBlog(BlogComment comment);
+
+	Boolean deleteDiscussionTopic(Topic topic);
+	
+	Boolean deleteAlbum(Album album);
+	
+	Boolean deleteBlog(Blog blog);
 
 }

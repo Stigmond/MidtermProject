@@ -306,7 +306,6 @@ public class UserDAOImpl implements UserDAO {
 		return comment;
 	}
 
-
 	@Override
 	public Blog addBlog(Blog blog) {
 		em.persist(blog);
@@ -316,8 +315,53 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public Genre getGenreById(int id) {
-	return	em.find(Genre.class, id);
-		
+		return em.find(Genre.class, id);
+
+	}
+
+	@Override
+	public Boolean deleteDiscussionTopic(Topic topic) {
+		try {
+			String deleteComments = "DELETE FROM TopicComment tc WHERE tc.thread.id = :tid";
+			String deleteTopic = "DELETE FROM Topic t WHERE t.id = :tid";
+
+			em.createQuery(deleteComments).setParameter("tid", topic.getId()).executeUpdate();
+			em.createQuery(deleteTopic).setParameter("tid", topic.getId()).executeUpdate();
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public Boolean deleteAlbum(Album album) {
+		try {
+			String deleteComments = "DELETE FROM AlbumComment ac WHERE ac.album.id = :tid";
+			String deleteTopic = "DELETE FROM Album a WHERE a.id = :tid";
+
+			em.createQuery(deleteComments).setParameter("tid", album.getId()).executeUpdate();
+			em.createQuery(deleteTopic).setParameter("tid", album.getId()).executeUpdate();
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public Boolean deleteBlog(Blog blog) {
+		try {
+			String deleteComments = "DELETE FROM BlogComment bc WHERE bc.blog.id = :tid";
+			String deleteTopic = "DELETE FROM Blog b WHERE b.id = :tid";
+
+			em.createQuery(deleteComments).setParameter("tid", blog.getId()).executeUpdate();
+			em.createQuery(deleteTopic).setParameter("tid", blog.getId()).executeUpdate();
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

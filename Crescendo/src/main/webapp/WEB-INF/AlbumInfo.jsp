@@ -38,7 +38,9 @@
 		<div id="sampleComments" class="col">
 			<c:choose>
 				<c:when test="${ empty commentSample }">
-					No comments on this album. Be the first to write one!
+					No comments on this album. <br>
+					<a href="reply.do?parent=Album&id=${ album.id }"
+								class="btn btn-secondary">Be the First to Write One!</a><br>
 				</c:when>
 				<c:otherwise>
 					<div class="card" style="width: 18rem;">
@@ -71,7 +73,7 @@
   						</div>
   						
   						<!-- TODO add controller method to create new album comment and another to view different types of comments based on params  -->
-  						<a href="makeComment.do?type=Album&id=${ album.id }"
+  						<a href="reply.do?parent=Album&id=${ album.id }"
 								class="btn btn-secondary">Comment on this album</a><br>
   						<a href="viewComments.do?type=Album&id=${ album.id }"
 								class="btn btn-info">View all comments on this album</a><br>

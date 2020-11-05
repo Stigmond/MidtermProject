@@ -127,7 +127,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("UserProfile");
 		if (session.getAttribute("loggedIn") == null) {
-			mv.addObject("loginError", loginError);
+			mv.addObject("warningMessage", loginError);
 		} else {
 			mv.addObject("user", session.getAttribute("loggedIn"));
 		}
@@ -185,7 +185,7 @@ public class UserController {
 		mv.setViewName("searchResult");
 		switch (SearchType.get(searchType)) {
 		case KEYWORD:
-			switch (ResultType.get(resultType)) {
+			switch (ResultType.get(resultType.toLowerCase())) {
 			case BLOG:
 				mv.addObject("resultList", dao.getBlogsByKeyword(val));
 				break;
@@ -207,7 +207,7 @@ public class UserController {
 			}
 			break;
 		case USERNAME:
-			switch (ResultType.get(resultType)) {
+			switch (ResultType.get(resultType.toLowerCase())) {
 			case BLOG:
 				mv.addObject("resultList", dao.getBlogsByUser(val));
 				break;
@@ -374,45 +374,57 @@ public class UserController {
 		return "Reply";
 	}
 
-	
-	@RequestMapping(path= "showBlog.do")
+	@RequestMapping(path = "showBlog.do")
 	public ModelAndView showBlog(int id) {
-	ModelAndView mv = new ModelAndView();
-	mv.setViewName("showBlog");
-	mv.addObject("blog", dao.getBlogById(id));
-	
-	return mv;
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("showBlog");
+		mv.addObject("blog", dao.getBlogById(id));
+
+		return mv;
 	}
-	
-	@RequestMapping(path= "newPost.do")
-	public ModelAndView addBlog(String postType,
-			String body,
-			String[] genre,
-			String postTitle,
-			String headerMediaUrl,
+
+	@RequestMapping(path = "newPost.do")
+	public ModelAndView addBlog(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,
 			HttpSession session) {
-	ModelAndView mv = new ModelAndView();
-	User user = (User) session.getAttribute("loggedIn");
-	Blog newBlog = new Blog();
+		ModelAndView mv = new ModelAndView();
+		User user = (User) session.getAttribute("loggedIn");
+		Blog newBlog = new Blog();
 
-	List<Genre> genreList = new ArrayList<>();
-	for (String gId : genre) {
-		genreList.add(dao.getGenreById(Integer.parseInt(gId)));
-	}
-	newBlog.setBody(body);
-	newBlog.setTitle(postTitle);
-	newBlog.setHeaderMediaUrl(headerMediaUrl);
-	newBlog.setUser(dao.getUser(user.getId()));
-	newBlog.setGenres(genreList);
-	System.out.println(newBlog);
-	System.out.println(newBlog.getUser().toString());
-	mv.addObject("blog", dao.addBlog(newBlog));
-	mv.setViewName("showBlog");
-	
-	return mv;
-	}
-	
-	
+		List<Genre> genreList = new ArrayList<>();
+		for (String gId : genre) {
+			genreList.add(dao.getGenreById(Integer.parseInt(gId)));
+		}
+		newBlog.setBody(body);
+		newBlog.setTitle(postTitle);
+		newBlog.setHeaderMediaUrl(headerMediaUrl);
+		newBlog.setUser(dao.getUser(user.getId()));
+		newBlog.setGenres(genreList);
+		System.out.println(newBlog);
+		System.out.println(newBlog.getUser().toString());
+		mv.addObject("blog", dao.addBlog(newBlog));
+		mv.setViewName("showBlog");
 
+		return mv;
+	}
+
+	@RequestMapping(path = "delete.do")
+	public ModelAndView deleteTopic(String parent, int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("index");
+		String succ = "deletion successful";
+		String fail = "deletion failed";
+		if (parent.equals("topic")) {
+			Topic toDelete = dao.getTopicById(id);
+			mv.addObject("warningMessage", dao.deleteDiscussionTopic(toDelete) ? succ : fail);
+		} else if (parent.equals("album")) {
+			Album toDelete = dao.getAlbumById(id);
+			mv.addObject("warningMessage", dao.deleteAlbum(toDelete) ? succ : fail);
+		} else if (parent.equals("blog")) {
+			Blog toDelete = dao.getBlogById(id);
+			mv.addObject("warningMessage", dao.deleteBlog(toDelete) ? succ : fail);
+		}
+		return mv;
+
+	}
 
 }

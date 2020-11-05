@@ -11,8 +11,9 @@
 	<div class="col">
 		<c:choose>
 			<c:when test="${not empty sessionScope.loggedIn }">
-Logged in as: ${sessionScope.loggedIn.username} <a href= "logout.do">Log out</a>
-</c:when>
+Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessionScope.loggedIn.username}</a>
+				<a href="logout.do">Log out</a>
+			</c:when>
 			<c:otherwise>
 				<form class="form-inline" action="login.do">
 					<input class="form-control" type="text" name="username"
@@ -20,14 +21,14 @@ Logged in as: ${sessionScope.loggedIn.username} <a href= "logout.do">Log out</a>
 						type="text" name="password" placeholder="Enter your Password" />
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
-				<c:choose>
-				<c:when test="${not empty loginError }">
-					<p class="text-danger">${loginError }</p>
-				</c:when>
-
-			</c:choose>
 			</c:otherwise>
 		</c:choose>
+				<c:choose>
+					<c:when test="${not empty warningMessage }">
+						<p class="text-danger">${warningMessage }</p>
+					</c:when>
+
+				</c:choose>
 
 	</div>
 
