@@ -382,6 +382,14 @@ public class UserController {
 
 		return mv;
 	}
+	
+	@RequestMapping(path = "showTopic.do")
+	public ModelAndView showTopic(int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("showTopic");
+		mv.addObject("topic", dao.getTopicById(id));
+		return mv;
+	}
 
 	@RequestMapping(path = "newPost.do")
 	public ModelAndView addPost(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,
@@ -414,7 +422,8 @@ public class UserController {
 			topicPost.setThread(topic);
 			topicPost.setBody(body);
 			topicPost.setUser(dao.getUser(user.getId()));
-			mv.addObject("topicPost", dao.addTopicComment(topicPost));
+			dao.addTopicComment(topicPost);
+			mv.addObject("topic", topic);
 			mv.setViewName("showTopic");
 		}
 		

@@ -2,13 +2,16 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:pageLayout>
-	<jsp:attribute name="title">Post by: ${topicPost.user.firstName}</jsp:attribute>
+	<jsp:attribute name="title">Post by: ${topic.title}</jsp:attribute>
 	<jsp:attribute name="body">
-	
-	<p>POST: ${topicPost.thread.title}</p>
-	<p>BY: ${topicPost.user.username} ON ${topicPost.createdAt}</p>
+	<h3>POSTS FOR: "${topic.title}"</h3>
+	<c:forEach var="comment" items="${topic.threadComments}">
+	<tr>
+	<td><span>${comment.user.username}</span></td> <td><span>${comment.createdAt}</span></td> <td><span>${comment.body}</span></td>
+	</tr>
 	<br>
-	<p>${topicPost.body}</p>
+	</c:forEach>
+	
 	
 	
 	
