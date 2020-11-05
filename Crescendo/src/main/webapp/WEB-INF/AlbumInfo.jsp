@@ -14,6 +14,9 @@
 				<h4>By ${album.artist.name} (${album.releaseYear})</h4>
 					<br>
 				<p>${album.description}</p>
+					<c:if test="${not empty sessionScope.loggedIn}">
+				    <a href="editAlbum.do?id=${album.id}" class="btn btn-info">Edit Album Info</a>
+				    </c:if>
 				</div>
 				<c:choose>
 					<c:when test="${not empty album.coverUrl }">
@@ -35,7 +38,16 @@
 		<div id="sampleComments" class="col">
 			<c:choose>
 				<c:when test="${ empty commentSample }">
-					No comments on this album. Be the first to write one!
+					No comments on this album. <br>
+					<c:if
+							test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
+					<a class="btn btn-primary" href="newTopic.do" role="button">Start a conversation </a>
+					</c:if> 
+					<c:if test="${not empty sessionScope.loggedIn}">
+					<a href="reply.do?parent=Album&id=${ album.id }"
+								class="btn btn-secondary">Be the First to Write One!</a>
+							<br>
+								</c:if>
 				</c:when>
 				<c:otherwise>
 					<div class="card" style="width: 18rem;">
@@ -68,15 +80,17 @@
   						</div>
   						
   						<!-- TODO add controller method to create new album comment and another to view different types of comments based on params  -->
-  						<a href="makeComment.do?type=album&id=${ album.id }"
+  						<a href="reply.do?parent=Album&id=${ album.id }"
 								class="btn btn-secondary">Comment on this album</a><br>
-  						<a href="viewComments.do?type=album&id=${ album.id }"
-								class="btn btn-info">View all commments on this album</a><br>
+  						<a href="viewComments.do?type=Album&id=${ album.id }"
+								class="btn btn-info">View all comments on this album</a><br>
   						</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
-<a href="editAlbum.do?id=${album.id}">Update/Edit The Album</a>
+
+	
+	
 	
 	</jsp:attribute>
 </t:pageLayout>

@@ -89,6 +89,10 @@ public class TopicComment {
 	public void setThread(Topic thread) {
 		this.thread = thread;
 	}
+	
+	public String getSample() {
+		return this.body.length() < 280 ? this.body : this.body.substring(0, 280);
+	}
 
 	@Override
 	public int hashCode() {
@@ -142,9 +146,8 @@ public class TopicComment {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ThreadComment [id=").append(id).append(", body=").append(body).append(", createdAt=")
-				.append(createdAt).append(", edited=").append(edited).append(", thread=").append(thread)
-				.append(", user=").append(user).append("]");
+		builder.append("TopicComment [body=").append(body).append(", createdAt=").append(createdAt).append(", edited=")
+				.append(edited).append(", thread=").append(thread).append(", user=").append(user).append("]");
 		return builder.toString();
 	}
 

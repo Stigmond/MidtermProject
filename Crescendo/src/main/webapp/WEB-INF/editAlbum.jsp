@@ -39,6 +39,7 @@
   						<form class="needs-validation" novalidate
 							action="updateAlbum.do"> 
   <div class="form-row">
+  <input type="hidden" name="id" value="${album.id}">
       <label for="validationCustom01">Title</label>
       <input type="text" class="form-control" id="validationCustom01"
 									name="title" value="${album.title}" required>
@@ -47,21 +48,21 @@
       </div>
     </div>
     <div class="form-row">
-      <label for="validationCustom02">Cover Image (Url)</label>
+      <label for="validationCustom02">Cover Image (URL)</label>
       <input type="text" class="form-control" id="validationCustom02"
 									name="coverUrl" value="${album.coverUrl}" required>
       <div class="valid-feedback">
         Looks good!     
       </div>
     </div>
-    <div class="form-row">
+     <div class="form-row">
       <label for="validationCustom02">Artist</label>
       <input type="text" class="form-control" id="validationCustom02"
 									name="artistName" value="${album.artist.name}" required>
       <div class="valid-feedback">
         Looks good!
       </div>
-    </div>
+    </div> 
     <div class="form-row">
       <label for="validationCustom03">Release Year</label>
       <input type="number" class="form-control" id="validationCustom03"
@@ -80,9 +81,10 @@
       </div>
 							
 							</div>
+		<br>
+  <button class="btn btn-primary" type="submit">Update</button>
 </form>
 					</div>
-  <button class="btn btn-primary" type="submit">Submit form</button>
 <script>
 	// Example starter JavaScript for disabling form submissions if there are invalid fields
 	(function() {
