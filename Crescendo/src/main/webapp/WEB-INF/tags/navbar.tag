@@ -31,7 +31,16 @@ Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessi
 				</c:choose>
 
 	</div>
+	<!-- new -->
+	<div class="col">
+		<c:choose>
+			<c:when test="${empty sessionScope.loggedIn }">
+			<a class="btn btn-primary" href="signUp.do">Sign Up</a> 
+			 </c:when>
+		</c:choose>
+	</div>
 
+	<!-- new -->
 </nav>
 
 

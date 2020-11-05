@@ -494,5 +494,26 @@ public class UserController {
 		return mv;
 
 	}
+	
+	@RequestMapping(path = "signUp.do")
+	public String NewUser() {
+		
+		return "NewUser";
+	}
+	
+	@RequestMapping(path= "newUser.do")
+	public String signUp(String username, String password, String firstName, String lastName, RedirectAttributes redir) {
+		User newUser = new User();
+		newUser.setUsername(username);
+		newUser.setPassword(password);
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		dao.createUser(newUser);
+		redir.addFlashAttribute("warningMessage", "User created successfully");
+		return "redirect:getUserProfile.do?id=" + newUser.getId();
+		
+		
+		
+	}
 
 }
