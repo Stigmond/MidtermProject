@@ -19,8 +19,8 @@
 					<label for= "bodyText">
 					What would you like to say?
 					</label>
-					<input type= "text" class= "form-control" placeholder= "Enter a Title..." name= "postTitle">
-					<textarea name="body" rows="8" class= "form-control" id= "bodyText"></textarea>
+					<input type= "text" class= "form-control" placeholder= "Enter a Title..." name= "postTitle" required>
+					<textarea name="body" rows="8" class= "form-control" id= "bodyText" required></textarea>
 					</div>
 		</div>
 		<div class= "col"> 

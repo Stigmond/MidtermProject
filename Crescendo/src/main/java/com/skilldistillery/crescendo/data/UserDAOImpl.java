@@ -278,6 +278,19 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public Topic getTopicByTitle(String title) {
+		Topic topic = new Topic();
+		topic = null;
+		String sql = "SELECT t FROM Topic t WHERE t.title = :title";
+		try {
+			topic = em.createQuery(sql, Topic.class).setParameter("title", title).getSingleResult();
+		} catch (Exception e) {
+			topic = null;
+		}	
+		return topic;
+	}
+	
+	@Override
 	public TopicComment getFirstCommentOnTopic(int topicId) {
 		String query = "SELECT tc FROM TopicComment tc WHERE tc.thread.id = :tid ORDER BY tc.id ASC";
 
@@ -363,5 +376,25 @@ public class UserDAOImpl implements UserDAO {
 
 		return true;
 	}
+
+	@Override
+	public Topic createTopic(User user, String topicTitle) {
+		User topicUser = getUser(user.getId());
+		Topic newTopic = new Topic();
+		newTopic.setTitle(topicTitle);
+		newTopic.setUser(topicUser);
+		em.persist(newTopic);
+		em.flush();
+		System.out.println(newTopic);
+		return newTopic;
+	}
+
+	public TopicComment addTopicComment(TopicComment comment) {
+		em.persist(comment);
+		em.flush();
+		System.out.println(comment);
+		return comment;
+	}
+	
 
 }
