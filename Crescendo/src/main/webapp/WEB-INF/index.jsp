@@ -25,8 +25,6 @@
 		</div>
 	</div>
 
-	<a href="showBlog.do?id=2">Test Blog</a>
-
 	<hr>
 	
 	<div class="row">

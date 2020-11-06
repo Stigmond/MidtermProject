@@ -69,7 +69,30 @@
 				</c:choose>
 	
 			</div>
-
 		</div>
+		
+		<div class="row">
+			<div class="col">
+			<hr>
+			<h3 class="text-center">Blog Posts</h3>
+			<table  class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">DATE/TIME</th>
+					<th scope="col">TOPIC</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="blog" items="${user.blogs }">
+			<tr>			
+			<td>${blog.createdAt}</td>
+			<td><a href="showBlog.do?id=${blog.id}">${blog.title}</a></td>
+			</tr>
+			</c:forEach>
+			</tbody>
+			</table>			
+			</div>
+			</div>
+			
 	</jsp:attribute>
 </t:pageLayout>
