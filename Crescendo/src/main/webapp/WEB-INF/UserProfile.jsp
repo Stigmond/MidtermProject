@@ -32,7 +32,7 @@
 					<c:when test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
 					<br><br>
 					<div class="card">
-					<form action="makeUserUpdates.do">
+					<form action="makeUserUpdates.do" method="POST">
 					<input type="hidden" name="id" value="${user.id}"> <label
 						for="username">User name/email</label><br> <input type="text"
 						name="username" value="${user.username}" required><br>
