@@ -278,7 +278,7 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(path = "tradeSearch.do", params = "cid")
+	@RequestMapping(path = "tradeByUser.do", params = "cid")
 	public ModelAndView showTradesByCreator(int cid) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("tradeList");
@@ -462,7 +462,7 @@ public class UserController {
 		} else if( parent.toLowerCase().equals("topic") ) {
 			mv = showCommentThread("topic", parentId);
 			redir.addFlashAttribute( "warningMessage" , dao.deleteComment( dao.getTopicCommentById(commentId) ) ? succ : fail );
-			mv.setViewName("redirect:viewComments.do?type=topic&id=" + parentId);
+			mv.setViewName("redirect:viewComments.do?type=Topic&id=" + parentId);
 		} else {
 			//shouldn't ever actually happen, only exists to satisfy compiler
 			mv.setViewName("index");			
