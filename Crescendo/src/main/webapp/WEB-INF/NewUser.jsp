@@ -1,20 +1,62 @@
-
 <!DOCTYPE html>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:pageLayout>
-	<jsp:attribute name="title">New User Creation</jsp:attribute>
+	<jsp:attribute name="title">Profile page for ${user.username}</jsp:attribute>
 	<jsp:attribute name="body">
 
-<div class="text-center">
+<html>
+<style>
+form {
+	border: 3px solid #f1f1f1;
+}
 
-<h2 class="text-center">New User Sign Up Form</h2>
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
 
+button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
 
+button:hover {
+	opacity: 0.8;
+}
+
+.cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #f44336;
+}
+
+.imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+}
+
+img.avatar {
+	width: 40%;
+	border-radius: 50%;
+}
+
+.container {
+	padding: 16px;
+}
 
 span.psw {
-	float: right;
+	float: right; @@ -77,6 +32,11 @@ span .psw { float : right;
 	padding-top: 16px;
 }
 
@@ -28,6 +70,7 @@ span.psw {
 	}
 }
 </style>
+</form>
 <body>
 	<h2>New User Sign Up Form</h2>
 	<form action="/action_page.php">
@@ -38,16 +81,9 @@ span.psw {
 		<div>
 			<form action="newUser.do">
 
-	<h2>New User Sign Up Form</h2>
-
-	
-
 <form action="newUser.do" method="POST">
 
-<div class="imgcontainer">
-<img src="images/image_from_ios.png" alt="logo" width="480">
-</div>
-				<label for="username">User name(email)</label>
+				<label for="username">User name/email</label>
 					<br>
 					<input type="text" name="username" required>
 					<br>
@@ -65,22 +101,35 @@ span.psw {
 				<br>
 				<label for="avatarUrl">Avatar Url</label>
 				<br>
-			 	<input type="text" name="avatarUrl">
+ 				<input type="text" name="avatarUrl">
  				<br>
  				<label for="body">User Bio</label>
 				<br>
 				<textarea name="body" rows="4" cols="40"></textarea>
 				<br> 
 				<button class="btn btn-primary" type="submit">Create New User</button>
-			</form>
-
-</div>
-				<!-- <input type="submit" value="Create New User"></input> -->
-		</div>
-	</form>
+				</form>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</div>
 </body>
-		
-	</form>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</jsp:attribute>
 </t:pageLayout>
-

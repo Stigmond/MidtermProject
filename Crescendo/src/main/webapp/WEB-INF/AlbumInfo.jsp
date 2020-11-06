@@ -14,12 +14,17 @@
 				<h4>By ${album.artist.name} (${album.releaseYear})</h4>
 					<br>
 				<p>${album.description}</p>
+				<ul>
+					<c:forEach var="g" items="${album.genres}">
+						<li>${ g.name }</li>				
+					</c:forEach>
+				</ul>
 					<c:if test="${not empty sessionScope.loggedIn}">
 				    <a href="editAlbum.do?id=${album.id}" class="btn btn-info">Edit Album Info</a>
 				    </c:if>
 				</div>
 				<div class="card">
-				<c:if test="${not empty sessionScope.loggedIn}">
+				<c:if test="${ not empty sessionScope.loggedIn && sessionScope.loggedIn.role.equalsIgnoreCase(\"admin\")}">
 				    <a href="newAlbum.do" class="btn btn-info">Add Album to Database</a>
 				    
 				    </c:if>
