@@ -3,7 +3,6 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 	<div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
-
 		<a class="navbar-brand" href="home.do">Home</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarsExample11" aria-expanded="false"
@@ -43,8 +42,6 @@
 								class="form-control" type="text" name="password"
 								placeholder="Enter your Password" />
 							<button type="submit" class="btn btn-primary">Submit</button>
-
-
 						</form>
 					</c:otherwise>
 				</c:choose>
@@ -53,33 +50,35 @@
 						<p class="text-danger">${warningMessage }</p>
 					</c:when>
 				</c:choose>
-
-	<c:choose>
-		<c:when test="${not empty sessionScope.loggedIn }">
-			<c:if test="${ sessionScope.loggedIn.role.equalsIgnoreCase(\"admin\")}">
-			<div class="col">
-				<a href="newAlbum.do" class="btn btn-primary">Add a new album</a>
-			</div>
-			</c:if>
-			<div class="col">
-				<a href="newTopic.do" class="btn btn-primary">Start a conversation</a>
-			</div>
-		</c:when>
-	</c:choose>
-	<!-- new -->
-		<c:choose>
-			<c:when test="${empty sessionScope.loggedIn }">
-				<div class="col">
-					<a class="btn btn-primary" href="signUp.do">Sign Up</a> 
-				</div>
-			 </c:when>
-		</c:choose>
-	</div>
-
-
-			</ul>
+				<c:choose>
+					<c:when test="${not empty sessionScope.loggedIn }">
+						<c:if
+							test="${ sessionScope.loggedIn.role.equalsIgnoreCase(\"admin\")}">
+							<div class="col">
+								<a href="newAlbum.do" class="btn btn-primary">Add a new
+									album</a>
+							</div>
+						</c:if>
+						<div class="col">
+							<a href="newTopic.do" class="btn btn-primary">Start a
+								conversation</a>
+						</div>
+					</c:when>
+				</c:choose>
+				<!-- new -->
+				<c:choose>
+					<c:when test="${empty sessionScope.loggedIn }">
+						<div class="col">
+							<a class="btn btn-primary" href="signUp.do">Sign Up</a>
+						</div>
+					</c:when>
+				</c:choose>
 		</div>
+		</ul>
 	</div>
+	</div>
+	
+	<!-- testing here -->
 </nav>
 
 
