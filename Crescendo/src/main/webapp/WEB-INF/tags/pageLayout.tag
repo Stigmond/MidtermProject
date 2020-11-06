@@ -14,10 +14,14 @@
 <title><jsp:invoke fragment="title" /></title>
 <t:bootstrapstyle />
 <link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Text:ital@1&display=swap" rel="stylesheet"></head>
+
 <link
 	href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Text:ital@1&display=swap"
 	rel="stylesheet">
 </head>
+
 <body>
 	<div class="container">
 		<!-- 	Put this at the top of the main container for every JSP-->
