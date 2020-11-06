@@ -10,7 +10,9 @@
 		<div class="col-12">
 			<div class="text-center">
 	 			<img
-						src="https://craigswilson.com/wp-content/uploads/2012/02/live2.jpg"
+						src="images/image_from_ios.png"
+						width="100%"
+						height="auto"
 						alt="Crescendo Logo">
 <!--  				<img src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg" width="100%" height="auto" alt="Crescendo Logo">
  -->			</div>
