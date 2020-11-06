@@ -14,8 +14,8 @@
 <!--  jsp:invoke lets us identify specific information when using this tag later -->
 <title> <jsp:invoke fragment="title" /> </title>
 <t:bootstrapstyle />
-
-</head>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Text:ital@1&display=swap" rel="stylesheet"></head>
 
 <body>
 	<div class="container">
