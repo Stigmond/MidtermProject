@@ -49,7 +49,7 @@ class BlogCommentTest {
 	@DisplayName("testing blog entity")
 	void blogEntity() {
 		assertNotNull(bComment);
-		assertEquals("THIS IS A BLOG COMMENT", bComment.getBody());
+		assertEquals("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur est quam, sollicitudin non consectetur eu, iaculis id leo. Phasellus sed arcu nibh. Praesent sed est tortor. Morbi sodales nisi nec leo commodo, ac fringilla nisi varius. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.", bComment.getBody());
 		
 
 	}

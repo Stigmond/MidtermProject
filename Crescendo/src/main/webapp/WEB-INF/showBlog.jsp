@@ -21,19 +21,21 @@
 							alt="No cover art uploaded for this album">
 					</c:otherwise>
 				</c:choose>
-	<p>${blog.title}</p>
-	<p>${blog.user}</p>
+	<h3>${blog.title}</h3>
+	<p>By: ${blog.user.username} (${blog.createdAt})</p>
 	
 	<hr>
 	
-	<p>${blog.body}</p>
-	
+	<p class="text-justify">${blog.body}</p>
+	<hr>
+	<h4>Comments:</h4>
+	<div></div>
 	<c:forEach var="c" items="${blog.blogComments}">
-	
-	<p>${c.user.username}</p>
-	<p>${c.createdAt}</p>
-	<p>${c.body}
-	
+	<div class="card">
+	<div class="card-title"><h6>By: <a href="getUserProfile.do?id=${c.user.id}">${c.user.username}</a> (${c.createdAt})</h6></div>
+	<div class="card-text"><p class="text-justify">${c.body}</p></div>
+	<br>
+	</div>
 	 </c:forEach>
 	
 	</jsp:attribute>

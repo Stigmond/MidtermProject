@@ -45,6 +45,6 @@ class TestTheTest {
 	@Test
 	void userToAlbumComments() {
 		assertNotNull(user);
-		assertEquals("I LIKE THIS ALBUM", user.getAlbumComments().get(0).getBody());
+		assertEquals("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", user.getAlbumComments().get(0).getBody());
 	}
 }

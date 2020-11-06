@@ -4,8 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:pageLayout>
-	<jsp:attribute name="title">Profile page for ${user.username}</jsp:attribute>
+	<jsp:attribute name="title">New User Creation</jsp:attribute>
 	<jsp:attribute name="body">
+
+<div class="text-center">
+
+<h2 class="text-center">New User Sign Up Form</h2>
+
 
 
 span.psw {
@@ -34,10 +39,15 @@ span.psw {
 			<form action="newUser.do">
 
 	<h2>New User Sign Up Form</h2>
+
 	
+
 <form action="newUser.do" method="POST">
 
-				<label for="username">User name/email</label>
+<div class="imgcontainer">
+<img src="images/image_from_ios.png" alt="logo" width="480">
+</div>
+				<label for="username">User name(email)</label>
 					<br>
 					<input type="text" name="username" required>
 					<br>
@@ -64,14 +74,13 @@ span.psw {
 				<button class="btn btn-primary" type="submit">Create New User</button>
 			</form>
 
+</div>
 				<!-- <input type="submit" value="Create New User"></input> -->
 		</div>
 	</form>
 </body>
 		
 	</form>
-
-	
 	</jsp:attribute>
 </t:pageLayout>
 

@@ -5,7 +5,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:pageLayout>
-	<jsp:attribute name="title">Profile page for ${user.username}</jsp:attribute>
+	<jsp:attribute name="title">Album Info For ${album.title}</jsp:attribute>
 	<jsp:attribute name="body">
 			<div class="row">
 			<div class="col">
@@ -48,10 +48,7 @@
 					<c:if test="${!not empty sessionScope.loggedIn}">
 					Log in to add to the conversation!
 					</c:if>
-					<c:if
-							test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
-					<a class="btn btn-primary" href="newTopic.do" role="button">Start a conversation </a>
-					</c:if> 
+					
 					<c:if test="${not empty sessionScope.loggedIn}">
 					<a href="reply.do?parent=Album&id=${ album.id }"
 								class="btn btn-secondary">Be the First to Write One!</a>
@@ -89,8 +86,10 @@
   						</div>
   						
   						<!-- TODO add controller method to create new album comment and another to view different types of comments based on params  -->
+  						<c:if test="${not empty sessionScope.loggedIn}">
   						<a href="reply.do?parent=Album&id=${ album.id }"
 								class="btn btn-secondary">Comment on this album</a><br>
+						</c:if>
   						<a href="viewComments.do?type=Album&id=${ album.id }"
 								class="btn btn-info">View all comments on this album</a><br>
   						</div>

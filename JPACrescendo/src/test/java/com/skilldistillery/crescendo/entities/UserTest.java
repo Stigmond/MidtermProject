@@ -58,7 +58,7 @@ class UserTest {
 	@Test
 	void listOfTradesOneToMany() {
 		assertNotNull(user);
-		assertEquals(1, user.getTrades().size());
+		assertTrue(user.getTrades().size()> 0);
 
 	}
 

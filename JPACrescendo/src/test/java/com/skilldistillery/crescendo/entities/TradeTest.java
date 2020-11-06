@@ -43,7 +43,6 @@ class TradeTest {
 	@Test
 	void testBindings() {
 		assertNotNull(trade);
-		assertEquals(GoodType.instrument, trade.getGoodType());
 		assertEquals("Gibson Lucille", trade.getTitle());
 
 	}
