@@ -1,6 +1,6 @@
 <%@tag description="Navigation bar for all pages" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-secondary bg-dark">
 	<div class="mx-auto d-md-flex d-block flex-md-nowrap">
 		<a class="navbar-brand" href="home.do">Home</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"

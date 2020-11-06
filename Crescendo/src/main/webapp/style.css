@@ -4,16 +4,6 @@ body {
 
 	
 	background-color: silver;
-}
-
-.card {
-	background-color: steelblue;
-}
-
-h1, h2, h3 {
-	
-
-	background-color: silver;
 	color: white;
 	background-color: black;
 	background-image:
@@ -24,13 +14,17 @@ h1, h2, h3 {
 }
 
 .card {
-	color: white;
+	background-color: steelblue;
+}
+
+.card {
+	color: black;
 	background-color: steelblue;
 	opacity: 0.8;
 }
 
 .card-body {
-	color: white;
+	color: black;
 	background-color: lightsteelblue;
 	opacity: 0.8;
 }
@@ -43,7 +37,6 @@ h1, h2, h3 {
 p {
 	font-family: 'DM Serif Text', serif;
 }
-
 
 a:link {
 	color: white;
