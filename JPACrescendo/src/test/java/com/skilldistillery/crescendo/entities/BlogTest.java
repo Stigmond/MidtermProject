@@ -51,6 +51,7 @@ class BlogTest {
 		assertNotNull(blog.getTitle());
 		assertNotNull(blog.getBody());
 		assertEquals(0, blog.getEdited());
+		assertEquals("BLOGS SUCK", blog.getTitle());
 
 	}
 
@@ -81,7 +82,7 @@ class BlogTest {
 	void utMapping() {
 		
 		assertNotNull(blog);
-//		assertEquals("admin", blog.getUser());
+		assertEquals("admin", blog.getUser().getUsername());
 		
 	}
 	
@@ -99,7 +100,7 @@ class BlogTest {
 	void blogCommentToComment() {
 		
 		assertNotNull(blog);
-		assertEquals(2, blog.getBlogComments().size());
+		assertTrue(blog.getBlogComments().size()> 0);
 	}
 	
 

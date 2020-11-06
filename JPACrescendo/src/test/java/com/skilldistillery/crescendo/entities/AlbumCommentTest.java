@@ -46,8 +46,7 @@ class AlbumCommentTest {
 	@DisplayName("testing album entity")
 	void albumEntity() {
 		assertNotNull(comment);
-		assertEquals("I LIKE THIS ALBUM", comment.getBody());
-		assertEquals(null, comment.getCreatedAt());
+		assertEquals("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", comment.getBody());
 		assertEquals(0, comment.getEdited());
 
 	}
