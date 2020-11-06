@@ -38,9 +38,9 @@
 		<div class="col-4">
 			<c:choose>
 				<c:when test="${not empty blogs.user.avatarUrl}">
-				<a href="getUserProfile.do?id=${blogs.user.id}"><img
-							src="${blogs.user.avatarUrl}" width="100%" height="auto"
-							class="rounded float-left" alt="Blogger Avatar"></a>
+				<a href="getUserProfile.do?id=${blogs.user.id}">
+					<img src="${blogs.user.avatarUrl}" width="100%" height="auto" class="rounded float-left" alt="Blogger Avatar">
+				</a>
 				</c:when>
 				<c:otherwise>
 				<a href="getUserProfile.do?id=${blogs.user.id}"><img
