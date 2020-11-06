@@ -10,7 +10,9 @@
 		<div class="col-12">
 			<div class="text-center">
 	 			<img
-						src="/WEB-INF/images/image_from_ios.png"
+						src="images/image_from_ios.png"
+						width="100%"
+						height="auto"
 						alt="Crescendo Logo">
 <!--  				<img src="https://www.crescendointernational.org/design/img/Crescendo_logo2.svg" width="100%" height="auto" alt="Crescendo Logo">
  -->			</div>
