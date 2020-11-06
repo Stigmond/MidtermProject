@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-	<div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
+	<div class="mx-auto d-md-flex d-block flex-md-nowrap">
 		<a class="navbar-brand" href="home.do">Home</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarsExample11" aria-expanded="false"
@@ -15,21 +15,21 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="openTrades.do">Buy/Sell/Trade</a></li>
 				<c:if test="${ not empty sessionScope.loggedIn }">
-					<li class="nav-item"><a class="nav-link" href="createTrade.do">List
-							a Good</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="createTrade.do">List a Good</a></li>
 				</c:if>
 				<c:choose>
 					<c:when test="${not empty sessionScope.loggedIn }">
-						<li class="nav-item"><a class="nav-link" href="newAlbum.do">Add
-								an Album</a></li>
-						<li class="nav-item"><a class="nav-link" href="newTopic.do">Start
-								a conversation</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="newAlbum.do">Add an Album</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="newTopic.do">Start a conversation</a></li>
 					</c:when>
 				</c:choose>
 				<c:choose>
 					<c:when test="${not empty sessionScope.loggedIn }">
-						<ul class="nav-item">
-							Logged in as:
+						<ul class="nav-item active">
+							<p style="color: white">Logged in as:</p>
 							<a class="nav-link"
 								href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessionScope.loggedIn.username}</a>
 							<a href="logout.do">Log out</a>
@@ -59,11 +59,6 @@
 					</c:when>
 				</c:choose>
 		</div>
-		</ul>
-	</div>
-	</div>
-	
-	<!-- testing here -->
 </nav>
 
 
