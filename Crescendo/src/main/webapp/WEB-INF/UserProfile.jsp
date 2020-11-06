@@ -86,7 +86,7 @@
 			<c:forEach var="blog" items="${user.blogs }">
 			<tr>			
 			<td>${blog.createdAt}</td>
-			<td><a href="showBlog.do?id=${blog.id}">${blog.title}</a></td>
+			<td><a href="viewComments.do?type=blog&id=${blog.id}">${blog.title}</a></td>
 			</tr>
 			</c:forEach>
 			</tbody>
