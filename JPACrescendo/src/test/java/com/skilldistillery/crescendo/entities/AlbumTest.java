@@ -47,7 +47,7 @@ class AlbumTest {
 	void albumEntity() {
 		assertNotNull(album);
 		assertEquals("THE #FFFFFF ALBUM", album.getTitle());
-		assertEquals("NOT WORTH LISTENING", album.getDescription());
+		assertEquals("IT'S WHITE", album.getDescription());
 		assertEquals(2019, album.getReleaseYear());
 	}
 
@@ -62,7 +62,7 @@ class AlbumTest {
 	@DisplayName("testing album to album comments")
 	void albumToAlbumComments() {
 		assertNotNull(album);
-		assertEquals("I LIKE THIS ALBUM", album.getAlbumComments().get(0).getBody());
+		assertEquals("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", album.getAlbumComments().get(0).getBody());
 	}
 
 }

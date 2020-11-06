@@ -540,12 +540,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(path= "newUser.do")
-	public String signUp(String username, String password, String firstName, String lastName, RedirectAttributes redir) {
+	public String signUp(String username, String password, String firstName, String lastName, String avatarUrl, String body, RedirectAttributes redir) {
 		User newUser = new User();
+		
 		newUser.setUsername(username);
 		newUser.setPassword(password);
 		newUser.setFirstName(firstName);
 		newUser.setLastName(lastName);
+		newUser.setAvatarUrl(avatarUrl);
+		newUser.setBody(body);
 		dao.createUser(newUser);
 		redir.addFlashAttribute("warningMessage", "User created successfully");
 		return "redirect:getUserProfile.do?id=" + newUser.getId();

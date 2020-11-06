@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-2 mb-3">
       <label for="validationCustom03">Release Year</label>
       <input type="number" class="form-control" id="validationCustom03"
 						min="1877" name="releaseYear" required>
@@ -62,10 +62,11 @@
 </div> -->
 <br>
 <br>
-    <div class="col-md-3 mb-3">
+    <div class="col-md-10 mb-3">
       <label for="validationCustom05">Description</label>
-      <input type="text" class="form-control" id="validationCustom05"
-						name="description" required>
+     <textarea name="description" class="form-control" id="validationCustom05" rows="4" cols="60"></textarea>
+      <!-- <input type="text" class="form-control" id="validationCustom05"
+						name="description" required> -->
       <div class="invalid-feedback">
         Please provide a valid description.
       </div>
