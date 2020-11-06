@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+body {
+	background-color: silver;
+}
+
+.card {
+	background-color: steelblue;
+}
+
+h1, h2, h3 {
+	font-family: 'Anton', sans-serif;
+}
+
+p {
+	font-family: 'DM Serif Text', serif;
+}
