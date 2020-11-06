@@ -50,21 +50,6 @@
 						<p class="text-danger">${warningMessage }</p>
 					</c:when>
 				</c:choose>
-				<c:choose>
-					<c:when test="${not empty sessionScope.loggedIn }">
-						<c:if
-							test="${ sessionScope.loggedIn.role.equalsIgnoreCase(\"admin\")}">
-							<div class="col">
-								<a href="newAlbum.do" class="btn btn-primary">Add a new
-									album</a>
-							</div>
-						</c:if>
-						<div class="col">
-							<a href="newTopic.do" class="btn btn-primary">Start a
-								conversation</a>
-						</div>
-					</c:when>
-				</c:choose>
 				<!-- new -->
 				<c:choose>
 					<c:when test="${empty sessionScope.loggedIn }">
