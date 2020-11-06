@@ -26,7 +26,7 @@
 			<td><a href= "tradePage.do?id=${t.id}">${t.title}</a></td>
 			<td>${t.direction}</td>
 			<td>${t.goodType}</td>
-			<td><a href= "tradeSearch.do?cid=${t.user.id}">${t.user.username}</a></td>
+			<td><a href= "tradeByUser.do?cid=${t.user.id}">${t.user.username}</a></td>
 			</tr>
 			</c:forEach>
 			
