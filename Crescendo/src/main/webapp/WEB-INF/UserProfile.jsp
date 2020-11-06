@@ -23,10 +23,10 @@
 			<div class="col">
 			
 				
-					<c:if test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
+<%-- 					<c:if test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
 					<h2>Hello, ${user.firstName }!</h2>
 					<a class= "btn btn-primary" href= "newTopic.do" role= "button">Start a conversation </a>
-					</c:if>
+					</c:if> --%>
 	
 				<c:choose>
 					<c:when test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">

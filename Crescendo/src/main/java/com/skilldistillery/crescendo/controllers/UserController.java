@@ -255,11 +255,8 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "newAlbum.do")
-	public ModelAndView newAlbum() {
-		ModelAndView mv = new ModelAndView();
-
-		mv.setViewName("AddAlbum");
-		return mv;
+	public String newAlbum( HttpSession session ) {
+		return session.getAttribute("loggedIn") == null ? "index" : "AddAlbum";
 	}
 
 	@RequestMapping(path = "openTrades.do")
