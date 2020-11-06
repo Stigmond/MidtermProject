@@ -473,8 +473,18 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "newPost.do")
-	public ModelAndView addPost(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,
-			HttpSession session, RedirectAttributes redir) {
+	public ModelAndView addPost(
+			String postType ,
+			String body ,
+//			String[] genre,
+			String g1 ,
+			String g2 ,
+			String g3 ,
+			String g4 ,
+			String postTitle ,
+			String headerMediaUrl ,
+			HttpSession session ,
+			RedirectAttributes redir ) {
 		ModelAndView mv = new ModelAndView();
 		User user = (User) session.getAttribute("loggedIn");
 
@@ -482,9 +492,14 @@ public class UserController {
 			Blog newBlog = new Blog();
 
 			List<Genre> genreList = new ArrayList<>();
-			for (String gId : genre) {
-				genreList.add(dao.getGenreById(Integer.parseInt(gId)));
-			}
+//			for (String gId : genre) {
+//				genreList.add(dao.getGenreById(Integer.parseInt(gId)));
+//			}
+			
+			if ( g1 != null ) { genreList.add( dao.getGenreById( 1 ) ); }
+			if ( g2 != null ) { genreList.add( dao.getGenreById( 2 ) ); }
+			if ( g3 != null ) { genreList.add( dao.getGenreById( 3 ) ); }
+			if ( g4 != null ) { genreList.add( dao.getGenreById( 4 ) ); }
 
 			newBlog.setBody(body);
 			newBlog.setTitle(postTitle);
