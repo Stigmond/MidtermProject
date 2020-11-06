@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<nav class="navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="row">
 		<div class="col text-center">
 			<a class="btn btn-success" href="home.do">Home</a>
@@ -12,19 +12,17 @@
 		</div>
 			<div class="col text-center">
 				<a class="btn btn-secondary" href="createTrade.do">List a Good/Service</a></div>
-			</div>	
-			</div>
-	<div class="col">
+		<div class="col">
 		<c:choose>
 			<c:when test="${not empty sessionScope.loggedIn }">
-			Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessionScope.loggedIn.username}</a>
-			<a href="logout.do">Log out</a>
+					Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessionScope.loggedIn.username}</a>
+					<a href="logout.do">Log out</a>
 			</c:when>
-			<c:otherwise>
-				<form class="form-inline" action="login.do" method="POST">
-					<input class="form-control" type="text" name="username"
-						placeholder="Enter your Username" /> <input class="form-control"
-						type="text" name="password" placeholder="Enter your Password" />
+		<c:otherwise>
+			<form class="form-inline" action="login.do" method="POST">
+				<input class="form-control" type="text" name="username"
+					placeholder="Enter your Username" /> <input class="form-control"
+					type="text" name="password" placeholder="Enter your Password" />
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 			</c:otherwise>
@@ -34,8 +32,8 @@
 				<p class="text-danger">${warningMessage }</p>
 			</c:when>
 		</c:choose>
+		</div>
 
-	</div>
 	<c:choose>
 		<c:when test="${not empty sessionScope.loggedIn }">
 			<div class="col">
