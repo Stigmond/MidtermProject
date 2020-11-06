@@ -10,8 +10,10 @@
 		<div class="col text-center">
 			<a class="btn btn-info" href="openTrades.do">Buy/Sell/Trade</a>
 		</div>
+		<c:if test="${ not empty sessionScope.loggedIn }">
 			<div class="col text-center">
 				<a class="btn btn-secondary" href="createTrade.do">List a Good/Service</a></div>
+		</c:if>
 		<div class="col">
 		<c:choose>
 			<c:when test="${not empty sessionScope.loggedIn }">

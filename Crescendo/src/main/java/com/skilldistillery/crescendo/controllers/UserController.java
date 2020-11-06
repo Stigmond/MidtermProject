@@ -474,7 +474,7 @@ public class UserController {
 
 	@RequestMapping(path = "newPost.do")
 	public ModelAndView addPost(String postType, String body, String[] genre, String postTitle, String headerMediaUrl,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 		User user = (User) session.getAttribute("loggedIn");
 
@@ -491,8 +491,9 @@ public class UserController {
 			newBlog.setHeaderMediaUrl(headerMediaUrl);
 			newBlog.setUser(dao.getUser(user.getId()));
 			newBlog.setGenres(genreList);
-			mv.addObject("blog", dao.addBlog(newBlog));
-			mv.setViewName("showBlog");
+//			mv.addObject("blog", dao.addBlog(newBlog);
+			redir.addFlashAttribute("blog", dao.addBlog(newBlog));
+			mv.setViewName("redirect:showBlog.do?id=" + newBlog.getId() );
 		}
 		if (postType.equals("topic")) {
 			TopicComment topicPost = new TopicComment();
@@ -504,8 +505,9 @@ public class UserController {
 			topicPost.setBody(body);
 			topicPost.setUser(dao.getUser(user.getId()));
 			dao.addTopicComment(topicPost);
-			mv.addObject("topic", topic);
-			mv.setViewName("showTopic");
+//			mv.addObject("topic", topic);
+			redir.addFlashAttribute("parentObject", (Topic) topic);
+			mv.setViewName("redirect:viewComments.do?type=topic&id=" + topic.getId() );
 		}
 
 		return mv;
