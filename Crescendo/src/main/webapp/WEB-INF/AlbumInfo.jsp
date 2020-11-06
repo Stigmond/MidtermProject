@@ -18,6 +18,12 @@
 				    <a href="editAlbum.do?id=${album.id}" class="btn btn-info">Edit Album Info</a>
 				    </c:if>
 				</div>
+				<div class="card">
+				<c:if test="${not empty sessionScope.loggedIn}">
+				    <a href="newAlbum.do" class="btn btn-info">Add Album to Database</a>
+				    
+				    </c:if>
+				</div>
 				<c:choose>
 					<c:when test="${not empty album.coverUrl }">
 						<img class="card-image-bottom"
@@ -39,6 +45,9 @@
 			<c:choose>
 				<c:when test="${ empty commentSample }">
 					No comments on this album. <br>
+					<c:if test="${!not empty sessionScope.loggedIn}">
+					Log in to add to the conversation!
+					</c:if>
 					<c:if
 							test="${not empty sessionScope.loggedIn && sessionScope.loggedIn.id == user.id}">
 					<a class="btn btn-primary" href="newTopic.do" role="button">Start a conversation </a>
@@ -88,7 +97,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-
+	</div>
 	
 	
 	
