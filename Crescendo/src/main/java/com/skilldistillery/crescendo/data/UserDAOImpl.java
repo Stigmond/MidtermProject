@@ -488,7 +488,7 @@ public class UserDAOImpl implements UserDAO {
 			trade.setUser(tempUser);
 			em.persist(trade);
 			em.flush();
-			System.out.println("THIS WAS ADDED" + trade);
+//			System.out.println("THIS WAS ADDED" + trade);
 			return trade;
 		}
 }
