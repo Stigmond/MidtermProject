@@ -146,7 +146,6 @@ public class UserController {
 	@RequestMapping(path = "viewAlbum.do")
 	public ModelAndView displaySingleAlbum(int id, HttpSession session, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
-		session.setAttribute("loggedIn", null);
 		mv.setViewName("AlbumInfo");
 		Album album = dao.getAlbumById(id);
 		mv.addObject("album", album);
