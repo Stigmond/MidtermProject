@@ -20,7 +20,6 @@
 					<p>	${ c.threadComments.get(0).body }</p>
 				</c:when>
 				<c:when test="${c.getClass().getSimpleName().equals(\"Album\") }">
-				<h5> <a href="viewAlbum.do?id=${c.id }">${c.title }</a></h5>
 				<div class="row">
 				<div class="col">
 				<c:choose>
@@ -39,7 +38,7 @@
 				</c:choose>
 				</div>
 				<div class="col">
-					<h3>${c.title}</h3>
+					<h5> <a href="viewAlbum.do?id=${c.id }">${c.title }</a></h5>
 					<h4>By ${ c.artist.name } (${ c.releaseYear })</h4><br>
 					<p>${ c.description }</p>
 				</div>
