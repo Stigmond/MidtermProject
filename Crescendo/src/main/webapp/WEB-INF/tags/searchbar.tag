@@ -36,9 +36,9 @@
 			<div class="form-group col-2">Search for</div>
 			<div class="form-group col-3">
 				<select class="form-control form-control-sm" name="resultType">
-					<option value="BlogComment">blog comments</option>
+					<!-- <option value="BlogComment">blog comments</option>
 					<option value="AlbumComment">album comments</option>
-					<option value="TopicComment">topic comments</option>
+					<option value="TopicComment">topic comments</option> -->
 					<option value="Blog">blog posts</option>
 					<option value="Topic">topic threads</option>
 					<option value="Album">albums</option>

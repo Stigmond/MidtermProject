@@ -24,7 +24,7 @@
 				<div class="row">
 				<div class="col">
 				<c:choose>
-					<c:when test="${not empty album.coverUrl }">
+					<c:when test="${not empty c.coverUrl }">
 						<img class="card-image-bottom"
 										style='height: 100%; width: 100%; object-fit: contain'
 										src="${c.coverUrl}" class="rounded float-left" alt="Cover Art" />
