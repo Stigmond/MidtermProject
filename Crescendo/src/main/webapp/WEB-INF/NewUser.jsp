@@ -1,66 +1,3 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-
-
-
-<title>New User</title>
-<div class="row">
-		<div class="col-16">
-			<div class="text-center">
-	 			<img align="right" src="images/image_from_ios.png" width="25%"
-						height="auto" alt="Crescendo Logo">
-		</div>
-		</div>			
-	</div>
-<link rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-			crossorigin="anonymous">
-</head>
-<body>
-	<div class="container-fluid">
-		<div class="column" text-align="center" vertical-align="middle">
-			<h1>Please Enter the Following Information</h1>
-			<form action="newUser.do">
-				<label for="username">User name/email</label>
-					<br>
-					<input type="text" name="username" required>
-					<br>
-
-				<label for="password">User Password</label>
-				<br> 
-				<input type="text" name="password" required>
-				<br>
-
-				<label for="firstName">First name</label>
-				<br> 
-				<input type="text" name="firstName" required>
-				<br>
-<label for="lastName">Last name</label>
-<br> 
-<input type="text" name="lastName" required>
-<br>
-
-<label for="avatarUrl">Avatar Url</label>
-<br>
- <input type="text" name="avatarUrl">
- <br>
-
-			
-
-		</div>
-
-	</div>
-
-
-	
-
-		
-		</body> --%>
-
-
-
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
@@ -135,9 +72,7 @@ span.psw {
 	<h2>New User Sign Up Form</h2>
 	<form action="/action_page.php">
 		<div class="imgcontainer">
-			<img src="images/image_from_ios.png"
-				alt="Avatar"
-				class="avatar">
+			<img src="images/image_from_ios.png" alt="Avatar" class="avatar">
 				</div>
 	</form>
 		<div>
@@ -172,9 +107,6 @@ span.psw {
 		</div>
 	</form>
 </body>
-	
-	
-	
 	
 	</jsp:attribute>
 </t:pageLayout>
