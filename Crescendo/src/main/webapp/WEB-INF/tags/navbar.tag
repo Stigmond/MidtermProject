@@ -4,21 +4,24 @@
 
 <nav class="navbar">
 	<div class="row">
-		<div class="col">
-			<a class="navbar-nav" href="home.do">Home</a>
+		<div class="col text-center">
+			<a class="btn btn-success" href="home.do">Home</a>
 		</div>
-		<div class="col">
-			<a class="navbar-nav" href="openTrades.do">Buy/Sell/Trade</a>
+		<div class="col text-center">
+			<a class="btn btn-info" href="openTrades.do">Buy/Sell/Trade</a>
 		</div>
-	</div>
+			<div class="col text-center">
+				<a class="btn btn-secondary" href="createTrade.do">List a Good/Service</a></div>
+			</div>	
+			</div>
 	<div class="col">
 		<c:choose>
 			<c:when test="${not empty sessionScope.loggedIn }">
-Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessionScope.loggedIn.username}</a>
-				<a href="logout.do">Log out</a>
+			Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessionScope.loggedIn.username}</a>
+			<a href="logout.do">Log out</a>
 			</c:when>
 			<c:otherwise>
-				<form class="form-inline" action="login.do">
+				<form class="form-inline" action="login.do" method="POST">
 					<input class="form-control" type="text" name="username"
 						placeholder="Enter your Username" /> <input class="form-control"
 						type="text" name="password" placeholder="Enter your Password" />
@@ -26,19 +29,29 @@ Logged in as: <a href="getUserProfile.do?id=${sessionScope.loggedIn.id}">${sessi
 				</form>
 			</c:otherwise>
 		</c:choose>
-				<c:choose>
-					<c:when test="${not empty warningMessage }">
-						<p class="text-danger">${warningMessage }</p>
-					</c:when>
-
-				</c:choose>
+		<c:choose>
+			<c:when test="${not empty warningMessage }">
+				<p class="text-danger">${warningMessage }</p>
+			</c:when>
+		</c:choose>
 
 	</div>
+	<c:choose>
+		<c:when test="${not empty sessionScope.loggedIn }">
+			<div class="col">
+				<a href="newAlbum.do" class="btn btn-primary">Add a new album</a>
+			</div>
+			<div class="col">
+				<a href="newTopic.do" class="btn btn-primary">Start a conversation</a>
+			</div>
+		</c:when>
+	</c:choose>
 	<!-- new -->
-	<div class="col">
 		<c:choose>
 			<c:when test="${empty sessionScope.loggedIn }">
-			<a class="btn btn-primary" href="signUp.do">Sign Up</a> 
+				<div class="col">
+					<a class="btn btn-primary" href="signUp.do">Sign Up</a> 
+				</div>
 			 </c:when>
 		</c:choose>
 	</div>
