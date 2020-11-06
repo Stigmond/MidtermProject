@@ -24,7 +24,7 @@
 				    </c:if>
 				</div>
 				<div class="card">
-				<c:if test="${ not empty sessionScope.loggedIn && sessionScope.loggedIn.role.equalsIgnoreCase(\"admin\"}">
+				<c:if test="${ not empty sessionScope.loggedIn && sessionScope.loggedIn.role.equalsIgnoreCase(\"admin\")}">
 				    <a href="newAlbum.do" class="btn btn-info">Add Album to Database</a>
 				    
 				    </c:if>
