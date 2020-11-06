@@ -81,8 +81,6 @@ span.psw {
 		<div>
 			<form action="newUser.do">
 
-	<h2>New User Sign Up Form</h2>
-
 <form action="newUser.do" method="POST">
 
 				<label for="username">User name/email</label>
@@ -120,9 +118,11 @@ span.psw {
 	
 	
 	
+	
 	</div>
 </body>
 
+	
 	
 	
 	
