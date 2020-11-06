@@ -2,10 +2,25 @@
 
 body {
 	background-color: silver;
+	color: white;
+	background-color: black;
+	background-image:
+		url("https://cutewallpaper.org/21/music-backgrounds-images/musical-backgrounds-Magdalene-project.org.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
 }
 
 .card {
+	color: white;
 	background-color: steelblue;
+	opacity: 0.8;
+}
+
+.card-body {
+	color: white;
+	background-color: lightsteelblue;
+	opacity: 0.8;
 }
 
 h1, h2, h3 {
@@ -14,4 +29,12 @@ h1, h2, h3 {
 
 p {
 	font-family: 'DM Serif Text', serif;
+}
+
+a:link {
+	color: white;
+}
+
+a:visited {
+	color: white;
 }
