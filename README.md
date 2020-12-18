@@ -1,5 +1,6 @@
 # MidtermProject
 http://3.20.44.239:8080/Crescendo/
+To use, create new account
 
   Here at crescendo, we believe in bringing people together from all musical backgrounds; whether they be hard-core enthusiasts and professional musicians or recreational listeners and budding song writers. Crescedo will allow users to come together like never before. 
 
